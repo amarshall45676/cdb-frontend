@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-button (click)="redirectMain()">Main</button>
+    <button mat-button (click)="redirectPartners()">Partners</button>
+    <button mat-button (click)="redirectProjects()">Projects</button>
+    <button mat-button (click)="redirectStudents()">Students</button>
+    <button mat-button (click)="redirectAffiliates()">Affiliates</button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>Students</mat-toolbar-row>
+</mat-toolbar>
+<div class="belowdiv">
+  Partners: <br>
+  <mat-form-field class="querySelector">
+    <mat-select placeholder="Partners" [(ngModel)]="partnerSelected"multiple>
+      <mat-option *ngFor="let partner of partners" [value]="partner.name">
+        {{ partner.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> <br>
+  Programs: <br>
+  <mat-form-field class="querySelector">
+    <mat-select placeholder="Programs" [formControl]="programControl" multiple>
+       <mat-select-trigger> <!--this trigger make it only show the first value plus a ... for others -->
+        {{programControl.value ? programControl.value[0] : ''}}
+        <span *ngIf="programControl.value?.length > 1">
+          (+{{programControl.value.length - 1}} others)
+        </span>
+      </mat-select-trigger>
+      <mat-optgroup *ngFor="let program of programs" [label]="program.name"
+                    [disabled]="program.disabled">
+        <!-- value stored should include program name and participation -->
+        <mat-option *ngFor="let value of program.participation" [value]="value.value + program.name">
+          {{ value.viewValue }}
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field> <br>
+  Social Issues: <br>
+  <mat-form-field class="querySelector">
+    <mat-select placeholder="Social Issues" [(ngModel)]="issueSelected" multiple>
+      <mat-option *ngFor="let issue of issues" [value]="issue.name">
+        {{ issue.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> <br>
+  Semesters: <br>
+  <mat-form-field class="querySelector">
+    <mat-select placeholder="Semester" [(ngModel)]="semesterSelected" multiple>
+      <mat-option *ngFor="let semester of semesters" [value]="semester.name">
+        {{ semester.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> <br>
+  Years Start: <input type="number" id="yearStart" value="2018"> Years End: <input type="number" id="yearEnd" value = "2018"> <br>
+  <button (click)="submitQuery()">Submit Query</button>
+</div>

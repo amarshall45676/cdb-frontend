@@ -1,0 +1,46 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-button (click)="redirectMain()">Main</button>
+    <button mat-button (click)="redirectPartners()">Partners</button>
+    <button mat-button (click)="redirectProjects()">Projects</button>
+    <button mat-button (click)="redirectStudents()">Students</button>
+    <button mat-button (click)="redirectAffiliates()">Affiliates</button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>Partners</mat-toolbar-row>
+</mat-toolbar>
+<div class="belowdiv">
+  Programs: <br>
+  <mat-form-field>
+    <mat-select placeholder="Program" [(ngModel)]="programSelected" multiple>
+      <mat-option *ngFor="let program of programs" [value]="program.name">
+        {{ program.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> <br>
+  Act, Learn or Create Change: <br>
+  <mat-form-field>
+    <mat-select placeholder="Act, Learn or Create Change" [(ngModel)]="typeSelected" multiple>
+      <mat-option *ngFor="let type of types" [value]="type.name">
+        {{ type.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> <br>
+  Semester: <br>
+  <mat-form-field>
+    <mat-select placeholder="Semester" [(ngModel)]="semesterSelected" multiple>
+      <mat-option *ngFor="let semester of semesters" [value]="semester.name">
+        {{ semester.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> <br>
+  Social Issues Concerned With: <br>
+  <mat-form-field>
+    <mat-select placeholder="Social Issues Concerned With" [(ngModel)]="issueSelected" multiple>
+      <mat-option *ngFor="let issue of issues" [value]="issue.name">
+        {{issue.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> <br>
+  Years Start: <input type="number" id="yearStart" value="2018"> Years End: <input type="number" id="yearEnd" value = "2018"> <br>
+  <button (click)="submitQuery()">Submit Query</button>
+</div>

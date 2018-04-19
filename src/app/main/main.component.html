@@ -1,0 +1,42 @@
+<mat-toolbar>
+  <div>CCL Database</div>
+</mat-toolbar>
+<mat-toolbar>
+  <span>Main Page</span>
+
+  <!-- This fills the remaining space of the current row -->
+  <span class="fill-remaining-space"></span>
+
+  <span>
+    <button (click)="logout()" mat-button color="warn" class="logout">
+    Logout
+    </button>
+  </span>
+</mat-toolbar>
+<mat-drawer-container>
+  <mat-drawer mode="side" opened="true">
+    <mat-card *ngFor="let program of programs">
+      <button mat-button (click)="viewProgram(program.name)">{{program.name}}</button>
+    </mat-card>
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-list class="belowdiv">
+      <p>
+        Choose an entity you want information about:
+      </p>
+      <mat-form-field>
+        <mat-select placeholder="Entity" [(ngModel)]="entitySelected">
+          <mat-option *ngFor="let entity of entities" [value]="entity.name">
+            {{ entity.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> <br>
+      <button (click)="createQuery()" mat-button>Create Query!</button> <br>
+    </mat-list>
+    <mat-list class="belowdiv">
+      <p>Upload your data!</p>
+      <input type="file" name="" value="" id="file"> <br> <br>
+      <button (click)="uploadData()" mat-button>Submit!</button> <br>
+    </mat-list>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,54 @@
+<a href="projects">projects</a> <br>
+<div class="sidebyside">
+  Name: {{project?.displayName}} <br>
+  Program: {{project?.program}} <br>
+  Year: {{project?.year}} <br>
+  Semester: {{project?.semester}} <br>
+</div>
+
+<div class="sidebyside">
+  <!-- TODO: add in update field -->
+  Update Name: <input id="nameInput" type="text"> <br>
+  Update Program: <input id="programInput" type="text"> <br>
+  Update Year: <input id="yearInput" type="text"> <br>
+  Update Semester: <input id="semesterInput" type="text"> <br>
+  <button (click)="updateFields()">Submit</button>
+</div>
+
+<div class="belowdiv list">
+  Students who worked on this project:
+  <mat-card *ngFor="let student of students">
+    Student Name: {{student.displayName}}
+  </mat-card>
+</div>
+
+<div class="belowdiv list">
+  Partners who sponsored this project:
+  <mat-card *ngFor="let partner of partners">
+    Partner Name: {{partner.displayName}}
+  </mat-card>
+</div>
+
+<div class="belowdiv">
+  Rice Affiliates associated with this project:
+  <mat-card *ngFor="let affiliate of affiliates">
+    Affiliate Name: {{affiliate.name}}
+    <!-- TODO: FIX THIS WHEN THIS TO BE DISPLAY NAME BECOMES AND ENTITY -->
+  </mat-card>
+</div>
+
+<div>
+  Make a note: <br>
+  <textarea id="notes" name="note" rows="8" cols="80"></textarea> <br>
+  <button (click)="makeNote()">Submit</button>
+</div>
+
+<div>
+  NOTES: <br>
+  <mat-card *ngFor="let note of project?.notes">
+    Note content: {{note.note}} <br>
+    Note author: {{note.userId}} <br>
+    Note date: {{note.creationDate}} <br>
+    <!-- TODO: FIX THIS WHEN THIS TO BE DISPLAY NAME BECOMES AND ENTITY -->
+  </mat-card>
+</div>
