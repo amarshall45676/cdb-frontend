@@ -10,7 +10,7 @@ import { ProgramsService } from '../../programs/programs.service';
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
-  styleUrls: ['./student.component.css']
+  styleUrls: ['./student.component.css', '../../app.component.css']
 })
 export class StudentComponent implements OnInit {
   private id;

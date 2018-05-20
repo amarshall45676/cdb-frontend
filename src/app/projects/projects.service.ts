@@ -28,7 +28,7 @@ export class ProjectsService {
 
   public viewProfile(id) {
     console.log("View profile for program with ID: " + id);
-    window.location.href = "project/" + id;
+    window.location.href = "#/project/" + id;
   }
 
 }

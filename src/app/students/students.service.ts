@@ -30,6 +30,6 @@ export class StudentsService {
 
   public viewProfile(id) {
     console.log("View profile from service with ID: " + id);
-    window.location.href = "student/" + id;
+    window.location.href = "#/student/" + id;
   }
 }

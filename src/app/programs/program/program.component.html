@@ -1,4 +1,4 @@
-<a href="main">main</a> <br>
+<a href="#/main">main</a> <br>
 <div class="sidebyside">
   Name : {{program?.displayName}} <br>
   Purpose : {{program?.purpose}} <br>
@@ -14,28 +14,52 @@
 </div>
 
 <div class="belowdiv">
-  Numbers of students who participated in this program <br>
-  {{numStudents}}
+  <p>Numbers of students who participated in this program</p>
+  <p>
+    <mat-spinner *ngIf="loadingNumStudents" color="primary"></mat-spinner>
+    {{numStudents}}
+  </p>
+
 </div>
 
 <div class="belowdiv">
-  Number of partners who have interacted with this program <br>
-  {{numPartners}}
+  <p>
+    Number of partners who have interacted with this program
+  </p>
+  <p>
+    <mat-spinner *ngIf="loadingNumPartners" color="primary"></mat-spinner>
+    {{numPartners}}
+  </p>
 </div>
 
 <div class="belowdiv">
-  Percentage of students who did a program, that participated in this program <br>
-  {{percentStudents}} %
+  <p>
+    Percentage of students who did a program, that participated in this program
+  </p>
+  <p>
+    <mat-spinner *ngIf="loadingPercentStudents" color="primary"></mat-spinner>
+    <span *ngIf="!loadingPercentStudents">{{percentStudents}} %</span>
+  </p>
 </div>
 
 <div class="belowdiv">
-  Percentage of students who did this program, who did another program <br>
-  {{percentStudentsDidAnother}} %
+  <p>
+    Percentage of students who did this program, who did another program
+  </p>
+  <p>
+    <mat-spinner *ngIf="loadingPercentStudentsDidAnother" color="primary"></mat-spinner>
+    <span *ngIf="!loadingPercentStudentsDidAnother">{{percentStudentsDidAnother}} %</span>
+  </p>
 </div>
 
 <div class="belowdiv">
-  Percentage of students who applied who got accepted to this program <br>
-  {{percentAcceptance}} %
+  <p>
+    Percentage of students who applied who got accepted to this program
+  </p>
+  <p>
+    <mat-spinner *ngIf="loadingPercentAcceptance" color="primary"></mat-spinner>
+    <span *ngIf="!loadingPercentAcceptance">{{percentAcceptance}} %</span>
+  </p>
 </div>
 
 <div>

@@ -1,0 +1,26 @@
+<!-- STYLE THIS ACCORDINGLY -->
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span class="title-center">
+      CCL Database
+    </span>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <span class="title-center">{{title}}</span>
+  </mat-toolbar-row>
+  <!-- Can name the attribute needed like this  -->
+  <!-- <ng-content select="[selectorName]"></ng-content>  -->
+  <!-- then used like this <div selectorName></div> -->
+  <!-- or -->
+  <!-- <ng-content select="selectorName"></ng-content>  -->
+  <!-- then used like this <selectorName></selectorName> -->
+  <!--  Would need to add No_ERRORS_SCHEMA in the app.module.ts file-->
+  <mat-toolbar-row *ngIf="queryNav">
+    <ng-content select="app-query-navigation"></ng-content>
+    <span class="fill-remaining-space"></span>
+    <button (click)="logout()" mat-button color="warn" class="logout">
+      Logout
+    </button>
+  </mat-toolbar-row>
+
+</mat-toolbar>

@@ -1,0 +1,9 @@
+mat-toolbar {
+  background-color: #0D47A1;
+  color: #E0E0E0;
+  /* Need sizing? */
+}
+
+.title-center {
+  margin: 0 auto;
+}

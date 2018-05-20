@@ -11,7 +11,7 @@ import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 @Component({
   selector: 'app-programs',
   templateUrl: './programs.component.html',
-  styleUrls: ['./programs.component.css']
+  styleUrls: ['./programs.component.css', '../app.component.css']
 })
 export class ProgramsComponent implements OnInit {
   private programsService: ProgramsService;

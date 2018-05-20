@@ -4,28 +4,8 @@ mat-card {
   width: 20vmin;
 }
 
-.fill-remaining-space {
-  /* This fills the remaining space, by using flexbox.
-   Every toolbar row uses a flexbox row layout. */
-  flex: 1 1 auto;
-}
-
-.belowdiv {
-    border-style:solid;
-    margin:5px;
-    clear:both;
-}
-
-.sidebyside {
-    float:left;
-    border-style:solid;
-    margin:5px;
-}
-
-mat-toolbar {
-  background-color: #0D47A1;
-  color: #E0E0E0;
-  height: 10vmin;
+textarea {
+   resize: none
 }
 
 button {
@@ -47,3 +27,7 @@ mat-drawer {
   color: #E0E0E0;
   width: 25vmin;
 }
+
+/* .data {
+  width: 73vmin;
+} */

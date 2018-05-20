@@ -7,7 +7,7 @@ import { AffiliatesService } from '../affiliates.service';
 @Component({
   selector: 'app-affiliate',
   templateUrl: './affiliate.component.html',
-  styleUrls: ['./affiliate.component.css']
+  styleUrls: ['./affiliate.component.css', '../../app.component.css']
 })
 export class AffiliateComponent implements OnInit {
   private sub;

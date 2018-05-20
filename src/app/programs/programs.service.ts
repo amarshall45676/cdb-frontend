@@ -32,7 +32,7 @@ export class ProgramsService {
 
   public viewProfile(id) {
     console.log("View profile for program with ID: " + id);
-    window.location.href = "program/" + id;
+    window.location.href = "#/program/" + id;
   }
 
 }

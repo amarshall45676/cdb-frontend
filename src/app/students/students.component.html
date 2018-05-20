@@ -1,13 +1,6 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button mat-button (click)="redirectMain()">Main</button>
-    <button mat-button (click)="redirectPartners()">Partners</button>
-    <button mat-button (click)="redirectProjects()">Projects</button>
-    <button mat-button (click)="redirectStudents()">Students</button>
-    <button mat-button (click)="redirectAffiliates()">Affiliates</button>
-  </mat-toolbar-row>
-  <mat-toolbar-row>Students</mat-toolbar-row>
-</mat-toolbar>
+<app-page-header title="Students Page" queryNav="true">
+  <app-query-navigation></app-query-navigation>
+</app-page-header>
 <div class="belowdiv">
   Partners: <br>
   <mat-form-field class="querySelector">
@@ -21,7 +14,9 @@
   <mat-form-field class="querySelector">
     <mat-select placeholder="Programs" [formControl]="programControl" multiple>
        <mat-select-trigger> <!--this trigger make it only show the first value plus a ... for others -->
-        {{programControl.value ? programControl.value[0] : ''}}
+        {{programControl.value?.length ?
+           programControl.value[0].value + programControl.value[0].programName  :
+            ''}}
         <span *ngIf="programControl.value?.length > 1">
           (+{{programControl.value.length - 1}} others)
         </span>
@@ -29,7 +24,8 @@
       <mat-optgroup *ngFor="let program of programs" [label]="program.name"
                     [disabled]="program.disabled">
         <!-- value stored should include program name and participation -->
-        <mat-option *ngFor="let value of program.participation" [value]="value.value + program.name">
+        <!-- TODO:Want this to be the program object, with only the participation wanted -->
+        <mat-option *ngFor="let value of program.participation" [value]="value">
           {{ value.viewValue }}
         </mat-option>
       </mat-optgroup>

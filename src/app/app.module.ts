@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -18,8 +18,12 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
+
+import { AuthGuard } from './authGuard/auth.guard';
+import { AuthService } from './authGuard/auth.service';
 
 import { StudentsComponent } from './students/students.component';
 import { StudentComponent } from './students/student/student.component';
@@ -58,26 +62,96 @@ import { AffiliateComponent } from './affiliates/affiliate/affiliate.component';
 import { AffiliatesService } from './affiliates/affiliates.service';
 import { NoAuthComponent } from './no-auth/no-auth.component';
 
+import {CookieModule} from "ngx-cookie";
+import { DataUploadComponent } from './data-upload/data-upload.component';
+import { PageHeaderComponent } from './reuseable-components/page-header/page-header.component';
+import { QueryNavigationComponent } from './reuseable-components/query-navigation/query-navigation.component';
+
 export const routes : Routes = [
   {path: '', redirectTo: 'landing', pathMatch: 'full'},
   {path: 'noAuth', component: NoAuthComponent},
   {path: 'landing', component: LandingComponent},
-  {path: 'students', component : StudentsComponent},
-  {path: 'studentResults/:partner/:program/:issue/:semester/:yearStart/:yearEnd', component : StudentResultsComponent},
-  {path: 'student/:id', component : StudentComponent},
-  {path: 'partners', component : PartnersComponent},
-  {path: 'partnerResults/:program/:issue/:type/:semester/:yearStart/:yearEnd', component : PartnerResultsComponent},
-  {path: 'partner/:id', component : PartnerComponent},
-  {path: 'programs', component : ProgramResultsComponent},
+  {
+    path: 'dataUpload',
+    component : DataUploadComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'students',
+    component : StudentsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'studentResults/:partner/:program/:issue/:semester/:yearStart/:yearEnd',
+    component : StudentResultsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'student/:id',
+    component : StudentComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'partners',
+    component : PartnersComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'partnerResults/:program/:issue/:type/:semester/:yearStart/:yearEnd',
+    component : PartnerResultsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'partner/:id',
+    component : PartnerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'programs',
+    component : ProgramResultsComponent,
+    canActivate: [AuthGuard]
+  },
   // {path: 'programResults/:program/:semester/:yearStart/:yearEnd', component : },
-  {path: 'program/:id', component : ProgramComponent},
-  {path: 'projects', component : ProjectsComponent},
-  {path: 'projectResults/:program/:partner/:semester/:yearStart/:yearEnd', component : ProjectResultsComponent},
-  {path: 'project/:id', component : ProjectComponent},
-  {path: 'affiliates', component : AffiliatesComponent},
-  {path: 'affiliateResults/:department/:issue/:type/:semester/:yearStart/:yearEnd', component : AffiliateResultsComponent},
-  {path: 'affiliate/:id', component : AffiliateComponent},
-  {path: 'main', component : MainComponent}
+  {
+  path: 'program/:id',
+  component : ProgramComponent,
+  canActivate: [AuthGuard]
+  },
+  {
+    path: 'projects',
+    component : ProjectsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'projectResults/:program/:partner/:semester/:yearStart/:yearEnd',
+    component : ProjectResultsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'project/:id',
+    component : ProjectComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'affiliates',
+    component : AffiliatesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'affiliateResults/:department/:issue/:type/:semester/:yearStart/:yearEnd',
+    component : AffiliateResultsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'affiliate/:id',
+    component : AffiliateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'main',
+    component : MainComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
@@ -100,13 +174,16 @@ export const routes : Routes = [
     AffiliatesComponent,
     AffiliateResultsComponent,
     AffiliateComponent,
-    NoAuthComponent
+    NoAuthComponent,
+    DataUploadComponent,
+    PageHeaderComponent,
+    QueryNavigationComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes, {}), //useHash : true
+    RouterModule.forRoot(routes, {useHash: true}), //useHash : true
     MatCardModule,
     MatDialogModule,
     MatTableModule,
@@ -122,7 +199,9 @@ export const routes : Routes = [
     MatPaginatorModule,
     BrowserAnimationsModule,
     MatSortModule,
-    MatInputModule
+    MatInputModule,
+    CookieModule.forRoot(),
+    MatProgressSpinnerModule
   ],
   providers: [
     BackendService,
@@ -130,8 +209,10 @@ export const routes : Routes = [
     ProgramsService, ProgramService,
     PartnersService, PartnerService,
     ProjectsService, ProjectService,
-    AffiliatesService
+    AffiliatesService,
+    AuthService, AuthGuard
    ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas : [] //CUSTOM_ELEMENTS_SCHEMA
 })
 export class AppModule { }

@@ -29,7 +29,7 @@ export class PartnerResultsComponent implements OnInit {
   private partners: Array<Object>; //all partners
 
   private dataSource: MatTableDataSource<Object>;
-  private displayedColumns = ['name', 'profile'];
+  private displayedColumns = ['name', 'city', 'state', 'zipcode', 'profile'];
   private partnersService: PartnersService;
 
   private backendService: BackendService;
@@ -87,7 +87,7 @@ export class PartnerResultsComponent implements OnInit {
      );
     resultsPromise.then(results =>
       {
-        console.log(JSON.stringify(results))
+        // console.log(JSON.stringify(results))
         results.forEach(result => {
           result["profile"] = result["name"]
         })

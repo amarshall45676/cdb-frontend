@@ -1,15 +1,3 @@
-.belowdiv {
-    border-style:solid;
-    margin:5px;
-    clear:both;
-}
-
-.sidebyside {
-    float:left;
-    border-style:solid;
-    margin:5px;
-}
-
 .list {
   width: 75%;
 }

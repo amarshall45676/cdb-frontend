@@ -12,7 +12,7 @@ import {FormControl} from '@angular/forms';
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
-  styleUrls: ['./students.component.css']
+  styleUrls: ['./students.component.css', '../app.component.css'] 
 })
 export class StudentsComponent implements OnInit {
   private partnerSelected : string;
@@ -39,10 +39,10 @@ export class StudentsComponent implements OnInit {
 
 //TODO: make it so you cannot select anything else if the first one is selected
   private participationArray = [
-    { value: 'Not applied to a ', viewValue: 'Didn\'t Apply' },
-    { value: 'Participated in ', viewValue: 'Applied, Participated' },
-    { value: 'Applied to ', viewValue: 'Applied, Rejected' },
-    { value: 'Rejected Offer for ', viewValue: 'Applied, Didn\'t Participate' }
+    { value: 'Didn\'t apply to a ', viewValue: 'Didn\'t Apply', backendValue: "Not Applied" },
+    { value: 'Participated in ', viewValue: 'Applied, Participated', backendValue: "Participated"  },
+    { value: 'Applied to ', viewValue: 'Applied, Rejected', backendValue: "Applied"  },
+    { value: 'Rejected Offer for ', viewValue: 'Applied, Didn\'t Participate', backendValue: "Rejected"  }
   ]
 
   programs : Array<Object>;
@@ -80,7 +80,11 @@ export class StudentsComponent implements OnInit {
 
     this.programsService.getProgramsPromise().then((programs) => {
       programs.forEach((program) => {
-        program["participation"] = this.participationArray; //Add the participation value to the object
+        program["participation"] = JSON.parse(JSON.stringify(this.participationArray)); //Add the participation value to the object, deep copy
+        program["participation"].forEach((participation) => {
+          participation.programName = program.name
+        })
+        // console.log(program)
       })
       this.programs = programs;
     })
@@ -90,33 +94,17 @@ export class StudentsComponent implements OnInit {
     return a["name"] < b["name"] ? a["name"] === b["name"] ? 0 : -1 : 1
   }
 
-  public redirectMain() {
-    this.redirect("main")
-  }
-
-  public redirectProjects() {
-    this.redirect("projects")
-  }
-
-  public redirectPartners() {
-    this.redirect("partners")
-  }
-
-  public redirectStudents() {
-    this.redirect("students")
-  }
-
-  public redirectAffiliates() {
-    this.redirect("affiliates")
-  }
-
-  private redirect(location) {
-    window.location.href = location;
-  }
-
   public submitQuery() {
+    //TODO: need to change program control!
     const partner = this.partnerSelected === undefined ? "NA" : this.partnerSelected; //NA is the way to say exclude this from query
-    const program = this.programControl.value == undefined ? "NA" : this.programControl.value;
+    // console.log("Initial value: " + JSON.stringify(this.programControl.value))
+    const program = this.programControl.value == undefined ? "NA" :
+      this.programControl.value.map(object => {
+        // console.log("Object: " + JSON.stringify(object))
+        return object.programName + ":" + object.backendValue; //TODO: map this to a string, then join by commas
+      }).join(",")
+
+    // console.log("Program for query: " + program)
     //TODO: want to condense the "Applied to HART" part here?
     const issue = this.issueSelected === undefined ? "NA" : this.issueSelected;
     const semester = this.semesterSelected === undefined ? "NA" : this.semesterSelected;
@@ -124,7 +112,7 @@ export class StudentsComponent implements OnInit {
     const yearEnd = (<HTMLInputElement>document.querySelector("#yearEnd")).value;
 
     window.location.href =
-    "studentResults/" +
+    "#/studentResults/" +
       partner + "/" +
       program + "/" +
       issue + "/" +

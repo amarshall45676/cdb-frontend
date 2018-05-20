@@ -13,10 +13,12 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 @Component({
   selector: 'app-partner',
   templateUrl: './partner.component.html',
-  styleUrls: ['./partner.component.css'],
+  styleUrls: ['./partner.component.css', '../../app.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class PartnerComponent implements OnInit {
+  //TODO: on close of dialog should refresh data?(How to only refresh one partner entry?)
+    //Might be better to just update the entry in the table, not send a full request
   private sub;
   public partner: Object;
 
@@ -41,6 +43,9 @@ export class PartnerComponent implements OnInit {
   ];
 
   private nameInput;
+  private cityInput;
+  private stateInput;
+  private zipcodeInput;
 
   constructor(private route: ActivatedRoute,
      private partnerService: PartnerService,
@@ -51,6 +56,9 @@ export class PartnerComponent implements OnInit {
   ngOnInit() {
     // Initalize Inputs
     this.nameInput = document.getElementById("nameInput");
+    this.cityInput = document.getElementById("cityInput");
+    this.stateInput = document.getElementById("stateInput");
+    this.zipcodeInput = document.getElementById("zipcodeInput");
 
     //Get the specific program info from the database
     var partnerPromise = this.partnerService.getPartnerPromise(this.data);
@@ -70,12 +78,13 @@ export class PartnerComponent implements OnInit {
   //TODO: should have the different on close abilities if there is something that should happen on close
 
   public makeNote() {
-    const date = new Date(Date.now());
+    // const date = new Date(Date.now()); //TODO: change for others?
     const content = (<HTMLInputElement>document.getElementById("notes")).value;
 
     const newNote = {
-      note: content,
-      date: date
+      note: content
+      // ,
+      // date: date
     }
 
     const notePromise = this.partnerService.addNote(this.data, newNote);
@@ -88,10 +97,16 @@ export class PartnerComponent implements OnInit {
   public updateFields() {
     //Retrieve values
     const name = this.nameInput.value;
+    const city = this.cityInput.value;
+    const state = this.stateInput.value;
+    const zipcode = this.zipcodeInput.value;
 
     //Put in an object
     const updateObject = {
-      name: name
+      displayName: name,
+      city: city,
+      state: state,
+      zipcode: zipcode
     }
     //Make sure only validated fields go through
     //TODO: how to print out failures in validation?

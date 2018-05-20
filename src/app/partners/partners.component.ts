@@ -9,7 +9,7 @@ import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 @Component({
   selector: 'app-partners',
   templateUrl: './partners.component.html',
-  styleUrls: ['./partners.component.css']
+  styleUrls: ['./partners.component.css', '../app.component.css']
 })
 export class PartnersComponent implements OnInit {
   private types: Array<Object> = [
@@ -55,30 +55,6 @@ export class PartnersComponent implements OnInit {
     })
   }
 
-  public redirectMain() {
-    this.redirect("main")
-  }
-
-  public redirectProjects() {
-    this.redirect("projects")
-  }
-
-  public redirectPartners() {
-    this.redirect("partners")
-  }
-
-  public redirectStudents() {
-    this.redirect("students")
-  }
-
-  public redirectAffiliates() {
-    this.redirect("affiliates")
-  }
-
-  private redirect(location) {
-    window.location.href = location;
-  }
-
   public submitQuery() {
     const program = this.programSelected === undefined ? "NA" : this.programSelected; //NA is the way to say exclude this from query
     const type = this.typeSelected === undefined ? "NA" : this.typeSelected;
@@ -88,7 +64,7 @@ export class PartnersComponent implements OnInit {
     const yearEnd = (<HTMLInputElement>document.querySelector("#yearEnd")).value;
 
     window.location.href =
-    "partnerResults/" +
+    "#/partnerResults/" +
       program + "/" +
       issue + "/" +
       type + "/" +

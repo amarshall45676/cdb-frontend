@@ -1,13 +1,6 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button mat-button (click)="redirectMain()">Main</button>
-    <button mat-button (click)="redirectPartners()">Partners</button>
-    <button mat-button (click)="redirectProjects()">Projects</button>
-    <button mat-button (click)="redirectStudents()">Students</button>
-    <button mat-button (click)="redirectAffiliates()">Affiliates</button>
-  </mat-toolbar-row>
-  <mat-toolbar-row>Projects</mat-toolbar-row>
-</mat-toolbar>
+<app-page-header title="Projects Page" queryNav="true">
+  <app-query-navigation></app-query-navigation>
+</app-page-header>
 <div class="belowdiv">
   Programs: <br>
   <mat-form-field [color]="primary">

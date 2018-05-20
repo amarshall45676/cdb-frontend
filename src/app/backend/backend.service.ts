@@ -2,9 +2,13 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class BackendService {
-  url = 'http://localhost:2222';
-  CASLogin = "http://localhost:2222/auth"
-  CASLogout = "http://localhost:2222/auth/auth2"
+  // baseFrontend = "http://localhost:4200";
+  // baseBackend = "http://localhost:2222";
+  baseFrontend = "http://cdb.surge.sh";
+  baseBackend = "https://protected-chamber-70038.herokuapp.com";
+  url = this.baseBackend;
+  CASLogin = this.baseBackend + "/auth"
+  CASLogout = this.baseBackend + "/auth/auth2"
 
   constructor() { }
 
@@ -48,14 +52,17 @@ export class BackendService {
   }
 
   public uploadFile(formData) {
+    console.log("---Frontend making call to backend to upload file---")
     var options: RequestInit
     options = {
       method : "POST",
-      body : formData
+      body : formData,
+      credentials : "include" //inclue credential on request so authenticated
     }
 
     return fetch(`${this.url}/data/file`, options)
         .then(r => {
+          console.log(r)
             if (r.status === 200) {
                 if (r.headers.get('Content-Type').indexOf('json') > 0) {
                     return r.json();
@@ -68,26 +75,26 @@ export class BackendService {
             }
         });
   }
-
-  public login() {
-    console.log("In login request")
-    var options: RequestInit = {
-        method : "GET",
-        credentials: 'include',
-        headers: {
-        },
-        mode: 'no-cors'
-    }
-    return fetch(`${this.CASLogin}`, options)
-        .then(r => {
-            if (r.status === 0) { //Always has a status of 0 when succeeding
-                return r;
-            } else {
-                // useful for debugging, but remove in production
-                throw new Error(r.statusText);
-            }
-        })
-  }
+//TODO: not sure how to make the login work with a sigle reqeust and OAuth
+  // public login() {
+  //   console.log("In login request")
+  //   var options: RequestInit = {
+  //       method : "GET",
+  //       credentials: 'include',
+  //       headers: {
+  //       }
+  //       ,mode: 'no-cors'
+  //   }
+  //   return fetch(`${this.CASLogin}`, options)
+  //       .then(r => {
+  //           if (r.status === 0) { //Always has a status of 0 when succeeding
+  //               return r;
+  //           } else {
+  //               // useful for debugging, but remove in production
+  //               throw new Error(r.statusText);
+  //           }
+  //       })
+  // }
 
   public logout() {
     var options: RequestInit = {

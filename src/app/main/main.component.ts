@@ -7,10 +7,17 @@ import {BackendService} from '../backend/backend.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.css', '../app.component.css']
 })
 export class MainComponent implements OnInit {
-  private baseUrl = "http://localhost:4200";
+  // private baseUrl = "http://localhost:4200";
+  private baseUrl = "cdb.surge.sh";
+
+
+  private fileUploaded = false; //File was uploaded while this page was loaded
+
+  private fileBeingUploaded = false;
+
   private entitySelected: string;
   private entities: Array<Object> = [
     {
@@ -29,7 +36,10 @@ export class MainComponent implements OnInit {
 
   private programs;
 
-  constructor(private programsService: ProgramsService, private backendService: BackendService) { }
+  constructor(
+    private programsService: ProgramsService,
+    private backendService: BackendService
+  ) { }
 
   ngOnInit() {
     this.programsService.getProgramsPromise().then((programs) => {
@@ -37,27 +47,6 @@ export class MainComponent implements OnInit {
     })
   }
 
-  public createQuery() {
-    console.log(this.entitySelected);
-    if (this.entitySelected === "") {
-      console.log("Need to select an entity to query")
-    } else {
-      window.location.href = this.entitySelected.toLowerCase();
-    }
-  }
-
-  public logout() {
-    this.backendService.logout().then(r => {
-      window.location.href = `${this.baseUrl}/landing`
-      window.alert("You were succesfully logged out")
-    })
-  }
-
-  public viewProgram(programName) {
-    console.log("Want to view: " + programName)
-    //TODO: call the service method
-    this.programsService.viewProfile(programName);
-  }
 
   public uploadData() {
     console.log("Uploading Data!");
@@ -68,9 +57,31 @@ export class MainComponent implements OnInit {
     const fd = new FormData()
     fd.append("file", inputFile)
     const res = this.backendService.uploadFile(fd)
+    this.fileUploaded = true;
+    this.fileBeingUploaded = true;
     res.then(r => {
       console.log(r)
-    }).catch(e => console.log(e))
+      if(r === "") {
+        console.log("Returned an empty string!")
+      }
+      this.fileBeingUploaded = false;
+      const div = (<HTMLInputElement>document.getElementById("resultString"))
+      div.value = r;
+    })
   }
+  //
+  // public createQuery() {
+  //   console.log(this.entitySelected);
+  //   if (this.entitySelected === "") {
+  //     console.log("Need to select an entity to query")
+  //   } else {
+  //     window.location.href = "#/" + this.entitySelected.toLowerCase();
+  //   }
+  // }
 
+  public viewProgram(programName) {
+    console.log("Want to view: " + programName)
+    //TODO: call the service method
+    this.programsService.viewProfile(programName);
+  }
 }

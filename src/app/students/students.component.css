@@ -2,18 +2,6 @@
   width: 70%;
 }
 
-.sidebyside {
-    float:left;
-    border-style:solid;
-    margin:5px;
-}
-
-.belowdiv {
-    border-style:solid;
-    margin:5px;
-    clear: both;
-}
-
 #studentContent{
   width: 70%;
 }

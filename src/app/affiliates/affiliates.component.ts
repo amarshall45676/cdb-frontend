@@ -5,7 +5,7 @@ import { BackendService } from '../backend/backend.service';
 @Component({
   selector: 'app-affiliates',
   templateUrl: './affiliates.component.html',
-  styleUrls: ['./affiliates.component.css']
+  styleUrls: ['./affiliates.component.css', '../app.component.css'] //add app.component.css for styles I want everywhere
 })
 export class AffiliatesComponent implements OnInit {
   private types: Array<Object> = [

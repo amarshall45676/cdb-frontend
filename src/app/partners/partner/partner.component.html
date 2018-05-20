@@ -2,10 +2,16 @@
 <h1 mat-dialog-title>Partner Profile</h1>
 <mat-dialog-content>
   <div class="sidebyside">
-    Name : {{partner?.displayName}}
+    Name : {{partner?.displayName}} <br>
+    City : {{partner?.city}} <br>
+    Zipcode : {{partner?.zipcode}} <br>
+    State : {{partner?.state}}
   </div>
   <div class="sidebyside">
     Update Name: <input id="nameInput" type="text"> <br>
+    Update City: <input id="cityInput" type="text"> <br>
+    Update Zipcde: <input id="zipcodeInput" type="text"> <br>
+    Update State: <input id="stateInput" type="text"> <br>
     <button (click)="updateFields()">Submit</button>
   </div>
   <div class="belowdiv list">
