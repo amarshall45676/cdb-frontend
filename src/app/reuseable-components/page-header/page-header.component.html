@@ -8,13 +8,8 @@
   <mat-toolbar-row>
     <span class="title-center">{{title}}</span>
   </mat-toolbar-row>
-  <!-- Can name the attribute needed like this  -->
-  <!-- <ng-content select="[selectorName]"></ng-content>  -->
-  <!-- then used like this <div selectorName></div> -->
-  <!-- or -->
-  <!-- <ng-content select="selectorName"></ng-content>  -->
-  <!-- then used like this <selectorName></selectorName> -->
-  <!--  Would need to add No_ERRORS_SCHEMA in the app.module.ts file-->
+  <!-- TODO: CHANGE BELOW -->
+  <!-- To add query nav to the page header need to have queryNav = true, and the app-query-navigation  -->
   <mat-toolbar-row *ngIf="queryNav">
     <ng-content select="app-query-navigation"></ng-content>
     <span class="fill-remaining-space"></span>

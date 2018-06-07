@@ -1,7 +1,11 @@
-mat-card {
+mat-list-item {
   background-color: #0D47A1;
   color: #E0E0E0;
-  width: 20vmin;
+  /* padding: 10px; */
+}
+
+.title {
+  font-size: 2em;
 }
 
 textarea {
@@ -9,25 +13,27 @@ textarea {
 }
 
 button {
-  background-color: #0D47A1;
-  color: #E0E0E0;
+  background-color: #E0E0E0;
+  color: #0D47A1;
   display: flex;
+  height : 100%;
 }
-
-mat-drawer-container {
+/* This shoudl be necessary */
+/* mat-drawer-container {
   height: 83vmin;
+  width: 100vmin;
 }
 
 mat-drawer-content{
-  width: 73vmin;
+  width: 100vmax;
 }
+
+article {
+  width: 45vmin;
+} */
 
 mat-drawer {
   background-color: #0D47A1;
   color: #E0E0E0;
   width: 25vmin;
 }
-
-/* .data {
-  width: 73vmin;
-} */

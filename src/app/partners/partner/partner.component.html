@@ -1,19 +1,5 @@
-<!-- <a href="partners">partners</a> <br> -->
-<h1 mat-dialog-title>Partner Profile</h1>
-<mat-dialog-content>
-  <div class="sidebyside">
-    Name : {{partner?.displayName}} <br>
-    City : {{partner?.city}} <br>
-    Zipcode : {{partner?.zipcode}} <br>
-    State : {{partner?.state}}
-  </div>
-  <div class="sidebyside">
-    Update Name: <input id="nameInput" type="text"> <br>
-    Update City: <input id="cityInput" type="text"> <br>
-    Update Zipcde: <input id="zipcodeInput" type="text"> <br>
-    Update State: <input id="stateInput" type="text"> <br>
-    <button (click)="updateFields()">Submit</button>
-  </div>
+<app-page-header title="Partner Profile"></app-page-header>
+<app-profile entity="{{id}}" [service]="partnerService" [display]="displayMapping">
   <div class="belowdiv list">
     Programs worked with: <br>
     <mat-card *ngFor="let program of programs">
@@ -42,18 +28,4 @@
       Email: {{student.email}}
     </mat-card>
   </div>
-  <div>
-    Make a note: <br>
-    <textarea id="notes" name="note" rows="8" cols="80"></textarea> <br>
-    <button (click)="makeNote()">Submit</button>
-  </div>
-  <div>
-    NOTES: <br>
-    <mat-card *ngFor="let note of partner?.notes">
-      Note content: {{note.note}} <br>
-      Note author: {{note.userId}} <br>
-      Note date: {{note.creationDate}} <br>
-      <!-- TODO: FIX THIS WHEN THIS TO BE DISPLAY NAME BECOMES AND ENTITY -->
-    </mat-card>
-  </div>
-</mat-dialog-content>
+</app-profile>

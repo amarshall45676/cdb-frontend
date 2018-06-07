@@ -27,9 +27,4 @@ export class StudentsService {
   public getStudentsPromiseForProgram(programName) {
     return this.backendService.resource("GET", "student/program/" + programName, null);
   }
-
-  public viewProfile(id) {
-    console.log("View profile from service with ID: " + id);
-    window.location.href = "#/student/" + id;
-  }
 }

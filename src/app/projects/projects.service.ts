@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { BackendService } from '../backend/backend.service'
 
+import {ProjectComponent} from './project/project.component';
+
+import { MatDialog, MatDialogRef} from '@angular/material';
+
 //Interacts with the ProjectResource class on the backend
 
 @Injectable()
@@ -10,7 +14,7 @@ export class ProjectsService {
 
   private backendService : BackendService;
 
-  constructor(pBackendService : BackendService) {
+  constructor(pBackendService : BackendService, public dialog: MatDialog) {
     this.backendService = pBackendService;
    }
 
@@ -25,10 +29,4 @@ export class ProjectsService {
   public getProjectPromise(projectName) {
     return this.backendService.resource("GET", "project/" + projectName, null);
   }
-
-  public viewProfile(id) {
-    console.log("View profile for program with ID: " + id);
-    window.location.href = "#/project/" + id;
-  }
-
 }

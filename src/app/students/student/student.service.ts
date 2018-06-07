@@ -2,21 +2,14 @@ import { Injectable } from '@angular/core';
 
 import { BackendService } from '../../backend/backend.service';
 
+import { ProfileService } from '../../reuseable-components/profile/profile.service';
+
 @Injectable()
-export class StudentService {
-  private backendService : BackendService;
+export class StudentService extends ProfileService {
 
   constructor(pBackendService: BackendService) {
-    this.backendService = pBackendService;
+    super(pBackendService, "student")
   }
-
-  public getStudentPromise(studentName) {
-    return this.backendService.resource("GET", "student/" + studentName, null);
-  }
-
-  public addNote(studentName, newNote) {
-  return this.backendService.resource("PUT", "student/note/" + studentName, newNote);
-}
 
   //Make sure fields match a pattern, if they dont print a message and take out of result
   public validateFields(updateObject) {
@@ -33,9 +26,5 @@ export class StudentService {
     return updateObject;
   }
 
-  public update(id, updateObject) {
-    console.log("Calling update with object: " + JSON.stringify(updateObject));
-    return this.backendService.updateEntity("student", id, updateObject);
-  }
 
 }

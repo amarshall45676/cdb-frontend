@@ -1,9 +1,31 @@
-<a href="#/main">To the main page!</a>
-<p>Banner for CCL database will go here</p>
-<mat-list class="belowdiv">
+<app-page-header title="Data Upload Page" queryNav="true">
+  <app-query-navigation></app-query-navigation>
+</app-page-header>
+<div class="belowdiv data">
+  <p>Explain upload process here!</p>
   <p>Upload your data!</p>
   <input type="file" name="" value="" id="file"> <br> <br>
   <button (click)="uploadData()" mat-button>Submit!</button> <br>
-  <div>Result of upload will go below</div> <br>
-  <textarea rows="15" cols="100" id="resultString"></textarea>
-</mat-list>
+  <div *ngIf="fileUploaded">
+    <div>Result of upload will go below</div> <br>
+    <mat-spinner *ngIf="fileBeingUploaded" color="primary"></mat-spinner>
+    <mat-card *ngIf="dataUploadResult?.successful">
+      Upload was successful!
+    </mat-card>
+    <mat-card *ngFor="let sheet of dataUploadResult?.sheets" class="belowdiv">
+      <mat-card-title>
+        Sheet: {{sheet.sheetName}}
+      </mat-card-title>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngIf="sheet.rows.length == 0">
+            No errors!
+          </mat-list-item>
+          <mat-list-item *ngFor="let row of sheet.rows">
+            Row {{row.row_num}}: {{row.result}}
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

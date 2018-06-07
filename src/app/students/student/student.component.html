@@ -1,116 +1,81 @@
-<a href="#/students" class="belowdiv">students</a> <br>
-<div class="sidebyside update">
-  Student Name: {{student?.displayName}} <br>
-  Email: {{student?.email}} <br>
-  Graduation Year: {{student?.grad_year}} <br>
-  1st Major: {{student?.major_one}} <br>
-  2nd Major: {{student?.major_two}} <br>
-  Minor: {{student?.minor}} <br>
-  School: {{student?.school}} <br>
-</div>
-<div class="sidebyside update">
-  Update Student Name: <input id="studentNameInput" type="text"> <br>
-  Update Email: <input id="emailInput" type="text"> <br>
-  Update Graduation Year: <input id="gradYearInput" type="text"> <br>
-  Update 1st Major: <input id="firstMajorInput" type="text"> <br>
-  Update 2nd Major: <input id="secondMajorInput" type="text"> <br>
-  Update Minor: <input id="minorInput" type="text"> <br>
-  Update School: <input id="schoolInput" type="text"> <br>
-  <button (click)="updateFields()">Submit</button>
-</div>
+<app-page-header title="Student Profile"></app-page-header>
+<app-profile entity="{{id}}" [service]="studentService" [display]="displayMapping">
+  <div class="belowdiv list">
+    Partners interacted with: <br>
+    <mat-card *ngFor="let partner of partners">
+      Partner Name: {{partner.name}}
+    </mat-card>
+  </div>
 
-<div class="belowdiv list">
-  <!-- contains the partners the student has interacted with -->
-  Partners interacted with: <br>
-  <mat-card *ngFor="let partner of partners">
-    Partner Name: {{partner.name}}
-  </mat-card>
-</div>
+  <div class="belowdiv list">
+    <p>
+      Specific projects they participated in:
+    </p>
+    <mat-card *ngFor="let program of programsParticipated">
+      Program Name: {{program.name}} <br>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+          Projects
+        </mat-panel-title>
+        <mat-panel-description>
+          These are projects this students has participated in this program
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+        <p>
+          <mat-card *ngFor="let project of program.projects">
+            {{project.name}}
+          </mat-card>
+        </p>
+      </mat-expansion-panel>
+    </mat-card>
+  </div>
 
-<div class="belowdiv list">
-  <p>
-    Specific projects they participated in:
-  </p>
-  <mat-card *ngFor="let program of programsParticipated">
-    Program Name: {{program.name}} <br>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-      <mat-panel-title>
-        Projects
-      </mat-panel-title>
-      <mat-panel-description>
-        These are projects this students has participated in this program
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-      <p>
-        <mat-card *ngFor="let project of program.projects">
-          {{project.name}}
-        </mat-card>
-      </p>
-    </mat-expansion-panel>
-  </mat-card>
-</div>
+  <div class="belowdiv list">
+    <p>
+      Specific projects they applied to:
+    </p>
+    <mat-card *ngFor="let program of programsApplied">
+      Program Name: {{program.name}} <br>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+          Projects
+        </mat-panel-title>
+        <mat-panel-description>
+          These are projects this students has applied to in this program
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+        <p>
+          <mat-card *ngFor="let project of program.projects">
+            {{project.name}}
+          </mat-card>
+        </p>
+      </mat-expansion-panel>
+    </mat-card>
+  </div>
 
-<div class="belowdiv list">
-  <p>
-    Specific projects they applied to:
-  </p>
-  <mat-card *ngFor="let program of programsApplied">
-    Program Name: {{program.name}} <br>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-      <mat-panel-title>
-        Projects
-      </mat-panel-title>
-      <mat-panel-description>
-        These are projects this students has applied to in this program
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-      <p>
-        <mat-card *ngFor="let project of program.projects">
-          {{project.name}}
-        </mat-card>
-      </p>
-    </mat-expansion-panel>
-  </mat-card>
-</div>
-
-<div class="belowdiv list">
-  <p>
-    Specific projects they rejected here:
-  </p>
-  <mat-card *ngFor="let program of programsRejected">
-    Program Name: {{program.name}} <br>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-      <mat-panel-title>
-        Projects
-      </mat-panel-title>
-      <mat-panel-description>
-        These are projects this students has rejected in this program
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-      <p>
-        <mat-card *ngFor="let project of program.projects">
-          Project Name: {{project.name}}
-        </mat-card>
-      </p>
-    </mat-expansion-panel>
-  </mat-card>
-</div>
-
-<div>
-  Make a note: <br>
-  <textarea id="notes" name="note" rows="8" cols="80"></textarea> <br>
-  <button (click)="makeNote()">Submit</button>
-</div>
-
-<div>
-  NOTES: <br>
-  <mat-card *ngFor="let note of student?.notes">
-    Note content: {{note.note}} <br>
-    Note author: {{note.userId}} <br>
-    Note date: {{note.viewDate}} <br>
-    <!-- TODO: FIX THIS WHEN THIS TO BE DISPLAY NAME BECOMES AND ENTITY -->
-  </mat-card>
-</div>
+  <div class="belowdiv list">
+    <p>
+      Specific projects they rejected here:
+    </p>
+    <mat-card *ngFor="let program of programsRejected">
+      Program Name: {{program.name}} <br>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+          Projects
+        </mat-panel-title>
+        <mat-panel-description>
+          These are projects this students has rejected in this program
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+        <p>
+          <mat-card *ngFor="let project of program.projects">
+            Project Name: {{project.name}}
+          </mat-card>
+        </p>
+      </mat-expansion-panel>
+    </mat-card>
+  </div>
+</app-profile>

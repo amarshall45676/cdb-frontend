@@ -24,8 +24,8 @@ export class ProgramResultsComponent implements OnInit {
   private sub;
 
   private programs: Array<Object>; //all programs
-  private dataSource: MatTableDataSource<Object>;
-  private displayedColumns = ['name', 'purpose', 'activityType', 'profile'];
+  public dataSource: MatTableDataSource<Object>;
+  public displayedColumns = ['name', 'purpose', 'activityType', 'profile'];
   private programsService: ProgramsService;
   private backendService: BackendService;
 

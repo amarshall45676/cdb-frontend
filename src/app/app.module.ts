@@ -1,72 +1,94 @@
+//Imports from angular
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-import { MatCardModule, MatPaginatorModule, MatInputModule } from '@angular/material';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatSelectModule} from '@angular/material/select';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
-import {MatDialogModule} from '@angular/material/dialog';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//Outside Libraries
+import {CookieModule} from "ngx-cookie";
 
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatListModule} from '@angular/material/list';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+// Angular Material Imports
+import {
+  MatCardModule, MatPaginatorModule, MatInputModule, MatFormFieldModule,
+  MatExpansionModule, MatSelectModule, MatSortModule, MatTableModule,
+  MatDialogModule, MatToolbarModule, MatButtonModule, MatSidenavModule,
+  MatDividerModule, MatListModule, MatMenuModule,//are these needed?
+  MatProgressSpinnerModule
+} from '@angular/material';
 
+// Import base app
 import { AppComponent } from './app.component';
 
+// Guards for the URLS
 import { AuthGuard } from './authGuard/auth.guard';
 import { AuthService } from './authGuard/auth.service';
 
+//Students Imports
 import { StudentsComponent } from './students/students.component';
-import { StudentComponent } from './students/student/student.component';
 import { StudentsService } from './students/students.service';
+
+import { StudentComponent } from './students/student/student.component';
 import { StudentService } from './students/student/student.service';
+
 import { StudentResultsComponent } from './students/student-results/student-results.component';
 
+//Programs Imports
+//TODO: Are these below two necessary?
 import { ProgramsComponent } from './programs/programs.component';
-import { ProgramComponent } from './programs/program/program.component';
-import { ProgramResultsComponent } from './programs/program-results/program-results.component';
 import { ProgramsService } from './programs/programs.service';
+
+import { ProgramComponent } from './programs/program/program.component';
 import { ProgramService } from './programs/program/program.service';
 
+import { ProgramResultsComponent } from './programs/program-results/program-results.component';
+
+//Partner Imports
 import { PartnersComponent } from './partners/partners.component';
 import { PartnersService } from './partners/partners.service';
+
 import { PartnerService } from './partners/partner/partner.service';
 import { PartnerComponent } from './partners/partner/partner.component';
+
 import { PartnerResultsComponent } from './partners/partner-results/partner-results.component';
 
-import { MainComponent } from './main/main.component';
-
-import { BackendService } from './backend/backend.service';
-
+// Projects Imports
 import { ProjectsComponent } from './projects/projects.component';
-import { ProjectComponent } from './projects/project/project.component';
-import { ProjectResultsComponent } from './projects/project-results/project-results.component';
 import { ProjectsService } from './projects/projects.service';
+
+import { ProjectComponent } from './projects/project/project.component';
 import { ProjectService } from './projects/project/project.service';
 
+import { ProjectResultsComponent } from './projects/project-results/project-results.component';
 
-import { LandingComponent } from './landing/landing.component';
-
+// Affiliates Imports
 import { AffiliatesComponent } from './affiliates/affiliates.component';
+import { AffiliatesService } from './affiliates/affiliates.service';
+
 import { AffiliateResultsComponent } from './affiliates/affiliate-results/affiliate-results.component';
 import { AffiliateComponent } from './affiliates/affiliate/affiliate.component';
-import { AffiliatesService } from './affiliates/affiliates.service';
-import { NoAuthComponent } from './no-auth/no-auth.component';
 
-import {CookieModule} from "ngx-cookie";
 import { DataUploadComponent } from './data-upload/data-upload.component';
+
+// Landing and Main page imports
+import { LandingComponent } from './landing/landing.component';
+import { NoAuthComponent } from './no-auth/no-auth.component';
+import { MainComponent } from './main/main.component';
+
+//Import Backend Service
+import { BackendService } from './backend/backend.service';
+import { URLService } from './url/url.service'
+
+// Reusable components and services
 import { PageHeaderComponent } from './reuseable-components/page-header/page-header.component';
 import { QueryNavigationComponent } from './reuseable-components/query-navigation/query-navigation.component';
+import { ResultsTableComponent } from './reuseable-components/results-table/results-table.component';
 
+import { ProfileComponent } from './reuseable-components/profile/profile.component';
+import { ProfileService } from './reuseable-components/profile/profile.service';
+
+
+//Defining the routes for the project
 export const routes : Routes = [
   {path: '', redirectTo: 'landing', pathMatch: 'full'},
   {path: 'noAuth', component: NoAuthComponent},
@@ -177,7 +199,9 @@ export const routes : Routes = [
     NoAuthComponent,
     DataUploadComponent,
     PageHeaderComponent,
-    QueryNavigationComponent
+    QueryNavigationComponent,
+    ProfileComponent,
+    ResultsTableComponent
   ],
   imports: [
     BrowserModule,
@@ -210,7 +234,8 @@ export const routes : Routes = [
     PartnersService, PartnerService,
     ProjectsService, ProjectService,
     AffiliatesService,
-    AuthService, AuthGuard
+    AuthService, AuthGuard,
+    URLService
    ],
   bootstrap: [AppComponent],
   schemas : [] //CUSTOM_ELEMENTS_SCHEMA

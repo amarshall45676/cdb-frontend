@@ -4,6 +4,13 @@ import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { BackendService } from '../../backend/backend.service';
 import { ActivatedRoute } from '@angular/router';
 
+//Import students component for dialog
+import { StudentComponent } from '../student/student.component';
+
+import { MatDialog, MatDialogRef} from '@angular/material';
+
+//TODO: add overal style sheet for below and side by side div
+
 @Component({
   selector: 'app-student-results',
   templateUrl: './student-results.component.html',
@@ -21,21 +28,17 @@ export class StudentResultsComponent implements OnInit {
   private sub;
 
   private students: Array<Object>; //all students
-  private displayStudents: Array<Object>; //students to be displayed
-  private dataSource: MatTableDataSource<Object>;
-  private displayedColumns = ['name', 'grad_year', 'major_one', 'major_two', 'minor', 'school', 'profile'];
-
-  private studentsService: StudentsService;
-  private backendService: BackendService;
+  public dataSource: MatTableDataSource<Object>;
+  public displayedColumns = ['name', 'grad_year', 'major_one', 'major_two', 'minor', 'school', 'profile'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(pStudentsService: StudentsService,
-     pBackendService: BackendService,
+  constructor(
+     private studentsService: StudentsService,
+     private backendService: BackendService,
+     public dialog: MatDialog,
      private route: ActivatedRoute) {
-    this.studentsService = pStudentsService;
-    this.backendService = pBackendService;
    }
 
   ngOnInit() {
@@ -93,9 +96,28 @@ export class StudentResultsComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
+  // public viewProfile(id) {
+  //   //TODO: should make the id here something else
+  //   this.studentsService.viewProfile(id);
+  // }
+
   public viewProfile(id) {
-    //TODO: should make the id here something else
-    this.studentsService.viewProfile(id);
+    console.log("View profile for student with ID: " + id);
+
+    this.openDialog(id);
+  }
+
+  openDialog(id) {
+    let dialogRef = this.dialog.open(StudentComponent, {
+      width: '100%',
+      height: '100%',
+      data: id
+    });
+    //TODO: can do diffferent things on close of the dialog
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      // this.dialogResult = result;
+    });
   }
 
 }

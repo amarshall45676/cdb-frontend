@@ -16,35 +16,28 @@ import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
   styleUrls: ['./projects.component.css', '../app.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  private projectsService: ProjectsService;
-  private programsService: ProgramsService;
-  private backendService: BackendService;
 
-  private programs: Array<Object>;
-  private programSelected : string;
+  public programs: Array<Object>;
+  public programSelected : string;
 
-  private partners: Array<Object> = [
+  public partners: Array<Object> = [
     {name: "Partner 1"} //TODO: fill this in
   ]
-  private partnerSelected : string;
+  public partnerSelected : string;
 
-  private semesters: Array<Object> = [
+  public semesters: Array<Object> = [
     {"name" : "Fall"},
     {"name" : "Spring"},
     {"name" : "Summer"}
   ];
-  private semesterSelected: string;
+  public semesterSelected: string;
 
   constructor(
-    pProjectsService: ProjectsService,
-    pProgramsService: ProgramsService,
-    pBackendService: BackendService,
+    private projectsService: ProjectsService,
+    private programsService: ProgramsService,
+    private backendService: BackendService,
     private partnersService: PartnersService
-  ) {
-    this.backendService = pBackendService;
-    this.projectsService = pProjectsService;
-    this.programsService = pProgramsService;
-   }
+  ) { }
 
   ngOnInit() {
     console.log("Init for program component")

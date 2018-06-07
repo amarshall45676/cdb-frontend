@@ -1,46 +1,44 @@
 <app-page-header title="Main Page" queryNav="true">
-  <button (click)="logout()" mat-button logoutButton color="warn" class="logout">
-    Logout
-  </button>
   <app-query-navigation></app-query-navigation>
 </app-page-header>
 <mat-drawer-container>
   <mat-drawer mode="side" opened="true">
-    <mat-card>
-      <mat-card-title>
-        <u>Programs</u>
-      </mat-card-title>
-    </mat-card>
-    <mat-card *ngFor="let program of programs">
-      <button mat-button (click)="viewProgram(program.name)">{{program.name}}</button>
-    </mat-card>
+    <mat-list>
+      <mat-list-item>
+        <span class="title riceColors"><u>Programs:</u></span>
+      </mat-list-item>
+      <mat-list-item *ngFor="let program of programs">
+        <button mat-button (click)="viewProgram(program.name)">{{program.name}}</button>
+      </mat-list-item>
+    </mat-list>
   </mat-drawer>
   <mat-drawer-content>
-    <!-- <mat-list class="belowdiv">
+    <article class="sidebyside">
+      <h1>Getting Started</h1>
       <p>
-        Choose an entity you want information about:
+        Here is the info about the database you will need to know
       </p>
-      <mat-form-field>
-        <mat-select placeholder="Entity" [(ngModel)]="entitySelected">
-          <mat-option *ngFor="let entity of entities" [value]="entity.name">
-            {{ entity.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field> <br>
-      <button (click)="createQuery()" mat-button>Create Query!</button> <br>
-    </mat-list> -->
-    <!-- <a href="#/dataUpload">Click here to upload your data</a> -->
-    <mat-list class="belowdiv data">
-      <p>Explain upload process here!</p>
-      <p>Upload your data!</p>
-      <input type="file" name="" value="" id="file"> <br> <br>
-      <button (click)="uploadData()" mat-button>Submit!</button> <br>
-      <div *ngIf="fileUploaded">
-        <div>Result of upload will go below</div> <br>
-        <mat-spinner *ngIf="fileBeingUploaded" color="primary"></mat-spinner>
-        <textarea [hidden]="fileBeingUploaded" rows="30" cols="75" id="resultString"></textarea>
-      </div>
+      <h2>Data Upload</h2>
+      <p>Data Upload Info</p>
+      <a href="#/dataUpload">Redirect to data</a>
+      <h3>File Structure</h3>
+      <p>Files here!</p>
 
-    </mat-list>
+    </article>
+    <article class="sidebyside">
+      <h1>Getting Started</h1>
+      <h2>Queries</h2>
+      <p>Query Info</p>
+      <h3>Entities</h3>
+      <p>Entity Info</p>
+      <h4>Programs</h4>
+      <p>Program Stuff</p>
+      <h4>Projects</h4>
+      <p>Project Stuff</p>
+      <h4>Partners</h4>
+      <p>Partner Stuff</p>
+      <h4>Students</h4>
+      <p>Student Stuff</p>
+    </article>
   </mat-drawer-content>
 </mat-drawer-container>

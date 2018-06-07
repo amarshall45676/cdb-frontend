@@ -12,57 +12,40 @@ import {FormControl} from '@angular/forms';
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
-  styleUrls: ['./students.component.css', '../app.component.css'] 
+  styleUrls: ['./students.component.css', '../app.component.css']
 })
 export class StudentsComponent implements OnInit {
-  private partnerSelected : string;
-  private partners: Array<Object> = [
+  public partnerSelected : string; //TODO: want to give each of these a getter and setter?
+  partners: Array<Object> = [
     {name: "Partner 1"}
   ]
 
-  private issues: Array<Object> = [
+  public issues: Array<Object> = [
     {"name" : "Traffic"},
     {"name" : "Police"},
     {"name" : "Road Safety"}
   ];
-  private issueSelected: string;
+  public issueSelected: string;
 
-  private semesters: Array<Object> = [
+  public semesters: Array<Object> = [
     {"name" : "Fall"},
     {"name" : "Spring"},
     {"name" : "Summer"}
     // ,{"name" : "Full Year"}
   ];
-  private semesterSelected: string;
+  public semesterSelected: string;
 
   public programControl: FormControl = new FormControl();
 
 //TODO: make it so you cannot select anything else if the first one is selected
-  private participationArray = [
+  public participationArray = [
     { value: 'Didn\'t apply to a ', viewValue: 'Didn\'t Apply', backendValue: "Not Applied" },
     { value: 'Participated in ', viewValue: 'Applied, Participated', backendValue: "Participated"  },
     { value: 'Applied to ', viewValue: 'Applied, Rejected', backendValue: "Applied"  },
     { value: 'Rejected Offer for ', viewValue: 'Applied, Didn\'t Participate', backendValue: "Rejected"  }
   ]
 
-  programs : Array<Object>;
-  /*
-  = [
-   {
-     name: 'HART',
-     participation: this.participationArray
-   },
-   {
-     name: 'LRME',
-     participation: this.participationArray
-   },
-   {
-     name: 'GEO1x',
-     disabled: true,
-     participation: this.participationArray
-   }
- ];
-  */
+  public programs : Array<Object>;
 
 
   constructor(

@@ -1,0 +1,34 @@
+<div class="sidebyside">
+  <div *ngFor="let property of displayProperties">
+    <span>{{capitalizeFirstLetter(property)}}: {{entityObject[property]}} </span>
+  </div>
+</div>
+<div class="sidebyside">
+  <div *ngFor="let property of displayProperties">
+    <span>Update {{capitalizeFirstLetter(property)}}: <input type="text" class="newValues"></span>
+  </div>
+</div>
+
+<div class="belowdiv">
+  <button (click)="updateEntity()">Update</button>
+</div>
+<!-- Any selectors for this? -->
+<ng-content></ng-content>
+<!-- <div>
+  This is where the Information for the profile will go!
+</div> -->
+<div class="belowdiv">
+  Make a note: <br>
+  <textarea id="notes" name="note" rows="8" cols="80"></textarea> <br>
+  <button (click)="makeNote()">Submit</button>
+</div>
+
+<div class="belowdiv">
+  NOTES: <br>
+  <mat-card *ngFor="let note of entityObject?.notes">
+    Note content: {{note.note}} <br>
+    Note author: {{note.userId}} <br>
+    Note date: {{note.creationDate}} <br>
+    <!-- TODO: FIX THIS WHEN THIS TO BE DISPLAY NAME BECOMES AND ENTITY -->
+  </mat-card>
+</div>

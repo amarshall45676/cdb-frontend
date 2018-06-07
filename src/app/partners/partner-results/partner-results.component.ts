@@ -10,6 +10,10 @@ import { BackendService } from '../../backend/backend.service';
 
 import { MatPaginator, MatTableDataSource, MatSort} from '@angular/material';
 
+import {PartnerComponent} from '../partner/partner.component';
+
+import { MatDialog, MatDialogRef} from '@angular/material';
+
 @Component({
   selector: 'app-partner-results',
   templateUrl: './partner-results.component.html',
@@ -28,8 +32,8 @@ export class PartnerResultsComponent implements OnInit {
 
   private partners: Array<Object>; //all partners
 
-  private dataSource: MatTableDataSource<Object>;
-  private displayedColumns = ['name', 'city', 'state', 'zipcode', 'profile'];
+  public dataSource: MatTableDataSource<Object>;
+  public displayedColumns = ['name', 'city', 'state', 'zipcode', 'profile'];
   private partnersService: PartnersService;
 
   private backendService: BackendService;
@@ -39,6 +43,7 @@ export class PartnerResultsComponent implements OnInit {
 
   constructor(pPartnersService: PartnersService,
      pBackendService: BackendService,
+     public dialog: MatDialog,
      private route: ActivatedRoute) {
     this.partnersService = pPartnersService;
     this.backendService = pBackendService;
@@ -58,7 +63,22 @@ export class PartnerResultsComponent implements OnInit {
   }
 
   public viewProfile(id) {
-    this.partnersService.viewProfile(id)
+  console.log("View profile for partner with ID: " + id);
+    // window.location.href = "partner/" + id;
+    this.openDialog(id);
+  }
+
+  openDialog(id) {
+    let dialogRef = this.dialog.open(PartnerComponent, {
+      width: '100%',
+      height: '100%',
+      data: id
+    });
+    //TODO: can do diffferent things on close of the dialog
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      // this.dialogResult = result;
+    });
   }
 
   public applyFilter(filterValue: string) {

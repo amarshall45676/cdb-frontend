@@ -8,6 +8,10 @@ import { BackendService } from '../../backend/backend.service';
 
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 
+import {ProjectComponent} from '../project/project.component';
+
+import { MatDialog, MatDialogRef} from '@angular/material';
+
 @Component({
   selector: 'app-project-results',
   templateUrl: './project-results.component.html',
@@ -25,8 +29,8 @@ export class ProjectResultsComponent implements OnInit {
   private sub;
 
   private projects: Array<Object>; //all programs
-  private dataSource: MatTableDataSource<Object>;
-  private displayedColumns = ['name', 'program', 'year', 'semester', 'profile'];
+  public dataSource: MatTableDataSource<Object>;
+  public displayedColumns = ['name', 'program', 'year', 'semester', 'profile'];
   private projectsService: ProjectsService;
   private backendService: BackendService;
 
@@ -36,6 +40,7 @@ export class ProjectResultsComponent implements OnInit {
   constructor(
     pProjectsService: ProjectsService,
     pBackendService: BackendService,
+    public dialog: MatDialog,
     private route: ActivatedRoute
   ) {
     this.projectsService = pProjectsService;
@@ -63,7 +68,23 @@ export class ProjectResultsComponent implements OnInit {
   }
 
   public viewProfile(id) {
-    this.projectsService.viewProfile(id);
+    console.log("View profile for partner with ID: " + id);
+
+    // window.location.href = "partner/" + id;
+    this.openDialog(id);
+  }
+
+  openDialog(id) {
+    let dialogRef = this.dialog.open(ProjectComponent, {
+      width: '100%',
+      height: '100%',
+      data: id
+    });
+    //TODO: can do diffferent things on close of the dialog
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      // this.dialogResult = result;
+    });
   }
 
   public submitQuery() {

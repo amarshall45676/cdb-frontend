@@ -17,23 +17,24 @@ export class ProgramComponent implements OnInit {
   private id;
   private sub;
 
-  private numStudents;
-  private loadingNumStudents = true;
+  //TODO: should make these values added to a program object, calculated before hand
+  public numStudents;
+  public loadingNumStudents = true;
 
-  private numPartners;
-  private loadingNumPartners = true;
+  public numPartners;
+  public loadingNumPartners = true;
 
-  private percentStudents;
-  private loadingPercentStudents = true;
+  public percentStudents;
+  public loadingPercentStudents = true;
 
-  private percentStudentsDidAnother;
-  private loadingPercentStudentsDidAnother = true;
+  public percentStudentsDidAnother;
+  public loadingPercentStudentsDidAnother = true;
 
-  private percentAcceptance;
-  private loadingPercentAcceptance= true;
+  public percentAcceptance;
+  public loadingPercentAcceptance= true;
 
   public notes:Array<Object>;
-  public program: Object;
+  public program; //TODO: make a program type
   public evals : Array<Object>;
 
   public partners:Array<Object>;
@@ -106,7 +107,12 @@ export class ProgramComponent implements OnInit {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+  //TODO: no resason to have this, should just use the reusable profile component
+  public updateFields() {
+    return "";
+  }
 
+//TODO: refactor this code to use profile resusable component
   public makeNote() {
     const author = "arm6"
     const date = new Date(Date.now());

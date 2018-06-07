@@ -28,8 +28,8 @@ export class AffiliateResultsComponent implements OnInit {
 
   private partners: Array<Object>; //all partners
 
-  private dataSource: MatTableDataSource<Object>;
-  private displayedColumns = ['name', 'profile'];
+  public dataSource: MatTableDataSource<Object>;
+  public displayedColumns = ['name', 'profile'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

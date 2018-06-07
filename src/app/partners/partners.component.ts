@@ -12,31 +12,31 @@ import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
   styleUrls: ['./partners.component.css', '../app.component.css']
 })
 export class PartnersComponent implements OnInit {
-  private types: Array<Object> = [
+  public types: Array<Object> = [
     {"name" : "Act"},
     {"name" : "Learn"},
     {"name" : "Create Change"}
   ];
-  private typeSelected: string;
+  public typeSelected: string;
 
-  private issues: Array<Object> = [
+  public issues: Array<Object> = [
     {"name" : "Traffic"},
     {"name" : "Police"},
     {"name" : "Road Safety"}
   ];
-  private issueSelected: string;
+  public issueSelected: string;
 
-  private semesters: Array<Object> = [
+  public semesters: Array<Object> = [
     {"name" : "Fall"},
     {"name" : "Spring"},
     {"name" : "Summer"}
     // ,{"name" : "Full Year"}
   ];
-  private semesterSelected: string;
+  public semesterSelected: string;
 
-  private programs: Array<Object>; //programs for the query
+  public programs: Array<Object>; //programs for the query
 
-  private programSelected: string;
+  public programSelected: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

@@ -1,8 +1,11 @@
+//TODO if ever figure out how to make this work without window.location.href use backendService
+// import {BackendService} from '../backend/backend.service'; private backendService: BackendService,
+
 import { Component, OnInit } from '@angular/core';
 
-import {BackendService} from '../backend/backend.service';
-
 import { AuthService } from '../authGuard/auth.service'
+
+import { URLService } from '../url/url.service';
 
 @Component({
   selector: 'app-landing',
@@ -10,16 +13,14 @@ import { AuthService } from '../authGuard/auth.service'
   styleUrls: ['./landing.component.css', '../app.component.css']
 })
 export class LandingComponent implements OnInit {
-  // public loginURL = "http://localhost:2222/auth";
-  public loginURL = "https://protected-chamber-70038.herokuapp.com/auth";
 
-  constructor(private backendService: BackendService, private authService: AuthService) { }
+  constructor(private urlService: URLService, private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   public login() {
-    this.authService.login();
-    window.location.href = this.loginURL;
+    this.authService.login(); // Tell the frontend I am logging in
+    window.location.href = this.urlService.getBackendURL() + "/auth"; // Make request to backend to login
   }
 }

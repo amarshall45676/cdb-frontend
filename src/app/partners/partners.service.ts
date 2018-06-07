@@ -12,8 +12,10 @@ export class PartnersService {
 
   private backendService : BackendService;
 
-  constructor(pBackendService : BackendService,
-  public dialog: MatDialog) {
+  constructor(
+    pBackendService : BackendService,
+    public dialog: MatDialog)
+   {
     this.backendService = pBackendService;
    }
 
@@ -32,26 +34,6 @@ export class PartnersService {
 
   public getPartnersPromiseForProgram(programName) {
     return this.backendService.resource("GET", "partner/program/" + programName, null);
-  }
-
-  public viewProfile(id) {
-    console.log("View profile for partner with ID: " + id);
-
-    // window.location.href = "partner/" + id;
-    this.openDialog(id);
-  }
-
-  openDialog(id) {
-    let dialogRef = this.dialog.open(PartnerComponent, {
-      width: '100%',
-      height: '100%',
-      data: id
-    });
-    //TODO: can do diffferent things on close of the dialog
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog closed: ${result}`);
-      // this.dialogResult = result;
-    });
   }
 
 }
