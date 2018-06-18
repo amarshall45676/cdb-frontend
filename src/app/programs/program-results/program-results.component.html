@@ -1,16 +1,14 @@
 <a href="main">Back to the main page!</a>
-<div id="programTable" class="belowdiv">
+<p>
+  This should not be in use!
+</p>
+<!-- <div id="programTable" class="belowdiv">
   <div class="example-header">
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
   </div>
   <mat-table #table [dataSource]="dataSource" matSort>
-
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- Name Column -->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
@@ -38,4 +36,4 @@
                [pageSize]="5"
                [pageSizeOptions]="[5, 10, 20]">
   </mat-paginator>
-</div>
+</div> -->

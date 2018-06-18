@@ -1,9 +1,9 @@
 <app-page-header title="Student Profile"></app-page-header>
-<app-profile entity="{{id}}" [service]="studentService" [display]="displayMapping">
+<app-profile entity="{{id}}" [service]="studentService">
   <div class="belowdiv list">
     Partners interacted with: <br>
     <mat-card *ngFor="let partner of partners">
-      Partner Name: {{partner.name}}
+      Partner Name: {{partner.Name}}
     </mat-card>
   </div>
 
@@ -12,22 +12,12 @@
       Specific projects they participated in:
     </p>
     <mat-card *ngFor="let program of programsParticipated">
-      Program Name: {{program.name}} <br>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-        <mat-panel-title>
-          Projects
-        </mat-panel-title>
-        <mat-panel-description>
-          These are projects this students has participated in this program
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-        <p>
-          <mat-card *ngFor="let project of program.projects">
-            {{project.name}}
-          </mat-card>
-        </p>
-      </mat-expansion-panel>
+      Program Name: {{program.programName}} <br>
+      <p>
+        <mat-card *ngFor="let project of program.projects">
+          {{project.Name}}
+        </mat-card>
+      </p>
     </mat-card>
   </div>
 
@@ -36,22 +26,12 @@
       Specific projects they applied to:
     </p>
     <mat-card *ngFor="let program of programsApplied">
-      Program Name: {{program.name}} <br>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-        <mat-panel-title>
-          Projects
-        </mat-panel-title>
-        <mat-panel-description>
-          These are projects this students has applied to in this program
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-        <p>
-          <mat-card *ngFor="let project of program.projects">
-            {{project.name}}
-          </mat-card>
-        </p>
-      </mat-expansion-panel>
+      Program Name: {{program.programName}} <br>
+      <p>
+        <mat-card *ngFor="let project of program.projects">
+          {{project.Name}}
+        </mat-card>
+      </p>
     </mat-card>
   </div>
 
@@ -60,7 +40,7 @@
       Specific projects they rejected here:
     </p>
     <mat-card *ngFor="let program of programsRejected">
-      Program Name: {{program.name}} <br>
+      Program Name: {{program.programName}} <br>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
         <mat-panel-title>
@@ -72,7 +52,7 @@
       </mat-expansion-panel-header>
         <p>
           <mat-card *ngFor="let project of program.projects">
-            Project Name: {{project.name}}
+            Project Name: {{project.Name}}
           </mat-card>
         </p>
       </mat-expansion-panel>

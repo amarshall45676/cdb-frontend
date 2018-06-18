@@ -4,6 +4,8 @@ import { ProgramsService } from '../programs/programs.service';
 
 import { BackendService } from '../backend/backend.service';
 
+import { UtilsService } from '../utils/utils.service';
+
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
@@ -12,6 +14,11 @@ import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
   styleUrls: ['./partners.component.css', '../app.component.css']
 })
 export class PartnersComponent implements OnInit {
+  public emptyQuery: string = "#/partnerResults";
+  //TODO: make these change over time based off of data, and also the current year
+  public startYear = 2012;
+  public endYear = 2018;
+
   public types: Array<Object> = [
     {"name" : "Act"},
     {"name" : "Learn"},
@@ -43,15 +50,16 @@ export class PartnersComponent implements OnInit {
 
   constructor(
      private programsService: ProgramsService,
-     private backendService: BackendService) {
-   }
+     private backendService: BackendService,
+     private utilsService: UtilsService)
+     { }
 
   ngOnInit() {
     console.log("Init for partner component")
 
     this.programsService.getProgramsPromise().then(programs => {
-      console.log(JSON.stringify(programs))
       this.programs = programs
+      this.programs.sort(this.utilsService.comparisonFunction)
     })
   }
 
@@ -71,10 +79,4 @@ export class PartnersComponent implements OnInit {
       semester + "/" +
       yearStart + "/" + yearEnd;
   }
-
-  //TODO: refactor somewhere
-  private makeQuery(method, endpoint) {
-    return this.backendService.resource(method, endpoint, null)
-  }
-
 }

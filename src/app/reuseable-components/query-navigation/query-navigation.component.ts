@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AuthService } from '../../authGuard/auth.service';
+import { BackendService } from '../../backend/backend.service';
+
 @Component({
   selector: 'app-query-navigation',
   templateUrl: './query-navigation.component.html',
@@ -7,34 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QueryNavigationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private backendService: BackendService, private authService: AuthService) { }
 
   ngOnInit() {
   }
 
-
-  public redirectMain() {
-    this.redirect("#/main")
-  }
-
-  public redirectProjects() {
-    this.redirect("#/projects")
-  }
-
-  public redirectPartners() {
-    this.redirect("#/partners")
-  }
-
-  public redirectStudents() {
-    this.redirect("#/students")
-  }
-
-  public redirectAffiliates() {
-    this.redirect("#/affiliates")
-  } //TODO: need to do the affiliates component
-
-  private redirect(location) {
-    window.location.href = location; //TODO:router navigate is better?
+  public logout() {
+    this.backendService.logout().then(r => {
+      window.location.href = `#/landing`
+      this.authService.logout();
+      window.alert("You were succesfully logged out")
+    })
   }
 
 }

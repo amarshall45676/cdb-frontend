@@ -13,6 +13,14 @@
   margin:5px;
 }
 
+.twoSideBySide {
+  float: left;
+  border-style: solid;
+  border-color: #0D47A1;
+  margin:5px;
+  width: 48%
+}
+
 .fill-remaining-space {
   /* This fills the remaining space, by using flexbox.
    Every toolbar row uses a flexbox row layout. */
@@ -23,7 +31,16 @@
   background-color: #0D47A1;
   color: #E0E0E0;
 }
-/* 
+
+.querySelector {
+  /* TODO: maybe have this be display block width 100% */
+  width: 30%;
+}
+
+.yearSelector {
+  width: 15%;
+}
+/*
 .flexbox {
   display: flex;
   flex-direction: row;

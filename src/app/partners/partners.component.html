@@ -1,17 +1,15 @@
-<app-page-header title="Partners Page" queryNav="true">
-  <app-query-navigation></app-query-navigation>
-</app-page-header>
-<div class="belowdiv">
+<app-page-header title="Partners Page" queryNav="true"></app-page-header>
+<div class="twoSideBySide">
   Programs: <br>
-  <mat-form-field>
+  <mat-form-field class="querySelector">
     <mat-select placeholder="Program" [(ngModel)]="programSelected" multiple>
       <mat-option *ngFor="let program of programs" [value]="program.name">
-        {{ program.name }}
+        {{ program.Name }}
       </mat-option>
     </mat-select>
   </mat-form-field> <br>
   Act, Learn or Create Change: <br>
-  <mat-form-field>
+  <mat-form-field class="querySelector">
     <mat-select placeholder="Act, Learn or Create Change" [(ngModel)]="typeSelected" multiple>
       <mat-option *ngFor="let type of types" [value]="type.name">
         {{ type.name }}
@@ -19,7 +17,7 @@
     </mat-select>
   </mat-form-field> <br>
   Semester: <br>
-  <mat-form-field>
+  <mat-form-field class="querySelector">
     <mat-select placeholder="Semester" [(ngModel)]="semesterSelected" multiple>
       <mat-option *ngFor="let semester of semesters" [value]="semester.name">
         {{ semester.name }}
@@ -27,13 +25,28 @@
     </mat-select>
   </mat-form-field> <br>
   Social Issues Concerned With: <br>
-  <mat-form-field>
+  <mat-form-field class="querySelector">
     <mat-select placeholder="Social Issues Concerned With" [(ngModel)]="issueSelected" multiple>
       <mat-option *ngFor="let issue of issues" [value]="issue.name">
         {{issue.name }}
       </mat-option>
     </mat-select>
   </mat-form-field> <br>
-  Years Start: <input type="number" id="yearStart" value="2018"> Years End: <input type="number" id="yearEnd" value = "2018"> <br>
-  <button (click)="submitQuery()">Submit Query</button>
+  <mat-form-field class="yearSelector">
+    <input matInput type="number" placeholder="Start Year" id="yearStart" value="{{startYear}}">
+  </mat-form-field>
+  <mat-form-field class="yearSelector">
+    <input matInput type="number" placeholder="End Year" id="yearEnd" value = "{{endYear}}">
+  </mat-form-field> <br>
+    <button mat-raised-button class="riceColors" (click)="submitQuery()">Submit Query</button>
+</div>
+<div class="twoSideBySide">
+  <p>
+    Want to view all partners?
+  </p>
+  <a href="{{emptyQuery}}">
+    <button mat-raised-button class="riceColors">
+      View All Partners
+    </button>
+  </a>
 </div>

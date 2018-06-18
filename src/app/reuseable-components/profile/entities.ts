@@ -1,8 +1,9 @@
 /**
 Class to store all of the frontend entities
 */
+//TODO: use these!
 export class Entity {
-
+  public Notes;
 }
 
 export class Partner extends Entity {

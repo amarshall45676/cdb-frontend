@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {BackendService} from '../backend/backend.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-data-upload',
@@ -8,39 +9,25 @@ import {BackendService} from '../backend/backend.service';
   styleUrls: ['./data-upload.component.css', '../app.component.css']
 })
 export class DataUploadComponent implements OnInit {
-  public fileUploaded = false; //File was uploaded while this page was loaded
-  public fileBeingUploaded = false;
-
-  public dataUploadResult: Object;
+  public partnerForm: FormGroup;
 
   constructor(private backendService: BackendService) { }
 
   ngOnInit() {
+    this.partnerForm = new FormGroup ({
+      name: new FormControl('', Validators.required),
+      city: new FormControl(),
+      state: new FormControl(),
+      zipcode: new FormControl()
+    });
   }
 
-  public uploadData() {
-    console.log("Uploading Data!");
-    // Reset dataupload Result
-    this.fileUploaded = false;
-    this.dataUploadResult = null;
-    var inputFile = (<HTMLInputElement>document.getElementById("file")).files[0]
-    if (inputFile === undefined) {
-      return
-    }
-    const fd = new FormData()
-    fd.append("file", inputFile)
-    const res = this.backendService.uploadFile(fd)
-    this.fileUploaded = true;
-    this.fileBeingUploaded = true;
-    res.then(r => {
-      console.log(r)
-      if(r === "") {
-        console.log("Returned an empty string!")
-      }
-      this.fileBeingUploaded = false;
-      // const div = (<HTMLInputElement>document.getElementById("resultString"))
-      // div.value = r;
-      this.dataUploadResult = r;
-    })
+  // TODO: use frontend entities on creation, then maybe can use a form group object to make this reusable
+
+  public createPartner() {
+    console.log(this.partnerForm.controls)
+    console.log('Partner Name: ' + JSON.stringify(this.partnerForm.get('name').value));
+    console.log('Partner Name: ' + JSON.stringify(this.partnerForm.get('city').value));
   }
+
 }

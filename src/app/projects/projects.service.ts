@@ -22,8 +22,14 @@ export class ProjectsService {
    return this.backendService.resource("GET", "program/", null);
   }
 
+  public getProjectsWithStudentPromise(partnerName) {
+    return this.backendService.resource(
+      "GET", "project/partner/" + partnerName + "/withStudents", null);
+  }
+
   public getProjectAffiliatesPromise(projectName) {
-   return this.backendService.resource("GET", "program/project/" + projectName + "/affiliates", null);
+   return this.backendService.resource(
+     "GET", "program/project/" + projectName + "/affiliates", null);
   }
 
   public getProjectPromise(projectName) {

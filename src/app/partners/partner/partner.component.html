@@ -1,31 +1,20 @@
 <app-page-header title="Partner Profile"></app-page-header>
-<app-profile entity="{{id}}" [service]="partnerService" [display]="displayMapping">
+<app-profile entity="{{id}}" [service]="partnerService">
   <div class="belowdiv list">
     Programs worked with: <br>
     <mat-card *ngFor="let program of programs">
-      Program Name: {{program.displayName}} <br>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-        <mat-panel-title>
-          Projects
-        </mat-panel-title>
-        <mat-panel-description>
-          These are projects this partner has sponsored for this program
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-        <p>
-          <mat-card *ngFor="let project of program.projects">
-            {{project.displayName}}
-          </mat-card>
-        </p>
-      </mat-expansion-panel>
-    </mat-card>
-  </div>
-  <div class="belowdiv list">
-    Students worked with:
-    <mat-card *ngFor="let student of students">
-      Student Name: {{student.displayName}} <br>
-      Email: {{student.email}}
+      <mat-card-title>
+        Program Name: {{program.programName}}
+      </mat-card-title>
+      <mat-card *ngFor="let project of program.projects">
+        <mat-card-title>
+          Project Name: {{project.projectName}}
+        </mat-card-title>
+        <mat-card *ngFor="let student of project.students">
+          Student Name: {{student.Name}} <br>
+          Student Email: {{student.Email}}
+        </mat-card>
+      </mat-card>
     </mat-card>
   </div>
 </app-profile>

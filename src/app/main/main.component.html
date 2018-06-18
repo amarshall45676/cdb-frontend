@@ -1,19 +1,20 @@
-<app-page-header title="Main Page" queryNav="true">
-  <app-query-navigation></app-query-navigation>
-</app-page-header>
+<app-page-header title="Main Page" queryNav="true"></app-page-header>
 <mat-drawer-container>
-  <mat-drawer mode="side" opened="true">
+  <mat-drawer class="riceColors" mode="side" opened="true" position="start">
     <mat-list>
-      <mat-list-item>
-        <span class="title riceColors"><u>Programs:</u></span>
+      <mat-list-item >
+        <span class="riceColors title"><u>Programs</u></span>
       </mat-list-item>
       <mat-list-item *ngFor="let program of programs">
-        <button mat-button (click)="viewProgram(program.name)">{{program.name}}</button>
+        <!-- Is there a way to make this a link? -->
+        <button mat-stroked-button class="riceColors drawerElement" (click)="viewProgram(program.Name)">
+          {{program.Name}}
+        </button>
       </mat-list-item>
     </mat-list>
   </mat-drawer>
   <mat-drawer-content>
-    <article class="sidebyside">
+    <article class="twoSideBySide">
       <h1>Getting Started</h1>
       <p>
         Here is the info about the database you will need to know
@@ -25,7 +26,7 @@
       <p>Files here!</p>
 
     </article>
-    <article class="sidebyside">
+    <article class="twoSideBySide">
       <h1>Getting Started</h1>
       <h2>Queries</h2>
       <p>Query Info</p>

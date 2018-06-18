@@ -4,6 +4,8 @@ import {ProgramsService} from '../programs/programs.service';
 
 import {BackendService} from '../backend/backend.service';
 
+import { UtilsService } from '../utils/utils.service';
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -14,29 +16,19 @@ export class MainComponent implements OnInit {
 
   constructor(
     private programsService: ProgramsService,
-    private backendService: BackendService
+    private backendService: BackendService,
+    private utilsService: UtilsService
   ) { }
-
-  private comparisonFunction(programA, programB) {
-    if (programA["name"] < programB["name"]) {
-      return -1;
-    }
-    else if (programA["name"] == programB["name"]) {
-      return 0;
-    } else {
-      return 1;
-    }
-  }
 
   ngOnInit() {
     this.programsService.getProgramsPromise().then((programs) => {
-      this.programs = programs.sort(this.comparisonFunction);
-    })
+      this.programs = programs.sort(this.utilsService.comparisonFunction);
+    });
   }
 
   public viewProgram(programName) {
-    console.log("Want to view: " + programName)
-    //TODO: call the service method
+    console.log('Want to view: ' + programName)
+    // TODO: call the service method
     this.programsService.viewProfile(programName);
   }
 }

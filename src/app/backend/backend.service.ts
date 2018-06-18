@@ -11,8 +11,8 @@ export class BackendService {
    }
 
   public resource(method, endpoint, payload) {
-    var options: RequestInit
-    if (method != "GET") {
+    let options: RequestInit;
+    if (method !== 'GET') {
       options = {
         method,
         credentials: 'include',
@@ -20,7 +20,7 @@ export class BackendService {
             'Content-Type': 'application/json'
         },
         body: ''
-    }
+    };
       if (payload) {
         options.body = JSON.stringify(payload);
       }
@@ -31,10 +31,10 @@ export class BackendService {
         headers: {
             'Content-Type': 'application/json'
         },
-      }
+      };
     }
 
-    return fetch(`${this.baseBackend}/${endpoint}`, options) //Make request to backend
+    return fetch(`${this.baseBackend}/${endpoint}`, options) // Make request to backend
         .then(r => {
             if (r.status === 200) {
                 if (r.headers.get('Content-Type').indexOf('json') > 0) {
@@ -49,16 +49,14 @@ export class BackendService {
         });
   }
 
-  public uploadFile(formData) {
-    console.log("---Frontend making call to backend to upload file---")
-    var options: RequestInit
-    options = {
-      method : "POST",
+  public uploadFileGeneral(formData, fileType) {
+    const options: RequestInit = {
+      method : 'POST',
       body : formData,
-      credentials : "include" //inclue credential on request so authenticated
-    }
+      credentials : 'include' // include credential on request so authenticated
+    };
 
-    return fetch(`${this.baseBackend}/data/file`, options)
+    return fetch(`${this.baseBackend}/data/file/${fileType}`, options)
         .then(r => {
           // console.log(r)
             if (r.status === 200) {
@@ -75,13 +73,13 @@ export class BackendService {
   }
 
   public logout() {
-    var options: RequestInit = {
-        method : "GET",
+    const options: RequestInit = {
+        method : 'GET',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         }
-    }
+    };
     return fetch(`${this.baseBackend}/auth/logout`, options)
         .then(r => {
             if (r.status === 200) {
@@ -90,20 +88,20 @@ export class BackendService {
                 // useful for debugging, but remove in production
                 throw new Error(r.statusText);
             }
-        })
+        });
   }
 
-  //Returns promise that contains the fieldName to the new updated value
+  // Returns promise that contains the fieldName to the new updated value
   public updateEntity(entityName, entityId, newValues) {
-    const endpoint = entityName + "/" + entityId;
-    return this.resource("PUT", endpoint, newValues);
+    const endpoint = `${entityName}/${entityId}`;
+    return this.resource('PUT', endpoint, newValues);
   }
 
-  //TODO: not sure how to make the login work with a sigle reqeust and OAuth
+  // TODO: not sure how to make the login work with a sigle reqeust and OAuth
     // public login() {
-    //   console.log("In login request")
+    //   console.log('In login request')
     //   var options: RequestInit = {
-    //       method : "GET",
+    //       method : 'GET',
     //       credentials: 'include',
     //       headers: {
     //       }

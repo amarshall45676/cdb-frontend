@@ -1,0 +1,28 @@
+<div class="belowdiv">
+  <ng-content select="p"></ng-content>
+  <p>Upload your data!</p>
+  <input type="file" name="" value="" [id]="fileType"> <br> <br>
+  <button (click)="uploadData()" mat-button class="riceColors">Submit!</button> <br>
+  <div *ngIf="fileUploaded">
+    <div>Result of upload will go below</div> <br>
+    <mat-spinner *ngIf="fileBeingUploaded" color="primary"></mat-spinner>
+    <mat-card *ngIf="dataUploadResult?.successful" class="belowdiv">
+      Upload was successful!
+    </mat-card>
+    <mat-card *ngFor="let sheet of dataUploadResult?.sheets" class="belowdiv">
+      <mat-card-title>
+        Sheet: {{sheet.sheetName}}
+      </mat-card-title>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngIf="sheet.successful">
+            No errors!
+          </mat-list-item>
+          <mat-list-item *ngFor="let row of sheet.rows">
+            Row {{row.row_num}}: {{row.result}}
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

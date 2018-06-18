@@ -2,16 +2,22 @@ import { Injectable } from '@angular/core';
 
 import { BackendService } from '../../backend/backend.service'
 
+import { ProfileService } from '../../reuseable-components/profile/profile.service';
+
 @Injectable()
-export class ProgramService {
-  private backendService : BackendService;
+export class ProgramService extends ProfileService {
 
   constructor(pBackendService : BackendService) {
+    super(pBackendService, "program")
     this.backendService = pBackendService;
    }
 
   public getProgramPromise(programName) {
    return this.backendService.resource("GET", "program/" + programName, null);
+  }
+
+  public validateFields(updateObjects) {
+    return;
   }
 
   public getEvalsPromise(programName) {

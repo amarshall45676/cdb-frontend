@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 
-import {CookieService} from "ngx-cookie";
+import {CookieService} from 'ngx-cookie';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthService {
    }
 
   public getIsLoggedIn() {
-    if(this.cookieService.get("loggedIn")) { //If user was saved then one has logged in
+    if (this.cookieService.get('loggedIn')) { // If user was saved then one has logged in
       return true;
     } else {
       return false;
@@ -20,11 +20,11 @@ export class AuthService {
   }
 
   public login() {
-    this.cookieService.putObject("loggedIn", true); //save the loggedIn object to cookies so it is persistent for the user
+    this.cookieService.putObject('loggedIn', true); // save the loggedIn object to cookies so it is persistent for the user
   }
 
   public logout() {
-    this.cookieService.remove("loggedIn");
+    this.cookieService.remove('loggedIn');
   }
 
 }

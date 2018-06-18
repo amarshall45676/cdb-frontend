@@ -11,11 +11,9 @@
   <!-- TODO: CHANGE BELOW -->
   <!-- To add query nav to the page header need to have queryNav = true, and the app-query-navigation  -->
   <mat-toolbar-row *ngIf="queryNav">
-    <ng-content select="app-query-navigation"></ng-content>
-    <span class="fill-remaining-space"></span>
-    <button (click)="logout()" mat-button color="warn" class="logout">
-      Logout
-    </button>
+    <app-query-navigation class="title-center"></app-query-navigation>
+    <!-- This is put here so that it is able to fill the toolbar row -->
+    <!-- <span class="fill-remaining-space"></span> -->
   </mat-toolbar-row>
 
 </mat-toolbar>

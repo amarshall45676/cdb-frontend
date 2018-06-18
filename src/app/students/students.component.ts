@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { StudentsService } from './students.service';
 import { BackendService } from '../backend/backend.service';
-
 import { PartnersService } from '../partners/partners.service';
-
 import { ProgramsService } from '../programs/programs.service';
+import { UtilsService } from '../utils/utils.service';
 
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import {FormControl} from '@angular/forms';
@@ -15,6 +15,11 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['./students.component.css', '../app.component.css']
 })
 export class StudentsComponent implements OnInit {
+  public emptyQuery: string = "#/studentResults";
+  //TODO: make these change over time based off of data, and also the current year
+  public startYear = 2012;
+  public endYear = 2018;
+
   public partnerSelected : string; //TODO: want to give each of these a getter and setter?
   partners: Array<Object> = [
     {name: "Partner 1"}
@@ -52,29 +57,27 @@ export class StudentsComponent implements OnInit {
     private studentsService: StudentsService,
      private backendService: BackendService,
      private partnersService: PartnersService,
-     private programsService: ProgramsService
+     private programsService: ProgramsService,
+     private utilsService: UtilsService
    ) {
    }
 
   ngOnInit() {
     this.partnersService.getPartnersPromise().then(partners => {
-      this.partners = partners.sort(this.compareFunction)
+      this.partners = partners;
+      partners.sort(this.utilsService.comparisonFunction)
     })
 
     this.programsService.getProgramsPromise().then((programs) => {
       programs.forEach((program) => {
         program["participation"] = JSON.parse(JSON.stringify(this.participationArray)); //Add the participation value to the object, deep copy
         program["participation"].forEach((participation) => {
-          participation.programName = program.name
+          participation.programName = program.Name
         })
-        // console.log(program)
       })
       this.programs = programs;
+      this.programs.sort(this.utilsService.comparisonFunction)
     })
-  }
-
-  private compareFunction(a, b) {
-    return a["name"] < b["name"] ? a["name"] === b["name"] ? 0 : -1 : 1
   }
 
   public submitQuery() {
@@ -102,9 +105,4 @@ export class StudentsComponent implements OnInit {
       semester + "/" +
       yearStart + "/" + yearEnd;
   }
-
-  private makeQuery(method, endpoint) {
-    return this.backendService.resource(method, endpoint, null)
-  }
-
 }

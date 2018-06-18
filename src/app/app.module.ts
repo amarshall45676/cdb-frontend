@@ -10,11 +10,10 @@ import {CookieModule} from "ngx-cookie";
 
 // Angular Material Imports
 import {
-  MatCardModule, MatPaginatorModule, MatInputModule, MatFormFieldModule,
-  MatExpansionModule, MatSelectModule, MatSortModule, MatTableModule,
-  MatDialogModule, MatToolbarModule, MatButtonModule, MatSidenavModule,
-  MatDividerModule, MatListModule, MatMenuModule,//are these needed?
-  MatProgressSpinnerModule
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule,
+  MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule,
+  MatListModule, MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule,
+  MatSidenavModule, MatSortModule, MatTableModule, MatToolbarModule
 } from '@angular/material';
 
 // Import base app
@@ -78,19 +77,23 @@ import { MainComponent } from './main/main.component';
 //Import Backend Service
 import { BackendService } from './backend/backend.service';
 import { URLService } from './url/url.service'
+import { UtilsService } from './utils/utils.service';
 
 // Reusable components and services
 import { PageHeaderComponent } from './reuseable-components/page-header/page-header.component';
 import { QueryNavigationComponent } from './reuseable-components/query-navigation/query-navigation.component';
 import { ResultsTableComponent } from './reuseable-components/results-table/results-table.component';
+import { FileUploadComponent } from './reuseable-components/file-upload/file-upload.component';
 
 import { ProfileComponent } from './reuseable-components/profile/profile.component';
 import { ProfileService } from './reuseable-components/profile/profile.service';
 
 
+
 //Defining the routes for the project
 export const routes : Routes = [
   {path: '', redirectTo: 'landing', pathMatch: 'full'},
+  {path: 'test', component: ResultsTableComponent},
   {path: 'noAuth', component: NoAuthComponent},
   {path: 'landing', component: LandingComponent},
   {
@@ -101,6 +104,11 @@ export const routes : Routes = [
   {
     path: 'students',
     component : StudentsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'studentResults',
+    component : StudentResultsComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -119,6 +127,11 @@ export const routes : Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'partnerResults', // Empty route for just viewing all partners in the DB
+    component : PartnerResultsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'partnerResults/:program/:issue/:type/:semester/:yearStart/:yearEnd',
     component : PartnerResultsComponent,
     canActivate: [AuthGuard]
@@ -133,7 +146,6 @@ export const routes : Routes = [
     component : ProgramResultsComponent,
     canActivate: [AuthGuard]
   },
-  // {path: 'programResults/:program/:semester/:yearStart/:yearEnd', component : },
   {
   path: 'program/:id',
   component : ProgramComponent,
@@ -142,6 +154,11 @@ export const routes : Routes = [
   {
     path: 'projects',
     component : ProjectsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'projectResults', // Empty route for just viewing all partners in the DB
+    component : ProjectResultsComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -201,31 +218,32 @@ export const routes : Routes = [
     PageHeaderComponent,
     QueryNavigationComponent,
     ProfileComponent,
-    ResultsTableComponent
+    ResultsTableComponent,
+    FileUploadComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
+    CookieModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes, {useHash: true}), //useHash : true
+    //Angular Material Modules
+    MatButtonModule,
     MatCardModule,
     MatDialogModule,
-    MatTableModule,
-    MatDividerModule,
     MatExpansionModule,
     MatFormFieldModule,
-    MatMenuModule,
-    MatListModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatPaginatorModule,
-    BrowserAnimationsModule,
-    MatSortModule,
+    MatIconModule,
     MatInputModule,
-    CookieModule.forRoot(),
-    MatProgressSpinnerModule
+    MatListModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSortModule,
+    MatTableModule,
+    MatToolbarModule
   ],
   providers: [
     BackendService,
@@ -235,7 +253,7 @@ export const routes : Routes = [
     ProjectsService, ProjectService,
     AffiliatesService,
     AuthService, AuthGuard,
-    URLService
+    URLService, UtilsService
    ],
   bootstrap: [AppComponent],
   schemas : [] //CUSTOM_ELEMENTS_SCHEMA

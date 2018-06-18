@@ -1,6 +1,3 @@
-<app-page-header title="Student Results Page" queryNav="true">
-  <app-query-navigation></app-query-navigation>
-</app-page-header>
 <div class="belowdiv">
   <div class="example-header">
     <mat-form-field>
@@ -8,21 +5,22 @@
     </mat-form-field>
   </div>
   <mat-table #table [dataSource]="dataSource" matSort>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.displayName}} </mat-cell>
+    <mat-header-row *matHeaderRowDef="displayProperties"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayProperties;"></mat-row>
+
+    <!-- Need to have the [] around the matColumnDef to consider displayProperty a variable -->
+    <ng-container *ngFor="let displayColumn of displayedColumns" [matColumnDef]="displayColumn">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{displayColumn}} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element[displayColumn]}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="profile">
-      <mat-header-cell *matHeaderCellDef> View Profile </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> View Profile </mat-header-cell>
       <mat-cell *matCellDef="let element">
-         <button type="button" name="button" (click)=viewProfile(element.profile)>View Profile</button>
+        <button (click)=viewProfile(element.profile)>View Profile</button>
       </mat-cell>
     </ng-container>
+
   </mat-table>
   <mat-paginator class="belowdiv" #paginator
                [pageSize]="20"

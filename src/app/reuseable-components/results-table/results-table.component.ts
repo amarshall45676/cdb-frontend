@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, Input} from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { MatDialog, MatDialogRef} from '@angular/material';
 
+import { BackendService } from '../../backend/backend.service';
+
 import { StudentComponent } from '../../students/student/student.component';
 import { PartnerComponent } from '../../partners/partner/partner.component';
 import { ProjectComponent } from '../../projects/project/project.component';
@@ -9,31 +11,66 @@ import { ProjectComponent } from '../../projects/project/project.component';
 @Component({
   selector: 'app-results-table',
   templateUrl: './results-table.component.html',
-  styleUrls: ['./results-table.component.css']
+  styleUrls: ['./results-table.component.css', '../../app.component.css']
 })
 export class ResultsTableComponent implements OnInit {
   @Input() type: string;
-  @Input() entities: Array<Object>;
+  @Input() queryString: string; //String to send query to backend
+
+  entities: Array<Object>;
 
   //TODO: make this an array of "Entities"
   private displayValues: Array<Object>; //all objects to be displayed
   //TODO: make this a source of "Entities"
   public dataSource: MatTableDataSource<Object>; //allows for filtering and pagination of table
   //TODO: pull display columns from the object
-  public displayedColumns = ['name', 'profile'];
+  public displayProperties: Array<string>; // these are the properties for the table
+  public displayedColumns: Array<string> // these are the addition columns for the table
 
   // These are so that the table has sort and paging functionality
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-     public dialog: MatDialog) {
-   }
+     public dialog: MatDialog,
+     private backendService: BackendService)
+   { }
 
   ngOnInit() {
-    console.log("Intializing results table")
-    this.dataSource = new MatTableDataSource(this.entities);
-    // this.displayedColumns = []; //TODO: get these from the object
+    console.log("Query String: " + this.queryString)
+    const resultsPromise = this.makeQuery(this.queryString);
+    resultsPromise.then(results =>
+      {
+        this.entities = results; //TODO: refactor here
+        console.log("Intializing results table")
+        if (this.entities) {
+          const entity = this.entities[0]
+          const keys = Object.keys(entity);
+          this.removeElementFromArray(keys, "Notes")
+          this.displayedColumns = keys.slice();
+          //Make sure profile is just button
+          //TODO: clean this up it is ugly
+          keys.push("profile")
+          this.entities.forEach(result => {
+            result["profile"] = result["Name"]
+          })
+          this.displayProperties = keys.slice();
+        }
+        this.dataSource = new MatTableDataSource(this.entities);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    )
+  }
+
+  private removeElementFromArray(array, element) {
+    const index = array.indexOf(element);
+    array.splice(index, 1);
+  }
+
+  //TODO: refactor below to a service?
+  private makeQuery(endpoint) {
+    return this.backendService.resource("GET", endpoint, null)
   }
 
   public applyFilter(filterValue: string) {
@@ -43,7 +80,7 @@ export class ResultsTableComponent implements OnInit {
   }
 
   public viewProfile(id) {
-    console.log("View profile for an entity with ID: " + id);
+    console.log("View profile for an entity with ID: " + JSON.stringify(id));
 
     this.openDialog(id);
   }

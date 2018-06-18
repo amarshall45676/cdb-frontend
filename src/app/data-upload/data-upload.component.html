@@ -1,31 +1,73 @@
-<app-page-header title="Data Upload Page" queryNav="true">
-  <app-query-navigation></app-query-navigation>
-</app-page-header>
-<div class="belowdiv data">
-  <p>Explain upload process here!</p>
-  <p>Upload your data!</p>
-  <input type="file" name="" value="" id="file"> <br> <br>
-  <button (click)="uploadData()" mat-button>Submit!</button> <br>
-  <div *ngIf="fileUploaded">
-    <div>Result of upload will go below</div> <br>
-    <mat-spinner *ngIf="fileBeingUploaded" color="primary"></mat-spinner>
-    <mat-card *ngIf="dataUploadResult?.successful">
-      Upload was successful!
-    </mat-card>
-    <mat-card *ngFor="let sheet of dataUploadResult?.sheets" class="belowdiv">
-      <mat-card-title>
-        Sheet: {{sheet.sheetName}}
-      </mat-card-title>
-      <mat-card-content>
-        <mat-list>
-          <mat-list-item *ngIf="sheet.rows.length == 0">
-            No errors!
-          </mat-list-item>
-          <mat-list-item *ngFor="let row of sheet.rows">
-            Row {{row.row_num}}: {{row.result}}
-          </mat-list-item>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
-  </div>
+<app-page-header title="Data Upload Page" queryNav="true"></app-page-header>
+<div class="twoSideBySide">
+  <app-file-upload fileType="projects">
+    <p>
+      For Projects
+    </p>
+  </app-file-upload>
+  <app-file-upload fileType="participation">
+    <p>
+      For Participation
+    </p>
+  </app-file-upload>
+  <app-file-upload fileType="partners">
+    <p>
+      For Partners
+    </p>
+  </app-file-upload>
+  <app-file-upload fileType="students">
+    <p>
+      For Students
+    </p>
+  </app-file-upload>
+</div>
+<div class="twoSideBySide">
+  <!-- TODO MAKE RESUABLE, and use form controls on the parameters -->
+  <mat-card class="belowdiv">
+    <mat-card-title>
+      Create a Single Partner
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="partnerForm">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Name" formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" placeholder="City" formControlName="city">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" placeholder="State" formControlName="state">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Name" formControlName="zipcode">
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button class="riceColors" (click)="createPartner()">Create!</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="belowdiv">
+    <mat-card-title>
+      Create a Single Program
+    </mat-card-title>
+    <mat-card-content>
+
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="belowdiv">
+    <mat-card-title>
+      Create a Single Project
+    </mat-card-title>
+    <mat-card-content>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="belowdiv">
+    <mat-card-title>
+      Create a Single Student
+    </mat-card-title>
+    <mat-card-content>
+
+    </mat-card-content>
+  </mat-card>
 </div>

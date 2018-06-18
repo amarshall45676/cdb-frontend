@@ -14,7 +14,7 @@ import { PartnersService } from '../../partners/partners.service';
   styleUrls: ['./program.component.css', '../../app.component.css']
 })
 export class ProgramComponent implements OnInit {
-  private id;
+  public id;
   private sub;
 
   //TODO: should make these values added to a program object, calculated before hand
@@ -45,7 +45,7 @@ export class ProgramComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private programService: ProgramService,
+    public programService: ProgramService, //To give access to profile component
     private studentsService: StudentsService,
     private partnersService: PartnersService
   ) { }
@@ -54,26 +54,13 @@ export class ProgramComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
        this.id = params['id'];
 
-       //Get the specific program info from the database
-       var programPromise = this.programService.getProgramPromise(this.id);
-       programPromise.then((program) => {
-         this.program = program;
-       });
-
-       // var evalsPromise = this.programService.getEvalsPromise(this.id);
-       // evalsPromise.then((evals) => {
-       //   this.evals = evals;
-       // });
-
        var studentsPromise = this.studentsService.getStudentsPromiseForProgram(this.id)
        studentsPromise.then((students) => {
-         // console.log("Students: " + JSON.stringify(students))
          this.students = students;
        })
 
        var partnersPromise = this.partnersService.getPartnersPromiseForProgram(this.id)
        partnersPromise.then((partners) => {
-         // console.log("Partners: " + JSON.stringify(partners))
          this.partners = partners;
        })
 
@@ -110,26 +97,6 @@ export class ProgramComponent implements OnInit {
   //TODO: no resason to have this, should just use the reusable profile component
   public updateFields() {
     return "";
-  }
-
-//TODO: refactor this code to use profile resusable component
-  public makeNote() {
-    const author = "arm6"
-    const date = new Date(Date.now());
-    const content = (<HTMLInputElement>document.getElementById("notes")).value;
-
-    console.log("Stuff read is: " + content);
-    console.log("Date is: " + date);
-    console.log("Author is: " + author);
-
-    const newNote = {
-      author: author,
-      content: content,
-      date: date
-    }
-
-    console.log(JSON.stringify(newNote))
-    this.notes.push(newNote);//TODO: add in backend
   }
 
 }

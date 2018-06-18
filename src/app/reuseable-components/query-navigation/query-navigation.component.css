@@ -1,4 +1,8 @@
 button {
-  background-color: #E0E0E0;
-  color: #0D47A1;
+  background-color: #0D47A1;
+  color: #E0E0E0;
+}
+
+.logout {
+  background-color: #0D47A1;
 }

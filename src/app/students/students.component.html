@@ -1,12 +1,10 @@
-<app-page-header title="Students Page" queryNav="true">
-  <app-query-navigation></app-query-navigation>
-</app-page-header>
-<div class="belowdiv">
+<app-page-header title="Students Page" queryNav="true"></app-page-header>
+<div class="twoSideBySide">
   Partners: <br>
   <mat-form-field class="querySelector">
     <mat-select placeholder="Partners" [(ngModel)]="partnerSelected"multiple>
       <mat-option *ngFor="let partner of partners" [value]="partner.name">
-        {{ partner.name }}
+        {{ partner.Name }}
       </mat-option>
     </mat-select>
   </mat-form-field> <br>
@@ -21,8 +19,7 @@
           (+{{programControl.value.length - 1}} others)
         </span>
       </mat-select-trigger>
-      <mat-optgroup *ngFor="let program of programs" [label]="program.name"
-                    [disabled]="program.disabled">
+      <mat-optgroup *ngFor="let program of programs" [label]="program.Name">
         <!-- value stored should include program name and participation -->
         <!-- TODO:Want this to be the program object, with only the participation wanted -->
         <mat-option *ngFor="let value of program.participation" [value]="value">
@@ -47,6 +44,21 @@
       </mat-option>
     </mat-select>
   </mat-form-field> <br>
-  Years Start: <input type="number" id="yearStart" value="2018"> Years End: <input type="number" id="yearEnd" value = "2018"> <br>
-  <button (click)="submitQuery()">Submit Query</button>
+  <mat-form-field class="yearSelector">
+    <input matInput type="number" placeholder="Start Year" id="yearStart" value="{{startYear}}">
+  </mat-form-field>
+  <mat-form-field class="yearSelector">
+    <input matInput type="number" placeholder="End Year" id="yearEnd" value = "{{endYear}}">
+  </mat-form-field> <br>
+  <button mat-raised-button class="riceColors" (click)="submitQuery()">Submit Query</button>
+</div>
+<div class="twoSideBySide">
+  <p>
+    Want to view all students?
+  </p>
+  <a href="{{emptyQuery}}">
+    <button mat-raised-button class="riceColors">
+      View All Students
+    </button>
+  </a>
 </div>

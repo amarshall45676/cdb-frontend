@@ -1,9 +1,28 @@
-<!-- (This could be home image?) -->
-<button mat-button (click)="redirectMain()">Main</button>
-<!-- <button mat-button (click)="redirectAffiliates()">Affiliates</button> -->
-<span><u>Query Pages:</u></span>
-<button mat-button (click)="redirectPartners()">Partners</button>
-<button mat-button (click)="redirectProjects()">Projects</button>
-<button mat-button (click)="redirectStudents()">Students</button>
-<!-- <span class="fill-remaining-space"></span> -->
-<!-- <button (click)="logout()" mat-button color="warn" class="logout">Logout</button> -->
+<a href="#/main">
+  <button mat-icon-button>
+    <mat-icon><img src="assets/home3.svg" alt=""></mat-icon>
+  </button>
+</a>
+<!-- <a href="#/affiliates">
+  <button mat-stroked-button>
+    Affiliates
+  </button>
+</a> -->
+<a href="#/partners">
+  <button mat-stroked-button>
+    Partners
+  </button>
+</a>
+<a href="#/projects">
+  <button mat-stroked-button>
+    Projects
+  </button>
+</a>
+<a href="#/students">
+  <button mat-stroked-button>
+    Students
+  </button>
+</a>
+<button mat-stroked-button (click)="logout()" color="warn" class="logout">
+  Logout
+</button>

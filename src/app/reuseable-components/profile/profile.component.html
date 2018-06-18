@@ -1,11 +1,11 @@
 <div class="sidebyside">
   <div *ngFor="let property of displayProperties">
-    <span>{{capitalizeFirstLetter(property)}}: {{entityObject[property]}} </span>
+    <span>{{property}}: {{entityObject[property]}} </span>
   </div>
 </div>
 <div class="sidebyside">
   <div *ngFor="let property of displayProperties">
-    <span>Update {{capitalizeFirstLetter(property)}}: <input type="text" class="newValues"></span>
+    <span>Update {{property}}: <input type="text" class="newValues"></span>
   </div>
 </div>
 
@@ -25,7 +25,7 @@
 
 <div class="belowdiv">
   NOTES: <br>
-  <mat-card *ngFor="let note of entityObject?.notes">
+  <mat-card *ngFor="let note of entityObject?.Notes">
     Note content: {{note.note}} <br>
     Note author: {{note.userId}} <br>
     Note date: {{note.creationDate}} <br>

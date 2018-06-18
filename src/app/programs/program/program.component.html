@@ -1,99 +1,51 @@
-<a href="#/main">main</a> <br>
-<div class="sidebyside">
-  Name : {{program?.displayName}} <br>
-  Purpose : {{program?.purpose}} <br>
-  Act, Learn, or Create Change : {{program?.activityType}} <br>
-</div>
+<app-page-header title="Program Profile" queryNav="true"></app-page-header>
+<app-profile entity="{{id}}" [service]="programService">
+  <div class="belowdiv">
+    <p>Numbers of students who participated in this program</p>
+    <p>
+      <mat-spinner *ngIf="loadingNumStudents" color="primary"></mat-spinner>
+      {{numStudents}}
+    </p>
 
-<div class="sidebyside">
-  <!-- TODO: add in update field -->
-  Update Name: <input id="nameInput" type="text"> <br>
-  Update Purpose: <input id="purposeInput" type="text"> <br>
-  Update Act, Learn, or Create Change: <input id="typeInput" type="text"> <br>
-  <button (click)="updateFields()">Submit</button>
-</div>
+  </div>
 
-<div class="belowdiv">
-  <p>Numbers of students who participated in this program</p>
-  <p>
-    <mat-spinner *ngIf="loadingNumStudents" color="primary"></mat-spinner>
-    {{numStudents}}
-  </p>
+  <div class="belowdiv">
+    <p>
+      Number of partners who have interacted with this program
+    </p>
+    <p>
+      <mat-spinner *ngIf="loadingNumPartners" color="primary"></mat-spinner>
+      {{numPartners}}
+    </p>
+  </div>
 
-</div>
+  <div class="belowdiv">
+    <p>
+      Percentage of students who did a program, that participated in this program
+    </p>
+    <p>
+      <mat-spinner *ngIf="loadingPercentStudents" color="primary"></mat-spinner>
+      <span *ngIf="!loadingPercentStudents">{{percentStudents}} %</span>
+    </p>
+  </div>
 
-<div class="belowdiv">
-  <p>
-    Number of partners who have interacted with this program
-  </p>
-  <p>
-    <mat-spinner *ngIf="loadingNumPartners" color="primary"></mat-spinner>
-    {{numPartners}}
-  </p>
-</div>
+  <div class="belowdiv">
+    <p>
+      Percentage of students who did this program, that did another program
+    </p>
+    <p>
+      <mat-spinner *ngIf="loadingPercentStudentsDidAnother" color="primary"></mat-spinner>
+      <span *ngIf="!loadingPercentStudentsDidAnother">{{percentStudentsDidAnother}} %</span>
+    </p>
+  </div>
 
-<div class="belowdiv">
-  <p>
-    Percentage of students who did a program, that participated in this program
-  </p>
-  <p>
-    <mat-spinner *ngIf="loadingPercentStudents" color="primary"></mat-spinner>
-    <span *ngIf="!loadingPercentStudents">{{percentStudents}} %</span>
-  </p>
-</div>
-
-<div class="belowdiv">
-  <p>
-    Percentage of students who did this program, who did another program
-  </p>
-  <p>
-    <mat-spinner *ngIf="loadingPercentStudentsDidAnother" color="primary"></mat-spinner>
-    <span *ngIf="!loadingPercentStudentsDidAnother">{{percentStudentsDidAnother}} %</span>
-  </p>
-</div>
-
-<div class="belowdiv">
-  <p>
-    Percentage of students who applied who got accepted to this program
-  </p>
-  <p>
-    <mat-spinner *ngIf="loadingPercentAcceptance" color="primary"></mat-spinner>
-    <span *ngIf="!loadingPercentAcceptance">{{percentAcceptance}} %</span>
-  </p>
-</div>
-
-<div>
-  Make a note: <br>
-  <textarea id="notes" name="note" rows="8" cols="80"></textarea> <br>
-  <button (click)="makeNote()">Submit</button>
-</div>
-
-<div>
-  NOTES: <br>
-  <mat-card *ngFor="let note of notes">
-    Note content: {{note.content}} <br>
-    Note author: {{note.author}} <br>
-    Note date: {{note.date}} <br>
-    <!-- TODO: FIX THIS WHEN THIS TO BE DISPLAY NAME BECOMES AND ENTITY -->
-  </mat-card>
-</div>
-
-<!-- <div class="belowdiv">
-  Evaluations: <br>
-  <mat-card *ngFor="let eval of evals">
-    <mat-card-title>
-      Student: {{eval.student}} <br>
-    </mat-card-title>
-    <mat-card-content>
-      Responses: <br>
-      <mat-card *ngFor="let response of eval.responses">
-        <mat-card-title>
-          Question: {{response.question}}
-        </mat-card-title>
-        <mat-card-content>
-          Answer: {{response.answer}}
-        </mat-card-content>
-      </mat-card>
-    </mat-card-content>
-  </mat-card>
-</div> -->
+  <div class="belowdiv">
+    <p>
+      Percentage of students who applied that got accepted to this program
+    </p>
+    <p>
+      <mat-spinner *ngIf="loadingPercentAcceptance" color="primary"></mat-spinner>
+      <span *ngIf="!loadingPercentAcceptance">{{percentAcceptance}} %</span>
+    </p>
+  </div>
+</app-profile>
