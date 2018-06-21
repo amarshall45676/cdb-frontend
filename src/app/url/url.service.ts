@@ -8,7 +8,7 @@ export class URLService {
 
   constructor() {
     if (environment.production) {
-      this.frontendURL = 'http://cdb.rice.edu';
+      this.frontendURL = 'https://cdb.rice.edu';
       this.backendURL = 'https://protected-chamber-70038.herokuapp.com';
     } else {
       this.frontendURL = 'http://localhost:4200';
