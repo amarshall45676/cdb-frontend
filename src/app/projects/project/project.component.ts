@@ -2,7 +2,6 @@ import { Component, OnInit, Inject, ViewEncapsulation} from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 
-import { ProjectsService } from '../projects.service';
 import { ProjectService } from './project.service';
 import { StudentsService } from '../../students/students.service';
 import { PartnersService } from '../../partners/partners.service';
@@ -17,33 +16,28 @@ import { MAT_DIALOG_DATA } from '@angular/material';
   encapsulation: ViewEncapsulation.None
 })
 export class ProjectComponent implements OnInit {
-  public partners:Array<Object>;
-  public students:Array<Object>;
+  public partners: Array<Object>;
+  public students: Array<Object>;
 
   public projectService: ProjectService;
 
-  constructor(
-    private route: ActivatedRoute,
-    projectService: ProjectService,
+  constructor(projectService: ProjectService,
     private studentsService: StudentsService,
     private partnersService: PartnersService,
-    private utilsService: UtilsService,
     @Inject(MAT_DIALOG_DATA) public id: string
     ) {
       this.projectService = projectService; // Not public because sharing with child
      }
 
   ngOnInit() {
-    var studentsPromise = this.studentsService.getStudentsPromiseForProject(this.id);
-    studentsPromise.then((students) => {
+    this.studentsService.getStudentsPromiseForProject(this.id).then((students) => {
       this.students = students;
-      this.students.sort(this.utilsService.comparisonFunction)
+      this.students.sort(UtilsService.comparisonFunction);
     });
 
-    var partnersPromise = this.partnersService.getPartnersPromiseForProject(this.id);
-    partnersPromise.then((partners) => {
+     this.partnersService.getPartnersPromiseForProject(this.id).then((partners) => {
      this.partners = partners;
-     this.partners.sort(this.utilsService.comparisonFunction)
+     this.partners.sort(UtilsService.comparisonFunction);
     });
   }
 }

@@ -13,7 +13,7 @@ export class ProgramsService {
    // TODO: want to cache this request? will make 1 request then save result for other calls
 
    public getProgramViewsPromiseForStudent(studentName) {
-    return this.backendService.resource('GET', 'program/student/' + studentName, null);
+    return this.backendService.resource('GET', `program/student/${studentName}`, null);
    }
 
    public getProgramViewsPromiseForStudentParticipation(studentName, participation) {
@@ -21,16 +21,16 @@ export class ProgramsService {
    }
 
    public getProgramViewsPromiseForPartner(partnerName) {
-    return this.backendService.resource('GET', 'program/partner/' + partnerName, null);
+    return this.backendService.resource('GET', `program/partner/${partnerName}`, null);
    }
 
   public getProgramsPromise() {
-   return this.backendService.resource('GET', 'program/', null);
+   return this.backendService.resource('GET', `program/`, null);
   }
 
   public viewProfile(id) {
     console.log('View profile for program with ID: ' + id);
-    window.location.href = '#/program/' + id;
+    window.location.href = `#/program/${id}`;
   }
 
 }

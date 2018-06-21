@@ -4,27 +4,25 @@ import { BackendService } from '../backend/backend.service';
 
 @Injectable()
 export class StudentsService {
-  private studentsPromise: Promise<Array<Object>>;
+  private backendService: BackendService;
 
-  private backendService : BackendService;
-
-  constructor(pBackendService : BackendService) {
+  constructor(pBackendService: BackendService) {
     this.backendService = pBackendService;
    }
 
   public getStudentsPromise() {
-   return this.backendService.resource("GET", "student/", null);
+   return this.backendService.resource('GET', 'student/', null);
   }
 
   public getStudentsPromiseForProject(projectName) {
-    return this.backendService.resource("GET", "student/project/" + projectName, null);
+    return this.backendService.resource('GET', `student/project/${projectName}`, null);
   }
 
   public getStudentsPromiseForPartner(partnerName) {
-    return this.backendService.resource("GET", "student/partner/" + partnerName, null);
+    return this.backendService.resource('GET', `student/partner/${partnerName}`, null);
   }
 
   public getStudentsPromiseForProgram(programName) {
-    return this.backendService.resource("GET", "student/program/" + programName, null);
+    return this.backendService.resource('GET', `student/program/${programName}`, null);
   }
 }

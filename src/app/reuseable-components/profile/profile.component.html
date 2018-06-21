@@ -1,11 +1,11 @@
 <div class="sidebyside">
   <div *ngFor="let property of displayProperties">
-    <span>{{property}}: {{entityObject[property]}} </span>
+    <span>{{property}}: {{entity.getValue(property)}} </span>
   </div>
 </div>
 <div class="sidebyside">
   <div *ngFor="let property of displayProperties">
-    <span>Update {{property}}: <input type="text" class="newValues"></span>
+    <span>Update {{property}}: <input title="{{property}}" class="newValues"></span>
   </div>
 </div>
 
@@ -24,11 +24,10 @@
 </div>
 
 <div class="belowdiv">
-  NOTES: <br>
-  <mat-card *ngFor="let note of entityObject?.Notes">
-    Note content: {{note.note}} <br>
-    Note author: {{note.userId}} <br>
-    Note date: {{note.creationDate}} <br>
-    <!-- TODO: FIX THIS WHEN THIS TO BE DISPLAY NAME BECOMES AND ENTITY -->
+  Notes: <br>
+  <mat-card *ngFor="let note of entity?._notes">
+    <p>Note content: {{note._note}}</p>
+    <p>Note author: {{note._userId}}</p>
+    <p>Note date: {{note._creationDate}}</p>
   </mat-card>
 </div>

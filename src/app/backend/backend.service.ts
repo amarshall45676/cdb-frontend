@@ -49,6 +49,29 @@ export class BackendService {
         });
   }
 
+  public makeEntity(endpoint, formData) {
+    const options: RequestInit = {
+      method : 'POST',
+      body : formData,
+      credentials : 'include' // include credential on request so authenticated
+    };
+
+    return fetch(`${this.baseBackend}/${endpoint}`, options) // Make request to backend
+      .then(r => {
+        // TODO: should this change?
+        if (r.status === 200) {
+          if (r.headers.get('Content-Type').indexOf('json') > 0) {
+            return r.json();
+          } else {
+            return r.text();
+          }
+        } else {
+          // useful for debugging, but remove in production
+          throw new Error(r.statusText);
+        }
+      });
+  }
+
   public uploadFileGeneral(formData, fileType) {
     const options: RequestInit = {
       method : 'POST',
@@ -92,8 +115,8 @@ export class BackendService {
   }
 
   // Returns promise that contains the fieldName to the new updated value
-  public updateEntity(entityName, entityId, newValues) {
-    const endpoint = `${entityName}/${entityId}`;
+  public updateEntity(entityType: string, entityId: string, newValues: Object) {
+    const endpoint = `${entityType}/${entityId}`;
     return this.resource('PUT', endpoint, newValues);
   }
 

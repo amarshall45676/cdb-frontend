@@ -17,18 +17,16 @@ export class MainComponent implements OnInit {
   constructor(
     private programsService: ProgramsService,
     private backendService: BackendService,
-    private utilsService: UtilsService
   ) { }
 
   ngOnInit() {
     this.programsService.getProgramsPromise().then((programs) => {
-      this.programs = programs.sort(this.utilsService.comparisonFunction);
+      this.programs = programs.sort(UtilsService.comparisonFunction);
     });
   }
 
   public viewProgram(programName) {
-    console.log('Want to view: ' + programName)
-    // TODO: call the service method
+    console.log('Want to view: ' + programName);
     this.programsService.viewProfile(programName);
   }
 }

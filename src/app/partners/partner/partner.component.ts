@@ -17,27 +17,21 @@ import { MAT_DIALOG_DATA } from '@angular/material';
   encapsulation: ViewEncapsulation.None
 })
 export class PartnerComponent implements OnInit {
-  //TODO: on close of dialog should refresh id?(How to only refresh one partner entry?)
-    //Might be better to just update the entry in the table, not send a full request
+  // TODO: on close of dialog should refresh id?(How to only refresh one partner entry?)
+  // Might be better to just update the entry in the table, not send a full request
   public programs: Array<Object>;
   public projects: Array<Object>;
   public students: Array<Object>;
 
-  constructor(private route: ActivatedRoute,
-    public partnerService: PartnerService,
-    private studentsService: StudentsService,
-    private projectsService: ProjectsService,
+  constructor(public partnerService: PartnerService,
     private programsService: ProgramsService,
-    private utilsService: UtilsService,
-    @Inject(MAT_DIALOG_DATA) public id: string)
-  {
-  } //TODO: rename this id to be partnerName
+    @Inject(MAT_DIALOG_DATA) public id: string) {} // TODO: rename this id to be partnerName??
 
   ngOnInit() {
     this.programsService.getProgramViewsPromiseForPartner(this.id).then(programViews => {
-      console.log("Program Views: " + JSON.stringify(programViews))
+      console.log('Program Views: ' + JSON.stringify(programViews));
       this.programs = programViews;
-      this.programs.sort(this.utilsService.comparisonFunction2);
+      this.programs.sort(UtilsService.comparisonFunction2);
     });
   }
 }

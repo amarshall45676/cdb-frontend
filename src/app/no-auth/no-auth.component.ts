@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../authGuard/auth.service'
+import { AuthService } from '../authGuard/auth.service';
 
 @Component({
   selector: 'app-no-auth',

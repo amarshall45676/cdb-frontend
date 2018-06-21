@@ -1,8 +1,10 @@
-import { BackendService } from '../../backend/backend.service'
+import { BackendService } from '../../backend/backend.service';
+import {Entity} from './entities/entity';
+import {UtilsService} from '../../utils/utils.service';
 
 export abstract class ProfileService {
-  backendService: BackendService;
-  entityType: string; // e.g. student, project, program etc.
+  public backendService: BackendService;
+  public entityType: string; // e.g. student, project, program etc.
 
   constructor(backendService: BackendService, entityType: string) {
     this.backendService = backendService;
@@ -13,20 +15,28 @@ export abstract class ProfileService {
   entity: Entity to be update, e.g. for a student this could be Andrew Marshall
   newNote: Note to add to the given entity
   */
-  public addNote(entity, newNote) {
-    return this.backendService.resource("PUT", this.entityType + "/note/" + entity, newNote);
+  public addNote(entityId: string, newNote): Promise<Entity> {
+    return this.backendService.resource('PUT', `${this.entityType}/note/${entityId}`, newNote)
+      .then(object => {
+        return UtilsService.EntityFromObject(object, this.entityType);
+      });
   }
 
-  // //Make sure fields match a pattern, if they dont print a message and take out of result
+  // TODO: need to implement this
+  // Make sure fields match a pattern, if they dont print a message and take out of result
   abstract validateFields(updateObject);
 
   // Update the given entity with the given updateObject
-  public update(entity, updateObject) {
-    return this.backendService.updateEntity(this.entityType, entity, updateObject);
+  public update(entityId: string, updateObject: Object): Promise<Entity> {
+    return this.backendService.updateEntity(this.entityType, entityId, updateObject).then(object => {
+      return UtilsService.EntityFromObject(object, this.entityType);
+    });
   }
 
-  public getEntityPromise(entity) {
-    return this.backendService.resource("GET", this.entityType +"/" + entity, null);
+  public getEntityPromise(entityId: string): Promise<Entity> {
+    return this.backendService.resource('GET', `${this.entityType}/${entityId}`, null)
+      .then(object => {
+        return UtilsService.EntityFromObject(object, this.entityType);
+      });
   }
-
 }

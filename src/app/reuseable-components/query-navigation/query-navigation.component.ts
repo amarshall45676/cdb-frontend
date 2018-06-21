@@ -17,10 +17,10 @@ export class QueryNavigationComponent implements OnInit {
 
   public logout() {
     this.backendService.logout().then(r => {
-      window.location.href = `#/landing`
+      window.location.href = '#/landing';
       this.authService.logout();
-      window.alert("You were succesfully logged out")
-    })
+      window.alert('You were succesfully logged out');
+    });
   }
 
 }

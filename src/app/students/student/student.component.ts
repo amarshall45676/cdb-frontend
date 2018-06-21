@@ -1,5 +1,4 @@
-import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Inject} from '@angular/core';
 
 import { StudentService } from './student.service';
 import { PartnersService } from '../../partners/partners.service';
@@ -14,7 +13,6 @@ import { MAT_DIALOG_DATA } from '@angular/material';
   styleUrls: ['./student.component.css', '../../app.component.css']
 })
 export class StudentComponent implements OnInit {
-  private student: Object;
   public partners: Array<Object>;
   public programs: Array<Object>;
   public programsApplied: Array<Object>;
@@ -22,35 +20,30 @@ export class StudentComponent implements OnInit {
   public programsParticipated: Array<Object>;
 
   constructor(
-    private route: ActivatedRoute,
     public studentService: StudentService,
     private partnersService: PartnersService,
     private programsService: ProgramsService,
-    private utilsService: UtilsService,
-    @Inject(MAT_DIALOG_DATA) public id: string
-  ) { }
+    @Inject(MAT_DIALOG_DATA) public id: string) {}
 
   ngOnInit() {
-    var partnersPromise = this.partnersService.getPartnersPromiseForStudent(this.id);
-    partnersPromise.then((partners) => {
-      console.log(JSON.stringify(partners))
+    this.partnersService.getPartnersPromiseForStudent(this.id).then((partners) => {
       this.partners = partners;
-      this.partners.sort(this.utilsService.comparisonFunction)
-    })
+      this.partners.sort(UtilsService.comparisonFunction);
+    });
 
-    this.programsService.getProgramViewsPromiseForStudentParticipation(this.id, "participated").then(programViews => {
+    this.programsService.getProgramViewsPromiseForStudentParticipation(this.id, 'participated').then(programViews => {
       this.programsParticipated = programViews;
-      this.programsParticipated.sort(this.utilsService.comparisonFunction2);
+      this.programsParticipated.sort(UtilsService.comparisonFunction2);
     });
 
-    this.programsService.getProgramViewsPromiseForStudentParticipation(this.id, "applied").then(programViews => {
+    this.programsService.getProgramViewsPromiseForStudentParticipation(this.id, 'applied').then(programViews => {
       this.programsApplied = programViews;
-      this.programsApplied.sort(this.utilsService.comparisonFunction2);
+      this.programsApplied.sort(UtilsService.comparisonFunction2);
     });
 
-    this.programsService.getProgramViewsPromiseForStudentParticipation(this.id, "rejected").then(programViews => {
+    this.programsService.getProgramViewsPromiseForStudentParticipation(this.id, 'rejected').then(programViews => {
       this.programsRejected = programViews;
-      this.programsRejected.sort(this.utilsService.comparisonFunction2);
+      this.programsRejected.sort(UtilsService.comparisonFunction2);
     });
   }
 }

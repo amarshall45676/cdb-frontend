@@ -18,19 +18,14 @@ export class PartnerResultsComponent implements OnInit {
        const program = params['program'];
        const issue = params['issue'];
        const type = params['type'];
-       const semester = params['semester']
+       const semester = params['semester'];
        const yearStart = params['yearStart'];
        const yearEnd = params['yearEnd'];
 
-       if(!program) { // Means just all partners are wanted
-         this.queryString = "partner/"
+       if (!program) { // Means just all partners are wanted
+         this.queryString = `partner/`;
        } else { // Otherwise submit a query with parameters
-         this.queryString = "partner/" +
-                            program + "/" +
-                            issue + "/" +
-                            type + "/" +
-                            semester  + "/" +
-                            yearStart + "/" + yearEnd
+         this.queryString = `partner/${program}/${issue}/${type}/${semester}/${yearStart}/${yearEnd}`;
        }
     });
   }

@@ -6,10 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./page-header.component.css', '../../app.component.css']
 })
 export class PageHeaderComponent implements OnInit {
-  @Input() title: string = "default title";
-  @Input() queryNav: boolean = false; //Make abilty to show a query nav bard optional
+  @Input() title = 'default title';
+  @Input() queryNav = false; // Make abilty to show a query nav bard optional
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }

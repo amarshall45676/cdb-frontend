@@ -10,37 +10,36 @@ import { BackendService } from '../../backend/backend.service';
 export class FileUploadComponent implements OnInit {
   @Input() fileType: string;
 
-  public fileUploaded = false; //File was uploaded while this page was loaded
+  public fileUploaded = false; // File was uploaded while this page was loaded
   public fileBeingUploaded = false;
 
   public dataUploadResult: Object;
 
   constructor(
-    private backendService: BackendService
-  ) { }
+    private backendService: BackendService) {}
 
   ngOnInit() {
   }
 
   public uploadData() {
-    console.log("Uploading Data!");
+    console.log('Uploading Data!');
     // Reset dataupload Result
     this.fileUploaded = false;
     this.dataUploadResult = null;
-    var inputFile = (<HTMLInputElement>document.getElementById(this.fileType)).files[0]
+    const inputFile = (<HTMLInputElement>document.getElementById(this.fileType)).files[0];
     if (inputFile === undefined) {
-      return
+      return;
     }
-    const fd = new FormData()
-    fd.append("file", inputFile)
-    const res = this.backendService.uploadFileGeneral(fd, this.fileType)
+    const fd = new FormData();
+    fd.append('file', inputFile);
+    const res = this.backendService.uploadFileGeneral(fd, this.fileType);
     this.fileUploaded = true;
     this.fileBeingUploaded = true;
     res.then(result => {
-      console.log("Result Received: " + JSON.stringify(result))
+      console.log('Result Received: ' + JSON.stringify(result));
       this.fileBeingUploaded = false;
       this.dataUploadResult = result;
-    })
+    });
   }
 
 }

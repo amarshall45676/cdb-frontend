@@ -1,12 +1,12 @@
-//Imports from angular
+// Imports from angular
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-//Outside Libraries
-import {CookieModule} from "ngx-cookie";
+// Outside Libraries
+import {CookieModule} from 'ngx-cookie';
 
 // Angular Material Imports
 import {
@@ -23,7 +23,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './authGuard/auth.guard';
 import { AuthService } from './authGuard/auth.service';
 
-//Students Imports
+// Students Imports
 import { StudentsComponent } from './students/students.component';
 import { StudentsService } from './students/students.service';
 
@@ -32,17 +32,12 @@ import { StudentService } from './students/student/student.service';
 
 import { StudentResultsComponent } from './students/student-results/student-results.component';
 
-//Programs Imports
-//TODO: Are these below two necessary?
-import { ProgramsComponent } from './programs/programs.component';
+// Programs Imports
 import { ProgramsService } from './programs/programs.service';
-
 import { ProgramComponent } from './programs/program/program.component';
 import { ProgramService } from './programs/program/program.service';
 
-import { ProgramResultsComponent } from './programs/program-results/program-results.component';
-
-//Partner Imports
+// Partner Imports
 import { PartnersComponent } from './partners/partners.component';
 import { PartnersService } from './partners/partners.service';
 
@@ -74,9 +69,9 @@ import { LandingComponent } from './landing/landing.component';
 import { NoAuthComponent } from './no-auth/no-auth.component';
 import { MainComponent } from './main/main.component';
 
-//Import Backend Service
+// Import Backend Service
 import { BackendService } from './backend/backend.service';
-import { URLService } from './url/url.service'
+import { URLService } from './url/url.service';
 import { UtilsService } from './utils/utils.service';
 
 // Reusable components and services
@@ -90,8 +85,8 @@ import { ProfileService } from './reuseable-components/profile/profile.service';
 
 
 
-//Defining the routes for the project
-export const routes : Routes = [
+// Defining the routes for the project
+export const routes: Routes = [
   {path: '', redirectTo: 'landing', pathMatch: 'full'},
   {path: 'test', component: ResultsTableComponent},
   {path: 'noAuth', component: NoAuthComponent},
@@ -139,11 +134,6 @@ export const routes : Routes = [
   {
     path: 'partner/:id',
     component : PartnerComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'programs',
-    component : ProgramResultsComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -197,14 +187,12 @@ export const routes : Routes = [
   declarations: [
     AppComponent,
     StudentsComponent,
-    ProgramsComponent,
     PartnersComponent,
     MainComponent,
     StudentComponent,
     ProgramComponent,
     PartnerComponent,
     PartnerResultsComponent,
-    ProgramResultsComponent,
     StudentResultsComponent,
     ProjectsComponent,
     ProjectComponent,
@@ -227,8 +215,8 @@ export const routes : Routes = [
     CookieModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes, {useHash: true}), //useHash : true
-    //Angular Material Modules
+    RouterModule.forRoot(routes, {useHash: true}),
+    // Angular Material Modules
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
@@ -254,8 +242,9 @@ export const routes : Routes = [
     AffiliatesService,
     AuthService, AuthGuard,
     URLService, UtilsService
-   ],
+  ],
   bootstrap: [AppComponent],
-  schemas : [] //CUSTOM_ELEMENTS_SCHEMA
+  schemas : [] // CUSTOM_ELEMENTS_SCHEMA
 })
+
 export class AppModule { }

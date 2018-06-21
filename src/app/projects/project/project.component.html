@@ -1,13 +1,13 @@
 <app-page-header title="Project Profile"></app-page-header>
-<app-profile entity="{{id}}" [service]="projectService">
-  <div class="belowdiv list">
+<app-profile [entityId]="id" [service]="projectService">
+  <div class="belowdiv">
     Students who worked on this project:
     <mat-card *ngFor="let student of students">
       Student Name: {{student.Name}}
     </mat-card>
   </div>
 
-  <div class="belowdiv list">
+  <div class="belowdiv">
     Partners who sponsored this project:
     <mat-card *ngFor="let partner of partners">
       Partner Name: {{partner.Name}}

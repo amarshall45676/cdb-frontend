@@ -5,19 +5,19 @@
     </mat-form-field>
   </div>
   <mat-table #table [dataSource]="dataSource" matSort>
-    <mat-header-row *matHeaderRowDef="displayProperties"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayProperties;"></mat-row>
+    <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayColumns;"></mat-row>
 
     <!-- Need to have the [] around the matColumnDef to consider displayProperty a variable -->
-    <ng-container *ngFor="let displayColumn of displayedColumns" [matColumnDef]="displayColumn">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> {{displayColumn}} </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element[displayColumn]}} </mat-cell>
+    <ng-container *ngFor="let displayProperty of displayProperties" [matColumnDef]="displayProperty">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{displayProperty}} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.getValue(displayProperty)}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="profile">
+    <ng-container matColumnDef="Profile">
       <mat-header-cell *matHeaderCellDef mat-sort-header> View Profile </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button (click)=viewProfile(element.profile)>View Profile</button>
+        <button (click)=viewProfile(element._profile)>View Profile</button>
       </mat-cell>
     </ng-container>
 

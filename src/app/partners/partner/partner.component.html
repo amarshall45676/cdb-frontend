@@ -1,5 +1,5 @@
 <app-page-header title="Partner Profile"></app-page-header>
-<app-profile entity="{{id}}" [service]="partnerService">
+<app-profile [entityId]="id" [service]="partnerService">
   <div class="belowdiv list">
     Programs worked with: <br>
     <mat-card *ngFor="let program of programs">

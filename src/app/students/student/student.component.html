@@ -1,13 +1,13 @@
 <app-page-header title="Student Profile"></app-page-header>
-<app-profile entity="{{id}}" [service]="studentService">
-  <div class="belowdiv list">
+<app-profile [entityId]="id" [service]="studentService">
+  <div class="belowdiv">
     Partners interacted with: <br>
     <mat-card *ngFor="let partner of partners">
       Partner Name: {{partner.Name}}
     </mat-card>
   </div>
 
-  <div class="belowdiv list">
+  <div class="belowdiv">
     <p>
       Specific projects they participated in:
     </p>
@@ -21,7 +21,7 @@
     </mat-card>
   </div>
 
-  <div class="belowdiv list">
+  <div class="belowdiv">
     <p>
       Specific projects they applied to:
     </p>
@@ -35,7 +35,7 @@
     </mat-card>
   </div>
 
-  <div class="belowdiv list">
+  <div class="belowdiv">
     <p>
       Specific projects they rejected here:
     </p>
