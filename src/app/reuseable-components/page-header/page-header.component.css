@@ -1,6 +1,7 @@
 mat-toolbar {
   background-color: #0D47A1;
   color: #E0E0E0;
+  height: 20%;
   /* Need sizing? */
 }
 

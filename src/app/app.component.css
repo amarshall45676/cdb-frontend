@@ -40,6 +40,14 @@
 .yearSelector {
   width: 15%;
 }
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
 /*
 .flexbox {
   display: flex;

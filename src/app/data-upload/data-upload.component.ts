@@ -14,16 +14,22 @@ export class DataUploadComponent implements OnInit {
   public projectForm: FormGroup;
   public studentForm: FormGroup;
 
+  public partnerResult: Object;
+  public partnerDisplay = false;
+
+  public programResult: Object;
+  public programDisplay = false;
+
+  public projectResult: Object;
+  public projectDisplay = false;
+
+  public studentResult: Object;
+  public studentDisplay = false;
 
   private static objectToForm(object: Object) {
-    console.log('Trying to convert: ' + JSON.stringify(object));
-    const formData: FormData = new FormData();
+    const formData: FormData = new FormData(); // Printing this out is weird be careful, use .get()
     for (const key in object) {
-      console.log('Key: ' + key);
-      console.log('Value: ' + object[key]);
       formData.append(key, object[key]);
-      console.log('Value in: ' + formData.get(key));
-      console.log('Form Data result: ' + JSON.stringify(formData));
     }
 
     return formData;
@@ -35,6 +41,7 @@ export class DataUploadComponent implements OnInit {
   ngOnInit() {
     this.partnerForm = new FormGroup ({
       name: new FormControl('', Validators.required),
+      address: new FormControl(),
       city: new FormControl(),
       state: new FormControl(),
       zipcode: new FormControl(),
@@ -51,7 +58,7 @@ export class DataUploadComponent implements OnInit {
     this.projectForm = new FormGroup ({
       name: new FormControl('', Validators.required),
       programName: new FormControl(),
-      yearRun: new FormControl(),
+      year: new FormControl(),
       semester: new FormControl()
     });
 
@@ -66,14 +73,43 @@ export class DataUploadComponent implements OnInit {
     });
   }
 
-  // TODO: use frontend entities on creation, then maybe can use a form group object to make this reusable
-
   public createPartner() {
-    console.log('Sending: ' + JSON.stringify(DataUploadComponent.objectToForm(this.partnerForm.value)));
-    this.backendService.makeEntity(`partner/`,
-      DataUploadComponent.objectToForm(this.partnerForm.value))
-      .then(r => {
-      console.log('Response: ' + JSON.stringify(r));
+    // TODO: make a selector that pops up a dialog, fill out the right form, on submit if the form looks good close it,
+    // otherwise inform user
+    this.createEntity('partner', this.partnerForm).then((entityResult: Object) => {
+      console.log('Result: ' + JSON.stringify(entityResult));
+      this.partnerDisplay = true;
+      this.partnerResult = entityResult;
     });
+  }
+
+  public createProject() {
+    this.createEntity('project', this.projectForm).then((entityResult: Object) => {
+      this.projectDisplay = true;
+      this.projectResult = entityResult;
+    });
+  }
+
+  public createProgram() {
+    this.createEntity('program', this.programForm).then((entityResult: Object) => {
+      this.programDisplay = true;
+      this.programResult = entityResult;
+    });
+  }
+
+  public createStudent() {
+    this.createEntity('student', this.studentForm).then((entityResult: Object) => {
+      this.studentDisplay = true;
+      this.studentResult = entityResult;
+    });
+  }
+
+
+  public createEntity(type: string, form: FormGroup) {
+    if (!form.valid) {
+      console.log('Form is not valid'); // TODO: have this display
+    } else {
+      return this.backendService.makeEntity(`${type}/`, DataUploadComponent.objectToForm(form.value));
+    }
   }
 }

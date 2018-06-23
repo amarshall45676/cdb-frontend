@@ -78,17 +78,11 @@ export class StudentsComponent implements OnInit {
   }
 
   public submitQuery() {
-    // TODO: need to change program control!
     const partner = this.partnerSelected === undefined ? 'NA' : this.partnerSelected; // NA is the way to say exclude this from query
-    // console.log('Initial value: ' + JSON.stringify(this.programControl.value))
-    const program = this.programControl.value === undefined ? 'NA' :
+    const program = (this.programControl.value === undefined || this.programControl.value === null) ? 'NA' :
       this.programControl.value.map(object => {
-        // console.log('Object: ' + JSON.stringify(object))
-        return object.programName + ':' + object.backendValue; // TODO: map this to a string, then join by commas
+        return object.programName + ':' + object.backendValue; // TODO: explain this
       }).join(',');
-
-    // console.log('Program for query: ' + program)
-    // TODO: want to condense the 'Applied to HART' part here?
     const issue = this.issueSelected === undefined ? 'NA' : this.issueSelected;
     const semester = this.semesterSelected === undefined ? 'NA' : this.semesterSelected;
     const yearStart = (<HTMLInputElement>document.querySelector('#yearStart')).value;

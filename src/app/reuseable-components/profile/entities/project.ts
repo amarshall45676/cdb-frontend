@@ -22,23 +22,13 @@ export class Project extends Entity {
 
   public static fromObject(object: Object): Project {
     const builder: ProjectBuilder  = new ProjectBuilder();
-    let property;
-    if (property = object['Name']) {
-      builder.name(property);
-      builder.name(property);
-    }
-    if (property = object['Program']) {
-      builder.programName(property);
-    }
-    if (property = object['Year']) {
-      builder.yearRun(property);
-    }
-    if (property = object['Semester']) {
-      builder.semester(property);
-    }
-    if (property = object['Notes']) {
-      builder.notes(property);
-    }
+    const name = object['Name'];
+    builder.name(name);
+    builder.profile(name);
+    builder.programName(object['Program']);
+    builder.yearRun(object['Year']);
+    builder.semester(object['Semester']);
+    builder.notes(object['Notes']);
     return builder.build();
   }
 

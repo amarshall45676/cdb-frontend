@@ -57,7 +57,8 @@ export class PartnersComponent implements OnInit {
   }
 
   public submitQuery() {
-    const program = this.programSelected === undefined ? 'NA' : this.programSelected; // NA is the way to say exclude this from query
+    // NA is the way to say exclude this from query
+    const program = this.programSelected === undefined ? 'NA' : this.programSelected;
     const socialIssue = this.issueSelected === undefined ? 'NA' : this.issueSelected;
     const type = this.typeSelected === undefined ? 'NA' : this.typeSelected;
     const semester = this.semesterSelected === undefined ? 'NA' : this.semesterSelected;

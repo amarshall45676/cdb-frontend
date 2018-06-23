@@ -20,6 +20,7 @@ export class ResultsTableComponent implements OnInit {
   @Input() queryString: string; // String to send query to backend
 
   public entities: Array<Entity>;
+  // TODO: change??
   public dataSource: MatTableDataSource<Entity>; // allows for filtering and pagination of table
   public displayProperties: Array<string>; // these are the properties for the table
   public displayColumns: Array<string>; // these include addition columns for the table(e.g. profile)
@@ -48,8 +49,13 @@ export class ResultsTableComponent implements OnInit {
           this.displayColumns = keys.slice().concat('Profile');
           console.log('Columns: ' + JSON.stringify(this.displayColumns));
         }
-        this.dataSource = new MatTableDataSource(this.entities);
+        this.dataSource = new MatTableDataSource(this.entities.map((entity: Entity) => {
+          return entity; // ._display
+        }));
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sortingDataAccessor = (entity: Entity, sortHeaderId: string) => {
+          return entity.getValue(sortHeaderId);
+        };
         this.dataSource.sort = this.sort;
       });
   }

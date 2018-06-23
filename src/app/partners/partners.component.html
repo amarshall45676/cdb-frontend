@@ -1,5 +1,6 @@
 <app-page-header title="Partners Page" queryNav="true"></app-page-header>
 <div class="twoSideBySide">
+  <h1>Create a Partner Query</h1>
   Programs: <br>
   <mat-form-field class="querySelector">
     <mat-select placeholder="Program" [(ngModel)]="programSelected" multiple>
@@ -41,9 +42,9 @@
     <button mat-raised-button class="riceColors" (click)="submitQuery()">Submit Query</button>
 </div>
 <div class="twoSideBySide">
-  <p>
-    Want to view all partners?
-  </p>
+  <article>
+    <h2>Want to view all partners?</h2>
+  </article>
   <a href="{{emptyQuery}}">
     <button mat-raised-button class="riceColors">
       View All Partners

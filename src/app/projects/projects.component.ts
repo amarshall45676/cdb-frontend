@@ -7,6 +7,7 @@ import { BackendService } from '../backend/backend.service';
 import { UtilsService } from '../utils/utils.service';
 
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -38,7 +39,8 @@ export class ProjectsComponent implements OnInit {
     private projectsService: ProjectsService,
     private programsService: ProgramsService,
     private backendService: BackendService,
-    private partnersService: PartnersService
+    private partnersService: PartnersService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -61,7 +63,15 @@ export class ProjectsComponent implements OnInit {
     const semester = this.semesterSelected === undefined ? 'NA' : this.semesterSelected;
     const yearStart = (<HTMLInputElement>document.querySelector('#yearStart')).value;
     const yearEnd = (<HTMLInputElement>document.querySelector('#yearEnd')).value;
-
-    window.location.href = `#/projectResults/${program}/${partner}/${semester}/${yearStart}/${yearEnd}`;
+    const object = {
+      program: program,
+      partner: partner,
+      semester: semester,
+      yearStart: yearStart,
+      yearEnd: yearEnd
+    };
+    // Encode URL/endpoint to make sure that no bad character are hidden in it
+    // window.location.href = BackendService.encodeEndpoint(`#/projectResults/${program}/${partner}/${semester}/${yearStart}/${yearEnd}`);
+    this.router.navigate(['projectResults', object]);
   }
 }

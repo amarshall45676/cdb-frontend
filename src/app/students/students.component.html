@@ -1,9 +1,10 @@
 <app-page-header title="Students Page" queryNav="true"></app-page-header>
 <div class="twoSideBySide">
+  <h1>Create a Student query</h1>
   Partners: <br>
   <mat-form-field class="querySelector">
     <mat-select placeholder="Partners" [(ngModel)]="partnerSelected"multiple>
-      <mat-option *ngFor="let partner of partners" [value]="partner.name">
+      <mat-option *ngFor="let partner of partners" [value]="partner.Name">
         {{ partner.Name }}
       </mat-option>
     </mat-select>
@@ -53,9 +54,9 @@
   <button mat-raised-button class="riceColors" (click)="submitQuery()">Submit Query</button>
 </div>
 <div class="twoSideBySide">
-  <p>
+  <h2>
     Want to view all students?
-  </p>
+  </h2>
   <a href="{{emptyQuery}}">
     <button mat-raised-button class="riceColors">
       View All Students

@@ -1,6 +1,5 @@
 <div class="belowdiv">
-  <ng-content select="p"></ng-content>
-  <p>Upload your data!</p>
+  <ng-content select="article"></ng-content>
   <input type="file" name="" value="" [id]="fileType"> <br> <br>
   <button (click)="uploadData()" mat-button class="riceColors">Submit!</button> <br>
   <div *ngIf="fileUploaded">

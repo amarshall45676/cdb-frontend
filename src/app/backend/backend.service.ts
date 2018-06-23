@@ -10,6 +10,15 @@ export class BackendService {
     this.baseBackend = this.urlService.getBackendURL();
    }
 
+   private static encodeEndpoint(endpoint: string): string {
+    const split = endpoint.split('/');
+    const result = split.map(string => {
+      return encodeURIComponent(string);
+    }).join('/');
+     console.log('This is how it is split and encoded: ' + JSON.stringify(result));
+    return result;
+   }
+  // TODO: if this is a get request, parameters should go in the payload?
   public resource(method, endpoint, payload) {
     let options: RequestInit;
     if (method !== 'GET') {
@@ -34,7 +43,7 @@ export class BackendService {
       };
     }
 
-    return fetch(`${this.baseBackend}/${endpoint}`, options) // Make request to backend
+    return fetch(`${this.baseBackend}/${BackendService.encodeEndpoint(endpoint)}`, options) // Make request to backend
         .then(r => {
             if (r.status === 200) {
                 if (r.headers.get('Content-Type').indexOf('json') > 0) {
@@ -56,7 +65,7 @@ export class BackendService {
       credentials : 'include' // include credential on request so authenticated
     };
 
-    return fetch(`${this.baseBackend}/${endpoint}`, options) // Make request to backend
+    return fetch(`${this.baseBackend}/${BackendService.encodeEndpoint(endpoint)}`, options) // Make request to backend
       .then(r => {
         // TODO: should this change?
         if (r.status === 200) {
@@ -117,7 +126,7 @@ export class BackendService {
   // Returns promise that contains the fieldName to the new updated value
   public updateEntity(entityType: string, entityId: string, newValues: Object) {
     const endpoint = `${entityType}/${entityId}`;
-    return this.resource('PUT', endpoint, newValues);
+    return this.resource('PUT', BackendService.encodeEndpoint(endpoint), newValues);
   }
 
   // TODO: not sure how to make the login work with a sigle reqeust and OAuth

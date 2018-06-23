@@ -24,6 +24,7 @@ export class ProjectResultsComponent implements OnInit, OnDestroy {
        if (!program) {
          this.queryString = `project/`;
        } else {
+         // TODO: want to refactor this to not be NA, but optional query parameters?
          this.queryString = `project/${program}/${partner}/${semester}/${yearStart}/${yearEnd}`;
        }
     });

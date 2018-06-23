@@ -151,11 +151,11 @@ export const routes: Routes = [
     component : ProjectResultsComponent,
     canActivate: [AuthGuard]
   },
-  {
-    path: 'projectResults/:program/:partner/:semester/:yearStart/:yearEnd',
-    component : ProjectResultsComponent,
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'projectResults/:program?/:partner?/semester?/yearStart?/yearEnd?', // Empty route for just viewing all partners in the DB
+  //   component : ProjectResultsComponent,
+  //   canActivate: [AuthGuard]
+  // },
   {
     path: 'project/:id',
     component : ProjectComponent,
