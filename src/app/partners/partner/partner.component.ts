@@ -23,6 +23,8 @@ export class PartnerComponent implements OnInit {
   public projects: Array<Object>;
   public students: Array<Object>;
 
+  public contacts = [{name: "FullName", phone: "Number", email:"email", title:"title", connected_parter:"connection"}];
+
   constructor(public partnerService: PartnerService,
     private programsService: ProgramsService,
     @Inject(MAT_DIALOG_DATA) public id: string) {} // TODO: rename this id to be partnerName??

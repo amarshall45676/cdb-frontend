@@ -17,4 +17,11 @@
       </mat-card>
     </mat-card>
   </div>
+  <div *ngFor="let contact of contacts" class="belowdiv">
+    Partner Name: {{contact.name}}
+    Parter Phone Number: {{contact.phone}}
+    Partner EMail: {{contact.email}}
+    Partner Title: {{contact.title}}
+
+  </div>
 </app-profile>
