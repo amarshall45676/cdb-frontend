@@ -40,8 +40,7 @@ export class ProjectsComponent implements OnInit {
     private programsService: ProgramsService,
     private backendService: BackendService,
     private partnersService: PartnersService,
-    private router: Router
-  ) { }
+    private router: Router) {}
 
   ngOnInit() {
     console.log('Init for program component');
@@ -70,8 +69,7 @@ export class ProjectsComponent implements OnInit {
       yearStart: yearStart,
       yearEnd: yearEnd
     };
-    // Encode URL/endpoint to make sure that no bad character are hidden in it
-    // window.location.href = BackendService.encodeEndpoint(`#/projectResults/${program}/${partner}/${semester}/${yearStart}/${yearEnd}`);
+
     this.router.navigate(['projectResults', object]);
   }
 }

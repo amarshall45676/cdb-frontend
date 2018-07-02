@@ -1,5 +1,5 @@
 <app-page-header title="Student Profile"></app-page-header>
-<app-profile [entityId]="id" [service]="studentService">
+<app-profile [entityId]="id" [service]="studentService" [dialogRef]="dialogRef">
   <div class="belowdiv">
     Partners interacted with: <br>
     <mat-card *ngFor="let partner of partners">

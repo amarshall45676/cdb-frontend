@@ -14,7 +14,7 @@ export abstract class Entity {
   }
 
   public getProperties(): Array<string> {
-    return Object.keys(this._display); // TODO: should only be all for profile, have separate funciton for table
+    return Object.keys(this._display);
   }
 
   public abstract getTableProperties(): Array<string>;
@@ -23,6 +23,9 @@ export abstract class Entity {
   public getValue(pProperty: string): string {
     return this._display[pProperty];
   }
+
+  // TODO: implement this for all classes to be called when a profile gets closed
+  public abstract updateDisplay(entity: Entity);
 }
 
 export abstract class EntityBuilder {
@@ -35,7 +38,9 @@ export abstract class EntityBuilder {
     this.entityProfile = pName;
   }
 
-  public notes(pNotes: Array<Note>) {
-    this.entityNotes = pNotes;
+  public notes(pNotes: Array<Object>) {
+    this.entityNotes = pNotes.map(object => {
+      return Note.fromObject(object);
+    });
   }
 }

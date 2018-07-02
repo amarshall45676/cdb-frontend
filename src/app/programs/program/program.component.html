@@ -3,7 +3,6 @@
   <div class="belowdiv">
     <p>Numbers of students who participated in this program</p>
     <p>
-      <mat-spinner *ngIf="loadingNumStudents" color="primary"></mat-spinner>
       {{numStudents}}
     </p>
 
@@ -14,7 +13,6 @@
       Number of partners who have interacted with this program
     </p>
     <p>
-      <mat-spinner *ngIf="loadingNumPartners" color="primary"></mat-spinner>
       {{numPartners}}
     </p>
   </div>
@@ -24,7 +22,6 @@
       Percentage of students who did a program, that participated in this program
     </p>
     <p>
-      <mat-spinner *ngIf="loadingPercentStudents" color="primary"></mat-spinner>
       <span *ngIf="!loadingPercentStudents">{{percentStudents}} %</span>
     </p>
   </div>
@@ -34,7 +31,6 @@
       Percentage of students who did this program, that did another program
     </p>
     <p>
-      <mat-spinner *ngIf="loadingPercentStudentsDidAnother" color="primary"></mat-spinner>
       <span *ngIf="!loadingPercentStudentsDidAnother">{{percentStudentsDidAnother}} %</span>
     </p>
   </div>
@@ -44,7 +40,6 @@
       Percentage of students who applied that got accepted to this program
     </p>
     <p>
-      <mat-spinner *ngIf="loadingPercentAcceptance" color="primary"></mat-spinner>
       <span *ngIf="!loadingPercentAcceptance">{{percentAcceptance}} %</span>
     </p>
   </div>

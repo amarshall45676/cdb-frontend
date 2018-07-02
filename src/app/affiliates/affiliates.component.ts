@@ -45,29 +45,6 @@ export class AffiliatesComponent implements OnInit {
     //TODO: anything here?
   }
 
-  public redirectMain() {
-    this.redirect("main")
-  }
-
-  public redirectProjects() {
-    this.redirect("projects")
-  }
-
-  public redirectPartners() {
-    this.redirect("partners")
-  }
-
-  public redirectStudents() {
-    this.redirect("students")
-  }
-
-  public redirectAffiliates() {
-    this.redirect("affiliates")
-  }
-
-  private redirect(location) {
-    window.location.href = location;
-  }
 
   public submitQuery() {
     const department = this.departmentSelected === undefined ? "NA" : this.departmentSelected; //NA is the way to say exclude this from query
@@ -86,9 +63,9 @@ export class AffiliatesComponent implements OnInit {
       yearStart + "/" + yearEnd;
   }
 
-  //TODO: refactor somewhere
+  // TODO: refactor somewhere
   private makeQuery(method, endpoint) {
-    return this.backendService.resource(method, endpoint, null)
+    return this.backendService.resource(method, endpoint, null);
   }
 
 }

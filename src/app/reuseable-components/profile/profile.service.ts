@@ -1,6 +1,7 @@
 import { BackendService } from '../../backend/backend.service';
 import {Entity} from './entities/entity';
 import {UtilsService} from '../../utils/utils.service';
+import {UpdateResult} from './entities/updateResult';
 
 export abstract class ProfileService {
   public backendService: BackendService;
@@ -27,9 +28,9 @@ export abstract class ProfileService {
   abstract validateFields(updateObject);
 
   // Update the given entity with the given updateObject
-  public update(entityId: string, updateObject: Object): Promise<Entity> {
+  public update(entityId: string, updateObject: Object): Promise<UpdateResult> {
     return this.backendService.updateEntity(this.entityType, entityId, updateObject).then(object => {
-      return UtilsService.EntityFromObject(object, this.entityType);
+      return UtilsService.UpdateResultFromObject(object, this.entityType);
     });
   }
 

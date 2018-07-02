@@ -1,13 +1,11 @@
 import { Component, OnInit, Inject, ViewEncapsulation} from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
-
 import { ProjectService } from './project.service';
 import { StudentsService } from '../../students/students.service';
 import { PartnersService } from '../../partners/partners.service';
 import { UtilsService } from '../../utils/utils.service';
 
-import { MAT_DIALOG_DATA } from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-project',
@@ -24,8 +22,8 @@ export class ProjectComponent implements OnInit {
   constructor(projectService: ProjectService,
     private studentsService: StudentsService,
     private partnersService: PartnersService,
-    @Inject(MAT_DIALOG_DATA) public id: string
-    ) {
+    private dialogRef: MatDialogRef<ProjectComponent>,
+    @Inject(MAT_DIALOG_DATA) public id: string) {
       this.projectService = projectService; // Not public because sharing with child
      }
 

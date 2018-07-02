@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, Input} from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import {Component, OnInit, ViewChild, Input, AfterViewInit} from '@angular/core';
+import {MatPaginator, MatTableDataSource, MatSort, MatDialogRef} from '@angular/material';
 import { MatDialog} from '@angular/material';
 
 import { BackendService } from '../../backend/backend.service';
@@ -25,6 +25,8 @@ export class ResultsTableComponent implements OnInit {
   public displayProperties: Array<string>; // these are the properties for the table
   public displayColumns: Array<string>; // these include addition columns for the table(e.g. profile)
 
+  public loadingResults: boolean;
+
   // These are so that the table has sort and paging functionality
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -34,30 +36,19 @@ export class ResultsTableComponent implements OnInit {
      private backendService: BackendService) {}
 
   ngOnInit() {
-    console.log('Query String: ' + this.queryString);
+    this.loadingResults = true;
     this.makeQuery(this.queryString).then(entities => {
-        // TODO: pull display columns from the object
-        this.entities = entities;
-        console.log('----Initializing results table----');
-        if (this.entities.length > 0) { // If there are entities
-          const entity: Entity = this.entities[0];
-          const keys = entity.getTableProperties();
-          console.log('Keys: ' + JSON.stringify(keys));
-          // Make sure profile is just button
-          this.displayProperties = keys.slice();
-          console.log('Properties: ' + JSON.stringify(this.displayProperties));
-          this.displayColumns = keys.slice().concat('Profile');
-          console.log('Columns: ' + JSON.stringify(this.displayColumns));
-        }
-        this.dataSource = new MatTableDataSource(this.entities.map((entity: Entity) => {
-          return entity; // ._display
-        }));
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sortingDataAccessor = (entity: Entity, sortHeaderId: string) => {
-          return entity.getValue(sortHeaderId);
-        };
-        this.dataSource.sort = this.sort;
-      });
+      this.loadingResults = false;
+      this.entities = entities;
+      if (this.entities.length > 0) { // If there are entities
+        const entity: Entity = this.entities[0];
+        const keys = entity.getTableProperties();
+        // Make sure profile is just button
+        this.displayProperties = keys.slice();
+        this.displayColumns = keys.slice().concat('Profile');
+      }
+      this.setDataSource(this.entities);
+    });
   }
 
   // TODO: refactor below to a service?
@@ -76,12 +67,12 @@ export class ResultsTableComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  public viewProfile(id) {
-    console.log('View profile for an entity with ID: ' + JSON.stringify(id));
-    this.openDialog(id);
+  public viewProfile(entity: Entity) {
+    console.log('View profile for an entity with ID: ' + JSON.stringify(entity._profile));
+    this.openDialog(entity);
   }
 
-  openDialog(id) {
+  openDialog(entity: Entity) {
     let component;
     // TODO: better way to do this than passing a string?
     if (this.type === 'student') {
@@ -96,17 +87,27 @@ export class ResultsTableComponent implements OnInit {
       console.log('There was an error passing in the type');
     }
 
-    const dialogRef = this.dialog.open(component, { // TODO: Should this be MatDialofRef?
+    // TODO: might want to change it so it cannot be closed without hitting close button
+    const dialogRef = this.dialog.open(component, {
       width: '100%',
       height: '100%',
-      data: id
+      disableClose: true,
+      data: entity._profile
     });
 
-    // TODO: can do diffferent things on close of the dialog, also if observable then should I destory it?
+    // TODO: also if observable then should I destroy it?
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog closed: ${result}`);
-      // this.dialogResult = result;
+      entity.updateDisplay(result);
     });
+  }
+
+  private setDataSource(data) {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (entity: Entity, sortHeaderId: string) => {
+      return entity.getValue(sortHeaderId);
+    };
   }
 
 }

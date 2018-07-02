@@ -14,13 +14,13 @@
   </app-file-upload>
   <app-file-upload fileType="partners">
     <article>
-      <h2>Optional: Upload data on partners</h2>
+      <h2>Optional: Upload data on Partners</h2>
       <p>If a Partner your Program interacted with is not already in the database, you can add them here or with a form below.</p>
     </article>
   </app-file-upload>
   <app-file-upload fileType="students">
     <article>
-      <h2>Optional: Upload data on students</h2>
+      <h2>Optional: Upload data on Students</h2>
       <p>This should be any new "Apply Now!" data that has come in. Make sure that students are not dupliacted</p>
     </article>
   </app-file-upload>
@@ -61,6 +61,9 @@
           <input matInput placeholder="URL" formControlName="url">
         </mat-form-field>
       </form>
+      <div *ngIf="!partnerForm.valid">
+        Enter in a name for the Partner to create one.
+      </div>
       <div *ngIf="partnerDisplay">
         <p *ngIf="partnerResult.success">
           Partner was created successfully!
@@ -93,6 +96,9 @@
           <input matInput placeholder="Act, Learn, or Create Chane" formControlName="type">
         </mat-form-field>
       </form>
+      <div *ngIf="!programForm.valid">
+        Enter in a name for the Program to create one.
+      </div>
       <div *ngIf="programDisplay">
         <p *ngIf="programResult.success">
           Program was created successfully!
@@ -128,6 +134,9 @@
           <input matInput placeholder="Semester" formControlName="semester">
         </mat-form-field>
       </form>
+      <div *ngIf="!projectForm.valid">
+        Enter in a name for the Project to create one.
+      </div>
       <div *ngIf="projectDisplay">
         <p *ngIf="projectResult.success">
           Project was created successfully!
@@ -175,6 +184,9 @@
           <input matInput placeholder="Graduation Year" formControlName="gradYear">
         </mat-form-field>
       </form>
+      <div *ngIf="!studentForm.valid">
+        Enter in a name for the Student to create one.
+      </div>
       <div *ngIf="studentDisplay">
         <p *ngIf="studentResult.success">
           Student was created successfully!

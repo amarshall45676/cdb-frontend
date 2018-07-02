@@ -25,8 +25,8 @@ export class Project extends Entity {
     const name = object['Name'];
     builder.name(name);
     builder.profile(name);
-    builder.programName(object['Program']);
-    builder.yearRun(object['Year']);
+    builder.programName(object['Program Name']);
+    builder.yearRun(object['Year Run']);
     builder.semester(object['Semester']);
     builder.notes(object['Notes']);
     return builder.build();
@@ -38,6 +38,11 @@ export class Project extends Entity {
 
   public getTableProperties(): Array<string> {
     return ['Name', 'Program Name', 'Year Run', 'Semester'];
+  }
+
+  public updateDisplay(project: Project) {
+    this._display = project._display;
+    this._profile = project._name;
   }
 }
 

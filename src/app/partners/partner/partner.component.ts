@@ -8,10 +8,11 @@ import { ProjectsService } from '../../projects/projects.service';
 import { ProgramsService } from '../../programs/programs.service';
 import { UtilsService } from '../../utils/utils.service';
 
-import { MAT_DIALOG_DATA } from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {BackendService} from '../../backend/backend.service';
+import {ProfileComponent} from '../../reuseable-components/profile/profile.component';
 
 
 @Component({
@@ -21,7 +22,6 @@ import {BackendService} from '../../backend/backend.service';
   encapsulation: ViewEncapsulation.None
 })
 export class PartnerComponent implements OnInit {
-  // TODO: on close of dialog should refresh id?(How to only refresh one partner entry?)
   // Might be better to just update the entry in the table, not send a full request
   public programs: Array<Object>;
   public projects: Array<Object>;
@@ -34,7 +34,7 @@ export class PartnerComponent implements OnInit {
 
 
 
-  public contacts = [{name: "FullName", phone: "Number", email:"email", title:"title", connected_parter:"connection"}];
+  public contacts = [{name: 'FullName', phone: 'Number', email: 'email', title: 'title', connected_parter: 'connection'}];
 
   private static objectToForm(object: Object) {
     const formData: FormData = new FormData(); // Printing this out is weird be careful, use .get()
@@ -48,9 +48,11 @@ export class PartnerComponent implements OnInit {
   constructor(public partnerService: PartnerService,
     private backendService: BackendService,
     private programsService: ProgramsService,
-    @Inject(MAT_DIALOG_DATA) public id: string) {} // TODO: rename this id to be partnerName??
+    private dialogRef: MatDialogRef<PartnerComponent>,
+    @Inject(MAT_DIALOG_DATA) public id: string) {}
 
   ngOnInit() {
+    // TODO: this isnt working
     this.programsService.getProgramViewsPromiseForPartner(this.id).then(programViews => {
       console.log('Program Views: ' + JSON.stringify(programViews));
       this.programs = programViews;
@@ -71,24 +73,15 @@ export class PartnerComponent implements OnInit {
   }
 
   public createContact() {
-    if (!this.contactForm.valid){
+    if (!this.contactForm.valid) {
       console.log('Form is not valid');
+    } else {
+      console.log(this.contactForm.value);
     }
-    else{
-      console.log(this.contactForm.value)
-    }
+    // TODO: need this to acutally be created
     // this.createEntity('contact', this.contactForm).then((entityResult: Object) => {
     //   this.contactDisplay = true;
     //   this.contactResult = entityResult;
     // });
   }
-
-
-//   public createEntity(type: string, form: FormGroup) {
-//     if (!form.valid) {
-//       console.log('Form is not valid'); // TODO: have this display
-//     } else {
-//       console.log('It works!')
-//   }
-// }
 }

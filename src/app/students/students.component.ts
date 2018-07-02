@@ -7,6 +7,7 @@ import { ProgramsService } from '../programs/programs.service';
 import { UtilsService } from '../utils/utils.service';
 
 import {FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-students',
@@ -56,7 +57,8 @@ export class StudentsComponent implements OnInit {
     private studentsService: StudentsService,
      private backendService: BackendService,
      private partnersService: PartnersService,
-     private programsService: ProgramsService) {}
+     private programsService: ProgramsService,
+     private router: Router) {}
 
   ngOnInit() {
     this.partnersService.getPartnersPromise().then(partners => {
@@ -80,14 +82,22 @@ export class StudentsComponent implements OnInit {
   public submitQuery() {
     const partner = this.partnerSelected === undefined ? 'NA' : this.partnerSelected; // NA is the way to say exclude this from query
     const program = (this.programControl.value === undefined || this.programControl.value === null) ? 'NA' :
-      this.programControl.value.map(object => {
-        return object.programName + ':' + object.backendValue; // TODO: explain this
+      this.programControl.value.map(controlObject => {
+        return controlObject.programName + ':' + controlObject.backendValue; // TODO: explain this
       }).join(',');
     const issue = this.issueSelected === undefined ? 'NA' : this.issueSelected;
     const semester = this.semesterSelected === undefined ? 'NA' : this.semesterSelected;
     const yearStart = (<HTMLInputElement>document.querySelector('#yearStart')).value;
     const yearEnd = (<HTMLInputElement>document.querySelector('#yearEnd')).value;
+    const object = {
+      partner: partner,
+      program: program,
+      issue: issue,
+      semester: semester,
+      yearStart: yearStart,
+      yearEnd: yearEnd
+    };
 
-    window.location.href = `#/studentResults/${partner}/${program}/${issue}/${semester}/${yearStart}/${yearEnd}`;
+    this.router.navigate(['studentResults', object]);
   }
 }

@@ -4,7 +4,7 @@ import { URLService } from '../url/url.service';
 
 @Injectable()
 export class BackendService {
-  baseBackend;
+  private baseBackend: string;
 
   constructor(private urlService: URLService) {
     this.baseBackend = this.urlService.getBackendURL();
@@ -18,7 +18,7 @@ export class BackendService {
      console.log('This is how it is split and encoded: ' + JSON.stringify(result));
     return result;
    }
-  // TODO: if this is a get request, parameters should go in the payload?
+
   public resource(method, endpoint, payload) {
     let options: RequestInit;
     if (method !== 'GET') {
@@ -126,7 +126,7 @@ export class BackendService {
   // Returns promise that contains the fieldName to the new updated value
   public updateEntity(entityType: string, entityId: string, newValues: Object) {
     const endpoint = `${entityType}/${entityId}`;
-    return this.resource('PUT', BackendService.encodeEndpoint(endpoint), newValues);
+    return this.resource('PUT', endpoint, newValues);
   }
 
   // TODO: not sure how to make the login work with a sigle reqeust and OAuth

@@ -5,7 +5,7 @@ import { PartnersService } from '../../partners/partners.service';
 import { ProgramsService } from '../../programs/programs.service';
 import { UtilsService } from '../../utils/utils.service';
 
-import { MAT_DIALOG_DATA } from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-student',
@@ -23,6 +23,7 @@ export class StudentComponent implements OnInit {
     public studentService: StudentService,
     private partnersService: PartnersService,
     private programsService: ProgramsService,
+    private dialogRef: MatDialogRef<StudentComponent>,
     @Inject(MAT_DIALOG_DATA) public id: string) {}
 
   ngOnInit() {

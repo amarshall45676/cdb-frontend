@@ -8,9 +8,15 @@
     <span>Update {{property}}: <input title="{{property}}" class="newValues"></span>
   </div>
 </div>
-
+<button mat-button *ngIf="isDialog" (click)="closeDialog()" color="warn" class="logout sidebyside">
+  Close
+</button>
 <div class="belowdiv">
-  <button (click)="updateEntity()">Update</button>
+  <button mat-button (click)="updateEntity()" class="riceColors">Update</button>
+</div>
+<div class="belowdiv">
+  <h1>This is where errors will be displayed:</h1>
+  <span id="errors"></span>
 </div>
 <!-- Any selectors for this? -->
 <ng-content></ng-content>

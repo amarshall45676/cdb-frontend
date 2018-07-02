@@ -1,5 +1,5 @@
 <app-page-header title="Partner Profile"></app-page-header>
-<app-profile [entityId]="id" [service]="partnerService">
+<app-profile [entityId]="id" [service]="partnerService" [dialogRef]="dialogRef">
   <div class="belowdiv list">
     Programs worked with: <br>
     <mat-card *ngFor="let program of programs">
@@ -63,6 +63,4 @@
       <button mat-button class="riceColors" (click)="createContact()">Create!</button>
     </mat-card-actions>
   </mat-card>
-
-
 </app-profile>

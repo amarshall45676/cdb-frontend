@@ -5,6 +5,7 @@ import { ProgramsService } from '../programs/programs.service';
 import { BackendService } from '../backend/backend.service';
 
 import { UtilsService } from '../utils/utils.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-partners',
@@ -45,7 +46,8 @@ export class PartnersComponent implements OnInit {
 
   constructor(
      private programsService: ProgramsService,
-     private backendService: BackendService) {}
+     private backendService: BackendService,
+     private router: Router) {}
 
   ngOnInit() {
     console.log('Init for partner component');
@@ -59,12 +61,20 @@ export class PartnersComponent implements OnInit {
   public submitQuery() {
     // NA is the way to say exclude this from query
     const program = this.programSelected === undefined ? 'NA' : this.programSelected;
-    const socialIssue = this.issueSelected === undefined ? 'NA' : this.issueSelected;
+    const issue = this.issueSelected === undefined ? 'NA' : this.issueSelected;
     const type = this.typeSelected === undefined ? 'NA' : this.typeSelected;
     const semester = this.semesterSelected === undefined ? 'NA' : this.semesterSelected;
     const yearStart = (<HTMLInputElement>document.querySelector('#yearStart')).value;
     const yearEnd = (<HTMLInputElement>document.querySelector('#yearEnd')).value;
+    const object = {
+      program: program,
+      issue: issue,
+      type: type,
+      semester: semester,
+      yearStart: yearStart,
+      yearEnd: yearEnd
+    };
 
-    window.location.href = `#/partnerResults/${program}/${socialIssue}/${type}/${semester}/${yearStart}/${yearEnd}`;
+    this.router.navigate(['partnerResults', object]);
   }
 }

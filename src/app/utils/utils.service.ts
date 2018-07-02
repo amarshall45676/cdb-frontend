@@ -4,6 +4,7 @@ import {Partner} from '../reuseable-components/profile/entities/partner';
 import {Program} from '../reuseable-components/profile/entities/program';
 import {Project} from '../reuseable-components/profile/entities/project';
 import {Student} from '../reuseable-components/profile/entities/student';
+import {UpdateResult} from '../reuseable-components/profile/entities/updateResult';
 
 @Injectable()
 export class UtilsService {
@@ -53,6 +54,15 @@ export class UtilsService {
     } else {
       window.alert('problem wit app, ask someone to fix');
       return null;
+    }
+  }
+
+  public static UpdateResultFromObject(object: Object, type: string): UpdateResult {
+    const success = object['success'];
+    if (success) {
+      return new UpdateResult(success, UtilsService.EntityFromObject(object['result'], type));
+    } else {
+      return new UpdateResult(success, null);
     }
   }
 }

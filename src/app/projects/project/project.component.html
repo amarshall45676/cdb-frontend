@@ -1,5 +1,5 @@
 <app-page-header title="Project Profile"></app-page-header>
-<app-profile [entityId]="id" [service]="projectService">
+<app-profile [entityId]="id" [service]="projectService" [dialogRef]="dialogRef">
   <div class="belowdiv">
     Students who worked on this project:
     <mat-card *ngFor="let student of students">

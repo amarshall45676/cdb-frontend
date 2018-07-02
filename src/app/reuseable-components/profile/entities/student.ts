@@ -60,7 +60,7 @@ export class Student extends Entity {
       'Country of Citizenship': this._citizenshipCountry,
       Ethnicity: this._ethnicity,
       'Pursuing a CCL Certificate': this._pursueCertificate,
-      'Interested In CCL Certificate': this._interestCertificate
+      'Interested in CCL Certificate': this._interestCertificate
     };
   }
 
@@ -69,8 +69,8 @@ export class Student extends Entity {
     const name = object['Name'];
     builder.name(name);
     builder.profile(name);
-    builder.netId(object['NetId']);
-    builder.studentId(object['StudentId']);
+    builder.netId(object['Net ID']);
+    builder.studentId(object['Student ID']);
     builder.college(object['College']);
     builder.gender(object['Gender']);
     builder.gradYear(object['Graduation Year']);
@@ -82,9 +82,9 @@ export class Student extends Entity {
     builder.minors(object['Minors']);
     builder.gpa(object['GPA']);
     builder.citizenship(object['Citizenship']);
-    builder.citizenshipCountry(object['Citizenship Country']);
+    builder.citizenshipCountry(object['Country of Citizenship']);
     builder.ethnicity(object['Ethnicity']);
-    builder.pursueCertificate(object['Pursuing CCL Certificate']);
+    builder.pursueCertificate(object['Pursuing a CCL Certificate']);
     builder.interestCertificate(object['Interested in CCL Certificate']);
     builder.notes(object['Notes']);
     return builder.build();
@@ -92,6 +92,11 @@ export class Student extends Entity {
 
   public getTableProperties(): Array<string> {
     return ['Name', 'Email', 'Majors', 'Minors', 'GPA', 'Graduation Year'];
+  }
+
+  public updateDisplay(student: Student) {
+    this._display = student._display;
+    this._profile = student._name;
   }
 }
 

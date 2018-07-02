@@ -32,6 +32,10 @@
   color: #E0E0E0;
 }
 
+.logout {
+  background-color: #0D47A1;
+}
+
 .querySelector {
   /* TODO: maybe have this be display block width 100% */
   width: 30%;

@@ -4,6 +4,11 @@ export class Program extends Entity {
   public _name: string;
   public _purpose: string;
   public _type: string; // Can be Act, Learn, or Create Change
+  public _numStudent: int;
+  public _numPartners: int;
+  public _percentStudents: double;
+  public _percentDidAnotherProgram: double;
+  public _percentAcceptance: double;
 
   constructor(pCopy: ProgramBuilder) {
     super(pCopy);
@@ -43,12 +48,22 @@ export class Program extends Entity {
   public getTableProperties(): Array<string> {
     return ['Name', 'Purpose', 'Activity Type'];
   }
+
+  public updateDisplay(program: Program) {
+    this._display = program._display;
+    this._profile = program._name;
+  }
 }
 
 export class ProgramBuilder extends EntityBuilder {
   public programName: string;
   public programPurpose: string;
   public programType: string;
+  public programNumStudents: int;
+  public programNumPartners: int;
+  public programPercentStudents: double;
+  public programPercentDidAnotherProgram: double;
+  public programPercentAcceptance: double;
 
   constructor() {
     super();
@@ -64,6 +79,27 @@ export class ProgramBuilder extends EntityBuilder {
 
   public type(pType: string) {
     this.programType = pType;
+  }
+
+  public numStudents(pNumStudents: int) {
+    this.programNumStudents = pNumStudents;
+  }
+
+  public numPartners(pNumPartners: int) {
+    this.programNumPartners = pNumPartners;
+  }
+
+  // TODO: what does percent students mean
+  public percentStudents(pPercentStudents: double) {
+    this.programPercentStudents = pPercentStudents;
+  }
+
+  public percentDidAnotherProgram(pPercentDidAnotherProgram: double) {
+    this.programPercentDidAnotherProgram = pPercenDidAnotherProgram;
+  }
+
+  public percentAcceptance(pPercentAcceptance: double) {
+    this.programPercentAcceptance = pPercentAcceptance;
   }
 
   public build(): Program {

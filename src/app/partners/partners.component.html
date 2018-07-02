@@ -4,7 +4,7 @@
   Programs: <br>
   <mat-form-field class="querySelector">
     <mat-select placeholder="Program" [(ngModel)]="programSelected" multiple>
-      <mat-option *ngFor="let program of programs" [value]="program.name">
+      <mat-option *ngFor="let program of programs" [value]="program.Name">
         {{ program.Name }}
       </mat-option>
     </mat-select>

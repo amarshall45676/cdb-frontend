@@ -29,38 +29,25 @@ export class Partner extends Entity {
 
   public static fromObject(object: Object): Partner {
     const builder: PartnerBuilder  = new PartnerBuilder();
-    let property; // Create local variable to hold lookup so it isnt done multiple times?
-    if (property = object['Name']) {
-      builder.name(property);
-      builder.profile(property);
-    }
-    if (property = object['Address']) {
-      builder.address(property);
-    }
-    if (property = object['City']) {
-      builder.city(property);
-    }
-    if (property = object['Zipcode']) {
-      builder.zipcode(property);
-    }
-    if (property = object['Phone']) {
-      builder.phone(property);
-    }
-    if (property = object['URL']) {
-      builder.url(property);
-    }
-    if (property = object['Notes']) {
-      builder.notes(property);
-    }
+    const name = object['Name'];
+    builder.name(name);
+    builder.profile(name);
+    builder.address(object['Address']);
+    builder.city(object['City']);
+    builder.zipcode(object['Zipcode']);
+    builder.phone(object['Phone']);
+    builder.url(object['URL']);
+    builder.notes(object['Notes']);
     return builder.build();
-  }
-
-  public static getFormProperties(): Array<string> {
-    return ['Name', 'Address', 'City', 'Zipcode', 'Phone', 'URL'];
   }
 
   public getTableProperties(): Array<string> {
     return ['Name', 'Address', 'City', 'Zipcode', 'Phone'];
+  }
+
+  public updateDisplay(partner: Partner) {
+    this._display = partner._display;
+    this._profile = partner._name;
   }
 }
 

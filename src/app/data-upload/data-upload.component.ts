@@ -16,6 +16,7 @@ export class DataUploadComponent implements OnInit {
 
   public partnerResult: Object;
   public partnerDisplay = false;
+  partnerFormValid = true;
 
   public programResult: Object;
   public programDisplay = false;
@@ -41,75 +42,79 @@ export class DataUploadComponent implements OnInit {
   ngOnInit() {
     this.partnerForm = new FormGroup ({
       name: new FormControl('', Validators.required),
-      address: new FormControl(),
-      city: new FormControl(),
-      state: new FormControl(),
-      zipcode: new FormControl(),
-      phone: new FormControl(),
-      url: new FormControl()
+      address: new FormControl(''),
+      city: new FormControl(''),
+      state: new FormControl(''),
+      zipcode: new FormControl(''),
+      phone: new FormControl(''),
+      url: new FormControl('')
     });
 
     this.programForm = new FormGroup ({
       name: new FormControl('', Validators.required),
-      purpose: new FormControl(),
-      type: new FormControl()
+      purpose: new FormControl(''),
+      type: new FormControl('')
     });
 
     this.projectForm = new FormGroup ({
       name: new FormControl('', Validators.required),
-      programName: new FormControl(),
-      year: new FormControl(),
-      semester: new FormControl()
+      programName: new FormControl(''),
+      year: new FormControl(''),
+      semester: new FormControl('')
     });
 
     this.studentForm = new FormGroup ({
       name: new FormControl('', Validators.required),
-      email: new FormControl(),
-      phone: new FormControl(),
-      major: new FormControl(),
-      minor: new FormControl(),
-      gpa: new FormControl(),
-      gradYear: new FormControl()
+      email: new FormControl(''),
+      phone: new FormControl(''),
+      major: new FormControl(''),
+      minor: new FormControl(''),
+      gpa: new FormControl(''),
+      gradYear: new FormControl('')
     });
   }
 
   public createPartner() {
     // TODO: make a selector that pops up a dialog, fill out the right form, on submit if the form looks good close it,
     // otherwise inform user
-    this.createEntity('partner', this.partnerForm).then((entityResult: Object) => {
-      console.log('Result: ' + JSON.stringify(entityResult));
-      this.partnerDisplay = true;
-      this.partnerResult = entityResult;
-    });
+    if (this.partnerForm.valid) {
+      this.createEntity('partner', this.partnerForm).then((entityResult: Object) => {
+        console.log('Result: ' + JSON.stringify(entityResult));
+        this.partnerDisplay = true;
+        this.partnerResult = entityResult;
+      });
+    }
   }
 
   public createProject() {
-    this.createEntity('project', this.projectForm).then((entityResult: Object) => {
-      this.projectDisplay = true;
-      this.projectResult = entityResult;
-    });
+    if (this.projectForm.valid) {
+      this.createEntity('project', this.projectForm).then((entityResult: Object) => {
+        this.projectDisplay = true;
+        this.projectResult = entityResult;
+      });
+    }
   }
 
   public createProgram() {
-    this.createEntity('program', this.programForm).then((entityResult: Object) => {
-      this.programDisplay = true;
-      this.programResult = entityResult;
-    });
+    if (this.programForm.valid) {
+      this.createEntity('program', this.programForm).then((entityResult: Object) => {
+        this.programDisplay = true;
+        this.programResult = entityResult;
+      });
+    }
   }
 
   public createStudent() {
-    this.createEntity('student', this.studentForm).then((entityResult: Object) => {
-      this.studentDisplay = true;
-      this.studentResult = entityResult;
-    });
+    if (this.studentForm.valid) {
+      this.createEntity('student', this.studentForm).then((entityResult: Object) => {
+        this.studentDisplay = true;
+        this.studentResult = entityResult;
+      });
+    }
   }
 
 
   public createEntity(type: string, form: FormGroup) {
-    if (!form.valid) {
-      console.log('Form is not valid'); // TODO: have this display
-    } else {
-      return this.backendService.makeEntity(`${type}/`, DataUploadComponent.objectToForm(form.value));
-    }
+    return this.backendService.makeEntity(`${type}/`, DataUploadComponent.objectToForm(form.value));
   }
 }

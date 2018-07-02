@@ -107,11 +107,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'studentResults/:partner/:program/:issue/:semester/:yearStart/:yearEnd',
-    component : StudentResultsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'student/:id',
     component : StudentComponent,
     canActivate: [AuthGuard]
@@ -122,12 +117,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'partnerResults', // Empty route for just viewing all partners in the DB
-    component : PartnerResultsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'partnerResults/:program/:issue/:type/:semester/:yearStart/:yearEnd',
+    path: 'partnerResults',
     component : PartnerResultsComponent,
     canActivate: [AuthGuard]
   },
@@ -147,15 +137,10 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'projectResults', // Empty route for just viewing all partners in the DB
+    path: 'projectResults',
     component : ProjectResultsComponent,
     canActivate: [AuthGuard]
   },
-  // {
-  //   path: 'projectResults/:program?/:partner?/semester?/yearStart?/yearEnd?', // Empty route for just viewing all partners in the DB
-  //   component : ProjectResultsComponent,
-  //   canActivate: [AuthGuard]
-  // },
   {
     path: 'project/:id',
     component : ProjectComponent,
@@ -164,11 +149,6 @@ export const routes: Routes = [
   {
     path: 'affiliates',
     component : AffiliatesComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'affiliateResults/:department/:issue/:type/:semester/:yearStart/:yearEnd',
-    component : AffiliateResultsComponent,
     canActivate: [AuthGuard]
   },
   {
