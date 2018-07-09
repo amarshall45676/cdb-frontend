@@ -35,5 +35,9 @@
     <p>Note content: {{note._note}}</p>
     <p>Note author: {{note._userId}}</p>
     <p>Note date: {{note._creationDate}}</p>
+    <p>Note ID: {{note._note_id}}</p>
+
+    <button (click)="deleteNote(note._note_id)">Delete</button>
+
   </mat-card>
 </div>

@@ -4,11 +4,11 @@ export class Program extends Entity {
   public _name: string;
   public _purpose: string;
   public _type: string; // Can be Act, Learn, or Create Change
-  public _numStudent: int;
-  public _numPartners: int;
-  public _percentStudents: double;
-  public _percentDidAnotherProgram: double;
-  public _percentAcceptance: double;
+  public _numStudent: number;
+  public _numPartners: number;
+  public _percentStudents: number;
+  public _percentDidAnotherProgram: number;
+  public _percentAcceptance: number;
 
   constructor(pCopy: ProgramBuilder) {
     super(pCopy);
