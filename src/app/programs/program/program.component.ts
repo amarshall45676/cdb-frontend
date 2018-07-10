@@ -42,7 +42,7 @@ export class ProgramComponent implements OnInit, OnDestroy {
     this.sub = this.route.params.subscribe(params => {
        this.id = params['id'];
 
-       this.programService.getProgramPromise(id).then((program: Program) => {
+       this.programService.getProgramPromise(this.id).then((program: Program) => {
          this.program = program;
        });
 

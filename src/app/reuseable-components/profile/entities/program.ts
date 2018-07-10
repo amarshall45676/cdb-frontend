@@ -4,11 +4,11 @@ export class Program extends Entity {
   public _name: string;
   public _purpose: string;
   public _type: string; // Can be Act, Learn, or Create Change
-  public _numStudent: int;
-  public _numPartners: int;
-  public _percentStudents: double;
-  public _percentDidAnotherProgram: double;
-  public _percentAcceptance: double;
+  public _numStudent: number;
+  public _numPartners: number;
+  public _percentStudents: number;
+  public _percentDidAnotherProgram: number;
+  public _percentAcceptance: number;
 
   constructor(pCopy: ProgramBuilder) {
     super(pCopy);
@@ -59,11 +59,11 @@ export class ProgramBuilder extends EntityBuilder {
   public programName: string;
   public programPurpose: string;
   public programType: string;
-  public programNumStudents: int;
-  public programNumPartners: int;
-  public programPercentStudents: double;
-  public programPercentDidAnotherProgram: double;
-  public programPercentAcceptance: double;
+  public programNumStudents: number;
+  public programNumPartners: number;
+  public programPercentStudents: number;
+  public programPercentDidAnotherProgram: number;
+  public programPercentAcceptance: number;
 
   constructor() {
     super();
@@ -81,24 +81,24 @@ export class ProgramBuilder extends EntityBuilder {
     this.programType = pType;
   }
 
-  public numStudents(pNumStudents: int) {
+  public numStudents(pNumStudents: number) {
     this.programNumStudents = pNumStudents;
   }
 
-  public numPartners(pNumPartners: int) {
+  public numPartners(pNumPartners: number) {
     this.programNumPartners = pNumPartners;
   }
 
   // TODO: what does percent students mean
-  public percentStudents(pPercentStudents: double) {
+  public percentStudents(pPercentStudents: number) {
     this.programPercentStudents = pPercentStudents;
   }
 
-  public percentDidAnotherProgram(pPercentDidAnotherProgram: double) {
-    this.programPercentDidAnotherProgram = pPercenDidAnotherProgram;
+  public percentDidAnotherProgram(pPercentDidAnotherProgram: number) {
+    this.programPercentDidAnotherProgram = pPercentDidAnotherProgram;
   }
 
-  public percentAcceptance(pPercentAcceptance: double) {
+  public percentAcceptance(pPercentAcceptance: number) {
     this.programPercentAcceptance = pPercentAcceptance;
   }
 
