@@ -5,6 +5,9 @@ import { Entity } from './entities/entity';
 import { UpdateResult } from './entities/updateResult';
 import {MatDialogRef} from '@angular/material';
 
+import {BackendService} from '../../backend/backend.service';
+
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -106,5 +109,12 @@ export class ProfileComponent<T> implements OnInit {
 
   public closeDialog() {
     this.dialogRef.close(this.entity);
+  }
+
+  public deleteNote(noteId){
+    this.service.deleteNote(this.entityId, noteId).then((newEntity: Entity) =>{
+      console.log(newEntity);
+      this.updateDisplay(newEntity);
+    });
   }
 }

@@ -24,6 +24,18 @@ export abstract class ProfileService {
   }
 
   // TODO(Augi): need to implement this for other places(partner project etc.)
+  /**
+  entity: Entity to be update, e.g. for a student this could be Andrew Marshall
+  newNote: Note to add to the given entity
+  */
+  public deleteNote(entityId: string, noteId: string): Promise<Entity> {
+    return this.backendService.resource('DELETE', `${this.entityType}/${entityId}/${noteId}`, null)
+      .then(object => {
+        return UtilsService.EntityFromObject(object, this.entityType);
+      });
+  }
+
+  // TODO: need to implement this
   // Make sure fields match a pattern, if they dont print a message and take out of result
   public abstract validateFields(updateObject): Array<string>;
 
