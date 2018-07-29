@@ -1,6 +1,6 @@
 <app-page-header title="Students Page" queryNav="true"></app-page-header>
 <div class="twoSideBySide">
-  <h1>Create a Student query</h1>
+  <h2>Create a Student query</h2>
   Partners: <br>
   <mat-form-field class="querySelector">
     <mat-select placeholder="Partners" [(ngModel)]="partnerSelected"multiple>
@@ -14,27 +14,21 @@
     <mat-select placeholder="Programs" [formControl]="programControl" multiple>
        <mat-select-trigger> <!--this trigger make it only show the first value plus a ... for others -->
         {{programControl.value?.length ?
-           programControl.value[0].value + programControl.value[0].programName  :
+           programControl.value[0].participation.value + programControl.value[0].program.Name  :
             ''}}
         <span *ngIf="programControl.value?.length > 1">
           (+{{programControl.value.length - 1}} others)
         </span>
       </mat-select-trigger>
       <mat-optgroup *ngFor="let program of programs" [label]="program.Name">
-        <!-- value stored should include program name and participation -->
-        <!-- TODO:Want this to be the program object, with only the participation wanted -->
-        <mat-option *ngFor="let value of program.participation" [value]="value">
+        <mat-option [value]="combineProgram(program.notParticipation, program)" [disabled]="program.disableNot">
+          {{ program.notParticipation.viewValue }}
+        </mat-option>
+        <!-- value stored includes program name and participation -->
+        <mat-option *ngFor="let value of program.participation" [value]="combineProgram(value, program)" [disabled]="program.disableOthers">
           {{ value.viewValue }}
         </mat-option>
       </mat-optgroup>
-    </mat-select>
-  </mat-form-field> <br>
-  Social Issues: <br>
-  <mat-form-field class="querySelector">
-    <mat-select placeholder="Social Issues" [(ngModel)]="issueSelected" multiple>
-      <mat-option *ngFor="let issue of issues" [value]="issue.name">
-        {{ issue.name }}
-      </mat-option>
     </mat-select>
   </mat-form-field> <br>
   Semesters: <br>

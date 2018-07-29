@@ -22,7 +22,7 @@ export class ProjectComponent implements OnInit {
   constructor(projectService: ProjectService,
     private studentsService: StudentsService,
     private partnersService: PartnersService,
-    private dialogRef: MatDialogRef<ProjectComponent>,
+    public dialogRef: MatDialogRef<ProjectComponent>,
     @Inject(MAT_DIALOG_DATA) public id: string) {
       this.projectService = projectService; // Not public because sharing with child
      }

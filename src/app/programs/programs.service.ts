@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { BackendService } from '../backend/backend.service';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class ProgramsService {
-  private backendService: BackendService;
 
-  constructor(pBackendService: BackendService) {
-    this.backendService = pBackendService;
+  constructor(private router: Router, private backendService: BackendService) {
    }
-
-   // TODO: want to cache this request? will make 1 request then save result for other calls
 
    public getProgramViewsPromiseForStudent(studentName) {
     return this.backendService.resource('GET', `program/student/${studentName}`, null);
@@ -29,8 +26,12 @@ export class ProgramsService {
   }
 
   public viewProfile(id) {
-    console.log('View profile for program with ID: ' + id);
-    window.location.href = `#/program/${id}`;
+    const object = {
+      id: id
+    };
+    this.router.navigate(['program', object]);
+    // console.log('View profile for program with ID: ' + id);
+    // window.location.href = `#/program/${id}`;
   }
 
 }

@@ -16,7 +16,6 @@ export class PartnerResultsComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
        const program = params['program'];
-       const issue = params['issue'];
        const type = params['type'];
        const semester = params['semester'];
        const yearStart = params['yearStart'];
@@ -25,7 +24,7 @@ export class PartnerResultsComponent implements OnInit {
        if (!program) { // Means just all partners are wanted
          this.queryString = `partner/`;
        } else { // Otherwise submit a query with parameters
-         this.queryString = `partner/${program}/${issue}/${type}/${semester}/${yearStart}/${yearEnd}`;
+         this.queryString = `partner/${program}/${type}/${semester}/${yearStart}/${yearEnd}`;
        }
     });
   }

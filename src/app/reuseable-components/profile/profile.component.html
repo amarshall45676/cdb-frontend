@@ -1,39 +1,63 @@
-<div class="sidebyside">
-  <div *ngFor="let property of displayProperties">
-    <span>{{property}}: {{entity.getValue(property)}} </span>
-  </div>
-</div>
-<div class="sidebyside">
-  <div *ngFor="let property of displayProperties">
-    <span>Update {{property}}: <input title="{{property}}" class="newValues"></span>
-  </div>
-</div>
-<button mat-button *ngIf="isDialog" (click)="closeDialog()" color="warn" class="logout sidebyside">
-  Close
-</button>
-<div class="belowdiv">
-  <button mat-button (click)="updateEntity()" class="riceColors">Update</button>
-</div>
-<div class="belowdiv">
-  <h1>This is where errors will be displayed:</h1>
-  <span id="errors"></span>
-</div>
+<app-page-header title="{{title}} Profile" [dialog]="isDialog" [queryNav]="!isDialog">
+  <button mat-stroked-button="" *ngIf="isDialog" (click)="closeDialog()" color="warn" class="close">
+    Close
+  </button>
+</app-page-header>
+<mat-card>
+  <mat-card-title>
+    Profile
+  </mat-card-title>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let property of displayProperties" class="row">
+        <p class="column"><u>{{property}}</u></p>
+        <p class="column">{{entity.getValue(property)}}</p>
+        <mat-form-field class="hasText column">
+          <input matInput title="{{property}}" placeholder="Update {{property}}" class="newValues">
+        </mat-form-field>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item class="row">
+        <!--Empty stuff here to align-->
+        <span class="column"></span>
+        <span class="column"></span>
+        <button mat-button (click)="updateEntity()" class="riceColors column">
+          Update
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<mat-card class="belowdiv" [hidden]="!updateErrors">
+  <mat-card-title>Update Errors</mat-card-title>
+  <mat-card-content id="errors">
+    <mat-list>
+      <mat-list-item *ngFor="let error of errors">
+        <p>{{error}}</p>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
 <!-- Any selectors for this? -->
 <ng-content></ng-content>
 <!-- <div>
   This is where the Information for the profile will go!
 </div> -->
-<div class="belowdiv">
-  Make a note: <br>
-  <textarea id="notes" name="note" rows="8" cols="80"></textarea> <br>
-  <button (click)="makeNote()">Submit</button>
-</div>
+<mat-card class="belowdiv">
+  <mat-card-title>Make a note</mat-card-title>
+  <mat-form-field class="full">
+    <textarea matInput id="notes" placeholder="New note"></textarea>
+  </mat-form-field>
+  <br>
+  <button mat-button class="riceColors" (click)="makeNote()">Submit</button>
+</mat-card>
 
-<div class="belowdiv">
-  Notes: <br>
+<mat-card class="belowdiv">
+  <mat-card-title>Notes</mat-card-title>
   <mat-card *ngFor="let note of entity?._notes">
     <p>Note content: {{note._note}}</p>
     <p>Note author: {{note._userId}}</p>
     <p>Note date: {{note._creationDate}}</p>
   </mat-card>
-</div>
+</mat-card>

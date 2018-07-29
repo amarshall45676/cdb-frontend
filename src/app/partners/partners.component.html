@@ -1,6 +1,6 @@
 <app-page-header title="Partners Page" queryNav="true"></app-page-header>
 <div class="twoSideBySide">
-  <h1>Create a Partner Query</h1>
+  <h2>Create a Partner Query</h2>
   Programs: <br>
   <mat-form-field class="querySelector">
     <mat-select placeholder="Program" [(ngModel)]="programSelected" multiple>
@@ -17,7 +17,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field> <br>
-  Semester: <br>
+  Semesters: <br>
   <mat-form-field class="querySelector">
     <mat-select placeholder="Semester" [(ngModel)]="semesterSelected" multiple>
       <mat-option *ngFor="let semester of semesters" [value]="semester.name">
@@ -26,13 +26,6 @@
     </mat-select>
   </mat-form-field> <br>
   Social Issues Concerned With: <br>
-  <mat-form-field class="querySelector">
-    <mat-select placeholder="Social Issues Concerned With" [(ngModel)]="issueSelected" multiple>
-      <mat-option *ngFor="let issue of issues" [value]="issue.name">
-        {{issue.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field> <br>
   <mat-form-field class="yearSelector">
     <input matInput type="number" placeholder="Start Year" id="yearStart" value="{{startYear}}">
   </mat-form-field>

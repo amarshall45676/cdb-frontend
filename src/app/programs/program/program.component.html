@@ -1,46 +1,41 @@
-<app-page-header title="Program Profile" queryNav="true"></app-page-header>
-<app-profile [entityId]="id" [service]="programService">
-  <div class="belowdiv">
-    <p>Numbers of students who participated in this program</p>
-    <p>
-      {{numStudents}}
-    </p>
-
-  </div>
-
-  <div class="belowdiv">
-    <p>
-      Number of partners who have interacted with this program
-    </p>
-    <p>
-      {{numPartners}}
-    </p>
-  </div>
-
-  <div class="belowdiv">
-    <p>
-      Percentage of students who did a program, that participated in this program
-    </p>
-    <p>
-      <span *ngIf="!loadingPercentStudents">{{percentStudents}} %</span>
-    </p>
-  </div>
-
-  <div class="belowdiv">
-    <p>
-      Percentage of students who did this program, that did another program
-    </p>
-    <p>
-      <span *ngIf="!loadingPercentStudentsDidAnother">{{percentStudentsDidAnother}} %</span>
-    </p>
-  </div>
-
-  <div class="belowdiv">
-    <p>
-      Percentage of students who applied that got accepted to this program
-    </p>
-    <p>
-      <span *ngIf="!loadingPercentAcceptance">{{percentAcceptance}} %</span>
-    </p>
-  </div>
+<app-profile title="Program"[entityId]="id" [service]="programService">
+  <!--IF FAQ's ARE PROCESSING SAY THAT IT WILL BE BACK SOON-->
+  <mat-card *ngIf="!hasFAQ" class="belowdiv">
+    <p>The FAQ's for this program are still processing check back in a couple hours to see them.</p>
+  </mat-card>
+  <mat-card *ngIf="fellowship" class="belowdiv">
+    <p>FAQ's for fellowships can be generated in the future. For now this is a work in progress.</p>
+  </mat-card>
+  <mat-card class="belowdiv" *ngIf="hasFAQ && !fellowship">
+    <mat-card-title>FAQ's</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item class="row">
+          <p class="column">Numbers of students who participated in this program</p>
+          <p class="column"> {{program?._numStudents}}</p>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+        <mat-list-item class="row">
+          <p class="column">Number of partners who have interacted with this program</p>
+          <p class="column"> {{program?._numPartners}}</p>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+        <mat-list-item class="row">
+          <p class="column">Percentage of students who did a program, that participated in this program</p>
+          <p class="column"> {{program?._percentStudents}}</p>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+        <mat-list-item class="row">
+          <p class="column">Percentage of students who did this program, that did another project</p>
+          <p class="column"> {{program?._percentDidAnotherProgram}}</p>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+        <mat-list-item class="row">
+          <p class="column">Percentage of students who applied that participated in this program</p>
+          <p class="column"> {{program?._percentAcceptance}}</p>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 </app-profile>

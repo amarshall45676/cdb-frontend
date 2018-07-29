@@ -3,7 +3,6 @@
   border-style:solid;
   border-color: #0D47A1;
   margin:5px;
-
 }
 
 .sidebyside {
@@ -19,6 +18,14 @@
   border-color: #0D47A1;
   margin:5px;
   width: 48%
+}
+
+.twoSideBySideCards {
+  float: left;
+  border-style: solid;
+  border-color: #0D47A1;
+  margin:0.5%;
+  width: 43%
 }
 
 .fill-remaining-space {
@@ -37,7 +44,7 @@
 }
 
 .querySelector {
-  /* TODO: maybe have this be display block width 100% */
+  /* TODO(AUGI): maybe have this be display block width 100% */
   width: 30%;
 }
 
@@ -46,14 +53,31 @@
 }
 
 h1 {
-  text-align: center;
+  font-size: 3em;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 
 h2 {
+  font-size: 2.25em;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+p {
+  text-align: left;
+  font-size: 1em;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.center {
   text-align: center;
 }
-/*
-.flexbox {
-  display: flex;
-  flex-direction: row;
-} */
+
+.full {
+  width: 100%;
+}
+
+.hasText {
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+[hidden] { display: none !important; }

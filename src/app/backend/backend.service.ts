@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { URLService } from '../url/url.service';
+import {FormGroup} from '@angular/forms';
 
 @Injectable()
 export class BackendService {
@@ -10,18 +11,29 @@ export class BackendService {
     this.baseBackend = this.urlService.getBackendURL();
    }
 
+   // Encodes the string so it can be sent via a request. This makes it so characters like "(" or "?" dont mess with things
    private static encodeEndpoint(endpoint: string): string {
     const split = endpoint.split('/');
     const result = split.map(string => {
       return encodeURIComponent(string);
     }).join('/');
-     console.log('This is how it is split and encoded: ' + JSON.stringify(result));
     return result;
    }
 
+   // Turns the given obejct into a form for submission to backend
+  private static objectToForm(object: Object) {
+    const formData: FormData = new FormData(); // Printing this out is weird be careful, use .get()
+    for (const key in object) {
+      formData.append(key, object[key]);
+    }
+
+    return formData;
+  }
+
+  // Main method used to make a request to the backend
   public resource(method, endpoint, payload) {
     let options: RequestInit;
-    if (method !== 'GET') {
+    if (method !== 'GET') { // Only non get can have a body
       options = {
         method,
         credentials: 'include',
@@ -29,7 +41,7 @@ export class BackendService {
             'Content-Type': 'application/json'
         },
         body: ''
-    };
+      };
       if (payload) {
         options.body = JSON.stringify(payload);
       }
@@ -43,6 +55,7 @@ export class BackendService {
       };
     }
 
+    // Make request to the backend
     return fetch(`${this.baseBackend}/${BackendService.encodeEndpoint(endpoint)}`, options) // Make request to backend
         .then(r => {
             if (r.status === 200) {
@@ -58,6 +71,12 @@ export class BackendService {
         });
   }
 
+  // Calls function to create an entity
+  public createEntity(type: string, form: FormGroup) {
+    return this.makeEntity(`${type}/`, BackendService.objectToForm(form.value));
+  }
+
+  // Makes the given entity given some form data
   public makeEntity(endpoint, formData) {
     const options: RequestInit = {
       method : 'POST',
@@ -67,7 +86,6 @@ export class BackendService {
 
     return fetch(`${this.baseBackend}/${BackendService.encodeEndpoint(endpoint)}`, options) // Make request to backend
       .then(r => {
-        // TODO: should this change?
         if (r.status === 200) {
           if (r.headers.get('Content-Type').indexOf('json') > 0) {
             return r.json();
@@ -81,6 +99,7 @@ export class BackendService {
       });
   }
 
+  // Upload a file to the right place. File type specifies where the request should be sent to
   public uploadFileGeneral(formData, fileType) {
     const options: RequestInit = {
       method : 'POST',
@@ -90,7 +109,6 @@ export class BackendService {
 
     return fetch(`${this.baseBackend}/data/file/${fileType}`, options)
         .then(r => {
-          // console.log(r)
             if (r.status === 200) {
                 if (r.headers.get('Content-Type').indexOf('json') > 0) {
                     return r.json();
@@ -104,6 +122,7 @@ export class BackendService {
         });
   }
 
+  // Logs the user out of the application
   public logout() {
     const options: RequestInit = {
         method : 'GET',
@@ -128,26 +147,5 @@ export class BackendService {
     const endpoint = `${entityType}/${entityId}`;
     return this.resource('PUT', endpoint, newValues);
   }
-
-  // TODO: not sure how to make the login work with a sigle reqeust and OAuth
-    // public login() {
-    //   console.log('In login request')
-    //   var options: RequestInit = {
-    //       method : 'GET',
-    //       credentials: 'include',
-    //       headers: {
-    //       }
-    //       ,mode: 'no-cors'
-    //   }
-    //   return fetch(`${this.CASLogin}`, options)
-    //       .then(r => {
-    //           if (r.status === 0) { //Always has a status of 0 when succeeding
-    //               return r;
-    //           } else {
-    //               // useful for debugging, but remove in production
-    //               throw new Error(r.statusText);
-    //           }
-    //       })
-    // }
 
 }

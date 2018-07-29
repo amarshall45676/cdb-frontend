@@ -11,9 +11,9 @@ export class Student extends Entity {
   public _email: string;
   public _localAddress: string;
   public _primaryAddress: string;
-  public _majors: Array<string>; // Should this just be a single string?
+  public _majors: Array<string>;
   public _minors: Array<string>;
-  public _gpa: string; // Can be int?
+  public _gpa: string;
   public _citizenship: string;
   public _citizenshipCountry: string;
   public _ethnicity: string;
@@ -22,7 +22,6 @@ export class Student extends Entity {
 
   constructor(pCopy: StudentBuilder) {
     super(pCopy);
-    // TODO: need params here or just display?
     this._name = pCopy.studentName;
     this._netId = pCopy.studentNetId;
     this._studentId = pCopy.studentStudentId;
@@ -41,7 +40,7 @@ export class Student extends Entity {
     this._ethnicity = pCopy.studentEthnicity;
     this._pursueCertificate = pCopy.studentPursueCertificate;
     this._interestCertificate = pCopy.studentInterestCertificate;
-    // need to update this when update backendView to encompass all data
+    // need to update this when update backendView is updated to encompass all data
     this._display = {
       Name: this._name,
       'Net ID': this._netId,
@@ -53,14 +52,14 @@ export class Student extends Entity {
       Email: this._email,
       'Local Address': this._localAddress,
       'Primary Address': this._primaryAddress,
-      Majors: this._majors,
-      Minors: this._minors,
+      Majors: this._majors.join(', '),
+      Minors: this._minors.join(', '),
       GPA: this._gpa,
       Citizenship: this._citizenship,
       'Country of Citizenship': this._citizenshipCountry,
       Ethnicity: this._ethnicity,
       'Pursuing a CCL Certificate': this._pursueCertificate,
-      'Interested in CCL Certificate': this._interestCertificate
+      'Interested in a CCL Certificate': this._interestCertificate
     };
   }
 
@@ -78,20 +77,20 @@ export class Student extends Entity {
     builder.email(object['Email']);
     builder.localAddress(object['Local Address']);
     builder.primaryAddress(object['Primary Address']);
-    builder.majors(object['Majors']); // TODO: array?
+    builder.majors(object['Majors']);
     builder.minors(object['Minors']);
     builder.gpa(object['GPA']);
     builder.citizenship(object['Citizenship']);
     builder.citizenshipCountry(object['Country of Citizenship']);
     builder.ethnicity(object['Ethnicity']);
     builder.pursueCertificate(object['Pursuing a CCL Certificate']);
-    builder.interestCertificate(object['Interested in CCL Certificate']);
+    builder.interestCertificate(object['Interested in a CCL Certificate']);
     builder.notes(object['Notes']);
     return builder.build();
   }
 
   public getTableProperties(): Array<string> {
-    return ['Name', 'Email', 'Majors', 'Minors', 'GPA', 'Graduation Year'];
+    return ['Name', 'Email', 'Majors', 'Minors', 'Graduation Year'];
   }
 
   public updateDisplay(student: Student) {
@@ -162,12 +161,12 @@ export class StudentBuilder extends EntityBuilder {
     return this;
   }
 
-  public majors(pMajors: string) {
-    this.studentMajors = [pMajors];
+  public majors(pMajors: Array<string>) {
+    this.studentMajors = pMajors;
   }
 
-  public minors(pMinors: string) { // fix this
-    this.studentMinors = [pMinors];
+  public minors(pMinors: Array<string>) {
+    this.studentMinors = pMinors;
   }
 
   public gpa(pGpa: string) {

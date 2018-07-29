@@ -11,24 +11,30 @@ import {MatDialogRef} from '@angular/material';
   styleUrls: ['./profile.component.css', '../../app.component.css']
 })
 export class ProfileComponent<T> implements OnInit {
-  @Input() entityId: string;
+  @Input() title: string;
+  @Input() entityId: string; // The actuall id for the entity this profile represents
   @Input() service: ProfileService; // Service for the given entity
   @Input() dialogRef: MatDialogRef<T>; // So that the table can be updated on close, typed based off of calling component
 
   public entity: Entity; // This is the entity to be displayed
   public isDialog;
 
+  // For displaying errors
+  public updateErrors = false;
+  public errors: Array<string>;
+
   // These are the properties of the object ot be displayed, retrieve from entity
   public displayProperties: Array<string>;
 
 
-  private static clearErrors() {
-    document.getElementById('errors').innerHTML = '';
+  private clearErrors() {
+    this.updateErrors = false;
+    this.errors = [];
   }
 
-  private static addError(error: string) {
-    const value = document.getElementById('errors').innerHTML;
-    document.getElementById('errors').innerHTML = `${value} <br> ${error}`;
+  private addError(error: string) {
+    this.updateErrors = true;
+    this.errors.push(error);
   }
 
   constructor() {}
@@ -48,30 +54,41 @@ export class ProfileComponent<T> implements OnInit {
 
   // Update the entity displayed based on the input from the user
   public updateEntity() {
+    this.clearErrors();
     const updateObject = {};
+    // get the possivle new values from the inputs
     const elements = document.getElementsByClassName('newValues');
     for (let i = 0; i < elements.length; i++) {
       const property = this.displayProperties[i]; // this makes the display properties coupled to how the object i update, note great
-      updateObject[property] = (<HTMLInputElement>elements[i]).value;
+      updateObject[property] = (<HTMLInputElement>elements[i]).value.trim(); // Trim off any extra whitespace
       // Clear inputs
       (<HTMLInputElement>elements[i]).value = '';
     }
 
-    // TODO: what about confirming fields?, then use adding error, also should there be any trimming of data?
-    this.service.update(this.entityId, updateObject).then((result: UpdateResult) => {
-      console.log(`Result: ${JSON.stringify(result)}`);
-      if (result._success) {
-        // If name was updated, update the entityId
-        if (updateObject['Name'] !== '') {
-          this.entityId = updateObject['Name'];
-          console.log('Entity ID update to: ' + this.entityId);
+    // Validate the fields look the way they should and display any errors that are there
+    const errors: Array<string> = this.service.validateFields(updateObject);
+    console.log('Errors: ' + JSON.stringify(errors));
+
+    // If there are no errors update the entity on the backend then frontend
+    if (errors.length === 0) {
+      this.service.update(this.entityId, updateObject).then((result: UpdateResult) => {
+        if (result._success) {
+          this.clearErrors();
+          // If name was updated, update the entityId
+          if (updateObject['Name'] !== '') {
+            this.entityId = updateObject['Name'];
+          }
+          this.updateDisplay(result._entity);
+        } else {
+          this.addError(`The name '${updateObject['Name']}' is already in use. Please use another`);
         }
-        this.updateDisplay(result._entity);
-      } else {
-        ProfileComponent.clearErrors();
-        ProfileComponent.addError('This name is already in use. Please use another');
-      }
-    });
+      });
+    } else {
+      // Add errors to the errors component
+      errors.forEach((error) => {
+        this.addError(error);
+      });
+    }
   }
 
   // Make a note for the given entity

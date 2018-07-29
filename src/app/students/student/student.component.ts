@@ -23,7 +23,7 @@ export class StudentComponent implements OnInit {
     public studentService: StudentService,
     private partnersService: PartnersService,
     private programsService: ProgramsService,
-    private dialogRef: MatDialogRef<StudentComponent>,
+    public dialogRef: MatDialogRef<StudentComponent>,
     @Inject(MAT_DIALOG_DATA) public id: string) {}
 
   ngOnInit() {

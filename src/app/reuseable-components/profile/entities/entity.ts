@@ -13,10 +13,12 @@ export abstract class Entity {
     this._notes = pCopy.entityNotes;
   }
 
+  // Get the properties for this object
   public getProperties(): Array<string> {
     return Object.keys(this._display);
   }
 
+  // Get the properties for this object that should be displayed by a table
   public abstract getTableProperties(): Array<string>;
 
   // Get value to be displayed
@@ -24,10 +26,11 @@ export abstract class Entity {
     return this._display[pProperty];
   }
 
-  // TODO: implement this for all classes to be called when a profile gets closed
+  // Update the values that should be displayed for this object given the new entity that was updated
   public abstract updateDisplay(entity: Entity);
 }
 
+// To build entities
 export abstract class EntityBuilder {
   public entityProfile: string;
   public entityNotes: Array<Note>;

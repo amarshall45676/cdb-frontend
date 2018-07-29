@@ -31,6 +31,7 @@ import { StudentComponent } from './students/student/student.component';
 import { StudentService } from './students/student/student.service';
 
 import { StudentResultsComponent } from './students/student-results/student-results.component';
+import { StudentFormComponent } from './students/student-form/student-form.component';
 
 // Programs Imports
 import { ProgramsService } from './programs/programs.service';
@@ -55,13 +56,6 @@ import { ProjectService } from './projects/project/project.service';
 
 import { ProjectResultsComponent } from './projects/project-results/project-results.component';
 
-// Affiliates Imports
-import { AffiliatesComponent } from './affiliates/affiliates.component';
-import { AffiliatesService } from './affiliates/affiliates.service';
-
-import { AffiliateResultsComponent } from './affiliates/affiliate-results/affiliate-results.component';
-import { AffiliateComponent } from './affiliates/affiliate/affiliate.component';
-
 import { DataUploadComponent } from './data-upload/data-upload.component';
 
 // Landing and Main page imports
@@ -81,8 +75,9 @@ import { ResultsTableComponent } from './reuseable-components/results-table/resu
 import { FileUploadComponent } from './reuseable-components/file-upload/file-upload.component';
 
 import { ProfileComponent } from './reuseable-components/profile/profile.component';
-import { ProfileService } from './reuseable-components/profile/profile.service';
-
+import { PartnerFormComponent } from './partners/partner-form/partner-form.component';
+import { ProgramFormComponent } from './programs/program-form/program-form.component';
+import { ProjectFormComponent } from './projects/project-form/project-form.component';
 
 
 // Defining the routes for the project
@@ -106,11 +101,12 @@ export const routes: Routes = [
     component : StudentResultsComponent,
     canActivate: [AuthGuard]
   },
-  {
-    path: 'student/:id',
-    component : StudentComponent,
-    canActivate: [AuthGuard]
-  },
+  // These components are used as dialogs, but would also become pages by commenting these back in and changing :id to a query param
+  // {
+  //   path: 'student/:id',
+  //   component : StudentComponent,
+  //   canActivate: [AuthGuard]
+  // },
   {
     path: 'partners',
     component : PartnersComponent,
@@ -121,13 +117,13 @@ export const routes: Routes = [
     component : PartnerResultsComponent,
     canActivate: [AuthGuard]
   },
+  // {
+  //   path: 'partner/:id',
+  //   component : PartnerComponent,
+  //   canActivate: [AuthGuard]
+  // },
   {
-    path: 'partner/:id',
-    component : PartnerComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-  path: 'program/:id',
+  path: 'program',
   component : ProgramComponent,
   canActivate: [AuthGuard]
   },
@@ -141,21 +137,11 @@ export const routes: Routes = [
     component : ProjectResultsComponent,
     canActivate: [AuthGuard]
   },
-  {
-    path: 'project/:id',
-    component : ProjectComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'affiliates',
-    component : AffiliatesComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'affiliate/:id',
-    component : AffiliateComponent,
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'project/:id',
+  //   component : ProjectComponent,
+  //   canActivate: [AuthGuard]
+  // },
   {
     path: 'main',
     component : MainComponent,
@@ -166,28 +152,29 @@ export const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    StudentsComponent,
-    PartnersComponent,
+    LandingComponent,
+    NoAuthComponent,
     MainComponent,
-    StudentComponent,
-    ProgramComponent,
+    DataUploadComponent,
     PartnerComponent,
+    PartnersComponent,
     PartnerResultsComponent,
+    ProgramComponent,
+    StudentComponent,
+    StudentsComponent,
     StudentResultsComponent,
+    StudentFormComponent,
     ProjectsComponent,
     ProjectComponent,
     ProjectResultsComponent,
-    LandingComponent,
-    AffiliatesComponent,
-    AffiliateResultsComponent,
-    AffiliateComponent,
-    NoAuthComponent,
-    DataUploadComponent,
     PageHeaderComponent,
     QueryNavigationComponent,
     ProfileComponent,
     ResultsTableComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    PartnerFormComponent,
+    ProgramFormComponent,
+    ProjectFormComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -219,12 +206,14 @@ export const routes: Routes = [
     ProgramsService, ProgramService,
     PartnersService, PartnerService,
     ProjectsService, ProjectService,
-    AffiliatesService,
     AuthService, AuthGuard,
     URLService, UtilsService
   ],
+  // Came in intialization sing angular CLI, idk if it is necessary
   bootstrap: [AppComponent],
-  schemas : [] // CUSTOM_ELEMENTS_SCHEMA
+  // These are needed for dialogs
+  entryComponents: [PartnerComponent, ProjectComponent, StudentComponent],
+  schemas : []
 })
 
 export class AppModule { }

@@ -14,19 +14,29 @@
     </mat-list>
   </mat-drawer>
   <mat-drawer-content>
-    <article class="belowdiv">
-      <h1>Welcome to the CCL Database</h1>
-      <p>
-        Below you can go to the page to upload your data. Above you can see the navigation bar that will take you to the
-        various query pages about Partners, Projects, or Students
-      </p>
+    <article class="belowdiv main">
+      <h1>Welcome to the CCL Database!</h1>
+      <!--<img src="assets/ccl_banner.jpg" alt="" class="full">-->
+      <div class="twoSideBySide center">
+        <h2>Upload your data!</h2>
+        <p>
+          Click below to upload and create data for the database. If you have data for a program that just had a project run,
+          or want to enter in a students information that you heard was interested in the CCL, you can do that here.
+        </p>
+        <a href="#/dataUpload">
+          <button mat-button class="riceColors">Upload Data!</button>
+        </a>
+      </div>
+      <div class="twoSideBySide center">
+        <h2>Training manual</h2>
+        <p>
+          Click here to download the training manual. It will give you a good introduction to the organization and features
+          of the website for you to get more comfortbale at first.
+        </p>
+        <a href="assets/files/Training Manual.pdf" download>
+          <button mat-button class="riceColors">Download Training Manual</button>
+        </a>
+      </div>
     </article>
-    <article class="belowdiv">
-      <h1>Upload your data!</h1>
-      <p>What should I put here?</p>
-      <a href="#/dataUpload">
-        <button mat-button class="riceColors">Upload Data!</button>
-      </a>
-      </article>
   </mat-drawer-content>
 </mat-drawer-container>

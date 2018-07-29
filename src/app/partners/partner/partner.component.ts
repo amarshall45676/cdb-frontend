@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, Inject, ViewEncapsulation, ViewChild, AfterViewInit} from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 
@@ -13,6 +13,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {BackendService} from '../../backend/backend.service';
 import {ProfileComponent} from '../../reuseable-components/profile/profile.component';
+import {Partner} from '../../reuseable-components/profile/entities/partner';
 
 
 @Component({
@@ -21,11 +22,9 @@ import {ProfileComponent} from '../../reuseable-components/profile/profile.compo
   styleUrls: ['./partner.component.css', '../../app.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class PartnerComponent implements OnInit {
-  // Might be better to just update the entry in the table, not send a full request
+export class PartnerComponent implements OnInit, AfterViewInit {
+  public partner: Partner;
   public programs: Array<Object>;
-  public projects: Array<Object>;
-  public students: Array<Object>;
 
   public contactForm: FormGroup;
 
@@ -33,6 +32,7 @@ export class PartnerComponent implements OnInit {
   public contactDisplay = false;
 
 
+  @ViewChild(ProfileComponent) profile: ProfileComponent<Partner>;
 
   public contacts = [{name: 'FullName', phone: 'Number', email: 'email', title: 'title', connected_parter: 'connection'}];
 
@@ -48,40 +48,51 @@ export class PartnerComponent implements OnInit {
   constructor(public partnerService: PartnerService,
     private backendService: BackendService,
     private programsService: ProgramsService,
-    private dialogRef: MatDialogRef<PartnerComponent>,
-    @Inject(MAT_DIALOG_DATA) public id: string) {}
+    public dialogRef: MatDialogRef<PartnerComponent>,
+    @Inject(MAT_DIALOG_DATA) public id: string) {
+    this.id = id; // TODO: what if id is updated on profile?
+  }
 
   ngOnInit() {
-    // TODO: this isnt working
-    this.programsService.getProgramViewsPromiseForPartner(this.id).then(programViews => {
-      console.log('Program Views: ' + JSON.stringify(programViews));
-      this.programs = programViews;
-      this.programs.sort(UtilsService.comparisonFunction2);
-    });
-
-
     this.contactForm = new FormGroup({
       name: new FormControl('', Validators.required),
       number: new FormControl(),
       email: new FormControl(),
-      title: new FormControl(),
-      organization: new FormControl()
+      title: new FormControl()
+    });
+  }
+
+  ngAfterViewInit() {
+    const id = this.getProfileId();
+    this.programsService.getProgramViewsPromiseForPartner(id).then(programViews => {
+      this.programs = programViews;
+      this.programs.sort(UtilsService.comparisonFunction2);
     });
 
+    // TODO: this should be updated when the partner name is updated
+    this.partnerService.getEntityPromise(id).then((partner: Partner) => {
+      this.partner = partner;
+    });
+  }
 
-
+  private getProfileId() {
+    console.log(this.profile.entityId);
+    return this.profile.entityId;
   }
 
   public createContact() {
+    // TODO(Augi): augi prob updated this
     if (!this.contactForm.valid) {
-      console.log('Form is not valid');
+      this.contactDisplay = true;
+      this.contactResult = false;
     } else {
-      console.log(this.contactForm.value);
+      this.backendService.resource('PUT', `partner/contact/${this.getProfileId()}`, this.contactForm.value)
+        .then((entityResult: Object) => {
+          return UtilsService.EntityFromObject(entityResult, 'partner');
+      }).then((partner: Partner) => {
+        this.partner = partner;
+        this.contactForm.reset();
+      });
     }
-    // TODO: need this to acutally be created
-    // this.createEntity('contact', this.contactForm).then((entityResult: Object) => {
-    //   this.contactDisplay = true;
-    //   this.contactResult = entityResult;
-    // });
   }
 }

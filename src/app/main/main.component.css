@@ -1,5 +1,5 @@
 .title {
-  display: block;
+  display: flex;
   margin: 0 auto;
   font-size: 2vw;
 }
@@ -8,7 +8,6 @@
   display: block;
   width: 100%;
   font-size: 1.1vw;
-  /* height: 100%; */
 }
 
 mat-drawer-content {
@@ -22,5 +21,14 @@ mat-drawer {
 }
 
 mat-drawer-container {
-  height: 80%;
+  height: 78%;
+}
+
+.main {
+  height: 96%;
+  text-align: center;
+}
+
+.full {
+  width: 100%;
 }

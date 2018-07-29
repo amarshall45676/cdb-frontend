@@ -65,4 +65,14 @@ export class UtilsService {
       return new UpdateResult(success, null);
     }
   }
+
+  // Change this is there is data from earlier
+  public static getEarliestYear(): number {
+    return 2008;
+  }
+
+  public static getCurrentYear(): number {
+    const date: Date = new Date(Date.now());
+    return date.getFullYear();
+  }
 }

@@ -5,9 +5,10 @@ export class Partner extends Entity {
   public _name: string;
   public _address: string;
   public _city: string;
-  public _zipcode: string; // TODO: should this be int of some sort?
+  public _zipcode: string;
   public _phone: string;
   public _url: string;
+  public _contacts: Array<Object>;
 
   constructor(pCopy: PartnerBuilder) {
     super(pCopy);
@@ -17,6 +18,7 @@ export class Partner extends Entity {
     this._zipcode = pCopy.partnerZipcode;
     this._phone = pCopy.partnerPhone;
     this._url = pCopy.partnerUrl;
+    this._contacts = pCopy.partnerContacts;
     this._display = {
       Name: this._name,
       Address: this._address,
@@ -37,6 +39,7 @@ export class Partner extends Entity {
     builder.zipcode(object['Zipcode']);
     builder.phone(object['Phone']);
     builder.url(object['URL']);
+    builder.contacts(object['Contacts']);
     builder.notes(object['Notes']);
     return builder.build();
   }
@@ -55,9 +58,10 @@ export class PartnerBuilder extends EntityBuilder {
   public partnerName: string;
   public partnerAddress: string;
   public partnerCity: string;
-  public partnerZipcode: string; // TODO: should this be int of some sort?
+  public partnerZipcode: string;
   public partnerPhone: string;
   public partnerUrl: string;
+  public partnerContacts: Array<Object>;
 
   constructor() {
     super();
@@ -86,6 +90,10 @@ export class PartnerBuilder extends EntityBuilder {
 
   public url(pUrl: string) {
     this.partnerUrl = pUrl;
+  }
+
+  public contacts(pContacts: Array<Object>) {
+    this.partnerContacts = pContacts;
   }
 
   public build(): Partner {

@@ -26,7 +26,6 @@ export class MainComponent implements OnInit {
   }
 
   public viewProgram(programName) {
-    console.log('Want to view: ' + programName);
     this.programsService.viewProfile(programName);
   }
 }

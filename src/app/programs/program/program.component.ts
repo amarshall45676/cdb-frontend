@@ -18,59 +18,24 @@ export class ProgramComponent implements OnInit, OnDestroy {
   public id;
   private sub;
 
-  // TODO: should make these values added to a program object, calculated before hand
-  // public numStudents;
-  // public loadingNumStudents = true;
-  // public numPartners;
-  // public loadingNumPartners = true;
-  // public percentStudents;
-  // public loadingPercentStudents = true;
-  // public percentStudentsDidAnother;
-  // public loadingPercentStudentsDidAnother = true;
-  // public percentAcceptance;
-  // public loadingPercentAcceptance = true;
-
-  public program: Program; // TODO: make a program type
+  public program: Program;
+  public hasFAQ = false;
+  public fellowship = false;
 
   constructor(
     private route: ActivatedRoute,
     public programService: ProgramService) {}
 
-    // TODO: need to make it so the URL doesnt affect this, and it is instead a query param
-
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
        this.id = params['id'];
 
-       this.programService.getProgramPromise(id).then((program: Program) => {
+       this.programService.getProgramPromise(this.id).then((program: Program) => {
          this.program = program;
+         // If there are FAQ's this will not be null, also dont include FAQ's for fellowships
+         this.hasFAQ = program._numStudents !== undefined;
+         this.fellowship =  program._type === 'Fellowship';
        });
-
-       // TODO: these no longer exist so change how it should work
-       // this.programService.getNumStudents(this.id).then((answer) => {
-       //   this.numStudents = answer;
-       //   this.loadingNumStudents = false;
-       // });
-       //
-       // this.programService.getNumPartners(this.id).then((answer) => {
-       //   this.numPartners = answer;
-       //   this.loadingNumPartners = false;
-       // });
-       //
-       // this.programService.getPercentStudents(this.id).then((answer) => {
-       //   this.percentStudents = answer.toString().substring(0, 5);
-       //   this.loadingPercentStudents = false;
-       // });
-       //
-       // this.programService.getPercentStudentsDidAnother(this.id).then((answer) => {
-       //   this.percentStudentsDidAnother = answer.toString().substring(0, 5);
-       //   this.loadingPercentStudentsDidAnother = false;
-       // });
-       //
-       // this.programService.getPercentAcceptance(this.id).then((answer) => {
-       //   this.percentAcceptance = answer.toString().substring(0, 5);
-       //   this.loadingPercentAcceptance = false;
-       // });
     });
   }
 

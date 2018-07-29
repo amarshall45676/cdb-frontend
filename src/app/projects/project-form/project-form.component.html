@@ -1,0 +1,46 @@
+<mat-card class="belowdiv">
+  <mat-card-title>
+    Create a Single Project
+  </mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="projectForm">
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Program" formControlName="programName">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Year" formControlName="year">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Semester" formControlName="semester">
+      </mat-form-field>
+    </form>
+    <mat-card class="belowdiv" [hidden]="!creationErrors">
+      <mat-card-title>Form Errors</mat-card-title>
+      <mat-card-content id="errors">
+        <mat-list>
+          <mat-list-item *ngFor="let error of errors">
+            <p>{{error}}</p>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+    <div *ngIf="projectDisplay">
+      <p *ngIf="projectResult.success">
+        Project was created successfully!
+      </p>
+      <p *ngIf="!projectResult.success">
+        This project name already exists.
+      </p>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button class="riceColors" (click)="createProject()">Create!</button>
+  </mat-card-actions>
+</mat-card>

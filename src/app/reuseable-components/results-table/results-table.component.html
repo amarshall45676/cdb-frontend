@@ -1,5 +1,5 @@
 <div class="belowdiv">
-  <div class="example-header">
+  <div class="header">
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
@@ -23,7 +23,7 @@
     <ng-container matColumnDef="Profile">
       <mat-header-cell *matHeaderCellDef> View Profile </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button (click)=viewProfile(element)>View Profile</button>
+        <button mat-button class="riceColors" (click)=viewProfile(element)>View Profile</button>
       </mat-cell>
     </ng-container>
 

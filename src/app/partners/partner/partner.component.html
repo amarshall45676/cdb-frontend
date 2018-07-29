@@ -1,29 +1,40 @@
-<app-page-header title="Partner Profile"></app-page-header>
-<app-profile [entityId]="id" [service]="partnerService" [dialogRef]="dialogRef">
-  <div class="belowdiv list">
-    Programs worked with: <br>
-    <mat-card *ngFor="let program of programs">
-      <mat-card-title>
-        Program Name: {{program.programName}}
-      </mat-card-title>
-      <mat-card *ngFor="let project of program.projects">
+<app-profile title="Partner" [entityId]="id" [service]="partnerService" [dialogRef]="dialogRef">
+  <mat-card class="belowdiv list">
+    <mat-card-title>Programs worked With</mat-card-title>
+    <mat-card-content>
+      <mat-card *ngFor="let program of programs">
         <mat-card-title>
-          Project Name: {{project.projectName}}
+          Program Name: {{program.programName}}
         </mat-card-title>
-        <mat-card *ngFor="let student of project.students">
-          Student Name: {{student.Name}} <br>
-          Student Email: {{student.Email}}
-        </mat-card>
+        <mat-card-content>
+          <mat-card *ngFor="let project of program.projects">
+            <mat-card-title>
+              Project Name: {{project.projectName}}
+            </mat-card-title>
+            <mat-card-content>
+              <mat-card *ngFor="let student of project.students">
+                Student Name: {{student.Name}} <br>
+                Student Email: {{student.Email}}
+              </mat-card>
+            </mat-card-content>
+          </mat-card>
+        </mat-card-content>
       </mat-card>
-    </mat-card>
-  </div>
-  <div *ngFor="let contact of contacts" class="belowdiv">
-    Contact Name: {{contact.name}} <br>
-    Contact Phone Number: {{contact.phone}} <br>
-    Contact E-mail: {{contact.email}} <br>
-    Contact Title: {{contact.title}}
-
-  </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="belowdiv">
+    <mat-card-title>
+      Partner Contacts
+    </mat-card-title>
+    <mat-card-content>
+      <mat-card *ngFor="let contact of partner?._contacts">
+        Name: {{contact.name}} <br>
+        Phone Number: {{contact.number}} <br>
+        E-mail: {{contact.email}} <br>
+        Title: {{contact.title}}
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
   <mat-card class="belowdiv">
     <mat-card-title>
       Create A Partner Contact
@@ -45,17 +56,13 @@
         <mat-form-field>
           <input matInput placeholder="Contact Title" formControlName="title">
         </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Affiliated Organization" formControlName="organization">
-        </mat-form-field>
       </form>
       <div *ngIf="contactDisplay">
-        <p *ngIf="contactResult">
-          Contact was created successfully!
-        </p>
         <p *ngIf="!contactResult">
           This contact name already exists.
+        </p>
+        <p *ngIf="contactResult">
+          This contact was created
         </p>
       </div>
     </mat-card-content>

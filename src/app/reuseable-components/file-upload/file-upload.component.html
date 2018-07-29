@@ -1,7 +1,10 @@
 <div class="belowdiv">
   <ng-content select="article"></ng-content>
   <input type="file" name="" value="" [id]="fileType"> <br> <br>
-  <button (click)="uploadData()" mat-button class="riceColors">Submit!</button> <br>
+  <button (click)="uploadData()" mat-button class="riceColors">Submit!</button>
+  <p class="smallMargin"></p>
+  <ng-content select="a"></ng-content>
+  <br>
   <div *ngIf="fileUploaded">
     <div>Result of upload will go below</div> <br>
     <mat-spinner *ngIf="fileBeingUploaded" color="primary"></mat-spinner>

@@ -23,9 +23,9 @@ export abstract class ProfileService {
       });
   }
 
-  // TODO: need to implement this
+  // TODO(Augi): need to implement this for other places(partner project etc.)
   // Make sure fields match a pattern, if they dont print a message and take out of result
-  abstract validateFields(updateObject);
+  public abstract validateFields(updateObject): Array<string>;
 
   // Update the given entity with the given updateObject
   public update(entityId: string, updateObject: Object): Promise<UpdateResult> {

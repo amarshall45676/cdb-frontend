@@ -10,7 +10,9 @@
   <!-- To add query nav to the page header need to have queryNav = true, and the app-query-navigation  -->
   <mat-toolbar-row *ngIf="queryNav">
     <app-query-navigation class="title-center"></app-query-navigation>
-    <!-- This is put here so that it is able to fill the toolbar row -->
-    <!-- <span class="fill-remaining-space"></span> -->
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="dialog">
+     <span class="fill-remaining-space"></span>
+    <ng-content></ng-content>
   </mat-toolbar-row>
 </mat-toolbar>

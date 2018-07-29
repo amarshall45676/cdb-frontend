@@ -16,16 +16,14 @@ import {Router} from '@angular/router';
 })
 export class ProjectsComponent implements OnInit {
   public emptyQuery= '#/projectResults';
-  // TODO: make these change over time based off of data, and also the current year
-  public startYear = 2012;
-  public endYear = 2018;
+
+  public startYear = UtilsService.getEarliestYear();
+  public endYear = UtilsService.getCurrentYear();
 
   public programs: Array<Object>;
   public programSelected: string;
 
-  public partners: Array<Object> = [
-    {name: 'Partner 1'} // TODO: fill this in
-  ];
+  public partners: Array<Object>;
   public partnerSelected: string;
 
   public semesters: Array<Object> = [
@@ -36,15 +34,11 @@ export class ProjectsComponent implements OnInit {
   public semesterSelected: string;
 
   constructor(
-    private projectsService: ProjectsService,
     private programsService: ProgramsService,
-    private backendService: BackendService,
     private partnersService: PartnersService,
     private router: Router) {}
 
   ngOnInit() {
-    console.log('Init for program component');
-
     this.programsService.getProgramsPromise().then((programs) => {
       this.programs = programs;
       this.programs.sort(UtilsService.comparisonFunction);

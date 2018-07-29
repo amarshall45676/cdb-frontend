@@ -8,6 +8,7 @@ import { UtilsService } from '../utils/utils.service';
 
 import {FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
+import {MatSelectChange} from '@angular/material';
 
 @Component({
   selector: 'app-students',
@@ -16,21 +17,14 @@ import {Router} from '@angular/router';
 })
 export class StudentsComponent implements OnInit {
   public emptyQuery = '#/studentResults';
-  // TODO: make these change over time based off of data, and also the current year
-  public startYear = 2012;
-  public endYear = 2018;
 
-  public partnerSelected: string; // TODO: want to give each of these a getter and setter?
+  public startYear = UtilsService.getEarliestYear();
+  public endYear = UtilsService.getCurrentYear();
+
+  public partnerSelected: string;
   partners: Array<Object> = [
     {name: 'Partner 1'}
   ];
-
-  public issues: Array<Object> = [
-    {'name' : 'Traffic'},
-    {'name' : 'Police'},
-    {'name' : 'Road Safety'}
-  ];
-  public issueSelected: string;
 
   public semesters: Array<Object> = [
     {'name' : 'Fall'},
@@ -42,13 +36,13 @@ export class StudentsComponent implements OnInit {
 
   public programControl: FormControl = new FormControl();
 
-  // TODO: make it so you cannot select anything else if the first one is selected
   public participationArray = [
-    { value: 'Didn\'t apply to a ', viewValue: 'Didn\'t Apply', backendValue: 'Not Applied' },
     { value: 'Participated in ', viewValue: 'Applied, Participated', backendValue: 'Participated'  },
     { value: 'Applied to ', viewValue: 'Applied, Rejected', backendValue: 'Applied'  },
     { value: 'Rejected Offer for ', viewValue: 'Applied, Didn\'t Participate', backendValue: 'Rejected'  }
   ];
+
+  public notParticipation = { value: 'Didn\'t apply to a ', viewValue: 'Didn\'t Apply', backendValue: 'Not Applied' };
 
   public programs: Array<Object>;
 
@@ -69,10 +63,10 @@ export class StudentsComponent implements OnInit {
     this.programsService.getProgramsPromise().then((programs) => {
       programs.forEach((program) => {
         // Add the participation value to the object, deep copy
-        program['participation'] = JSON.parse(JSON.stringify(this.participationArray));
-        program['participation'].forEach((participation) => {
-          participation.programName = program.Name;
-        });
+        program['participation'] = this.participationArray;
+        program['notParticipation'] = this.notParticipation;
+        program['disableNot'] = false;
+        program['disableOthers'] = false;
       });
       this.programs = programs;
       this.programs.sort(UtilsService.comparisonFunction);
@@ -81,18 +75,18 @@ export class StudentsComponent implements OnInit {
 
   public submitQuery() {
     const partner = this.partnerSelected === undefined ? 'NA' : this.partnerSelected; // NA is the way to say exclude this from query
+    console.log(this.programControl.value);
     const program = (this.programControl.value === undefined || this.programControl.value === null) ? 'NA' :
       this.programControl.value.map(controlObject => {
-        return controlObject.programName + ':' + controlObject.backendValue; // TODO: explain this
+        // Program control value should be the programName:pariticpation, so take that from the object for each value
+        return controlObject.program.Name + ':' + controlObject.participation.backendValue;
       }).join(',');
-    const issue = this.issueSelected === undefined ? 'NA' : this.issueSelected;
     const semester = this.semesterSelected === undefined ? 'NA' : this.semesterSelected;
     const yearStart = (<HTMLInputElement>document.querySelector('#yearStart')).value;
     const yearEnd = (<HTMLInputElement>document.querySelector('#yearEnd')).value;
     const object = {
       partner: partner,
       program: program,
-      issue: issue,
       semester: semester,
       yearStart: yearStart,
       yearEnd: yearEnd
@@ -100,4 +94,26 @@ export class StudentsComponent implements OnInit {
 
     this.router.navigate(['studentResults', object]);
   }
+
+  public combineProgram(value, program) {
+    return {
+      program: program,
+      participation: value
+    };
+  }
+  // This doesnt work and isnt super necessary
+  // public doSomething(event: MatSelectChange) {
+  //   console.log(event.source.selected);
+  //   this.programs.forEach((program) => {
+  //     program['disableOther'] = false;
+  //     program['disableNot'] = false;
+  //   });
+  //   event.value.forEach(chosen => {
+  //     if (chosen.participation.backendValue === 'Not Applied') {
+  //       chosen.program.disableOthers = true;
+  //     } else {
+  //       chosen.program.disableNot = true;
+  //     }
+  //   });
+  // }
 }

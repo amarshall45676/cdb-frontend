@@ -16,11 +16,11 @@ import {Entity} from '../profile/entities/entity';
   styleUrls: ['./results-table.component.css', '../../app.component.css']
 })
 export class ResultsTableComponent implements OnInit {
+  /// Inputs specifying the type of entity that will be displayed and the query string for it
   @Input() type: string;
   @Input() queryString: string; // String to send query to backend
 
-  public entities: Array<Entity>;
-  // TODO: change??
+  public entities: Array<Entity>; // Entities to be displayed
   public dataSource: MatTableDataSource<Entity>; // allows for filtering and pagination of table
   public displayProperties: Array<string>; // these are the properties for the table
   public displayColumns: Array<string>; // these include addition columns for the table(e.g. profile)
@@ -36,6 +36,7 @@ export class ResultsTableComponent implements OnInit {
      private backendService: BackendService) {}
 
   ngOnInit() {
+    // On load make sure frontend ays it is loading while query runs
     this.loadingResults = true;
     this.makeQuery(this.queryString).then(entities => {
       this.loadingResults = false;
@@ -51,7 +52,7 @@ export class ResultsTableComponent implements OnInit {
     });
   }
 
-  // TODO: refactor below to a service?
+  // Make query to the backend
   private makeQuery(endpoint): Promise<Array<Entity>> {
     return this.backendService.resource('GET', endpoint, null).then(objects => {
         return objects.map(object => {
@@ -61,6 +62,7 @@ export class ResultsTableComponent implements OnInit {
     );
   }
 
+  // Aply filter to the data in the table
   public applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
@@ -68,26 +70,22 @@ export class ResultsTableComponent implements OnInit {
   }
 
   public viewProfile(entity: Entity) {
-    console.log('View profile for an entity with ID: ' + JSON.stringify(entity._profile));
     this.openDialog(entity);
   }
 
+  // Open dialog for the given entity
   openDialog(entity: Entity) {
     let component;
-    // TODO: better way to do this than passing a string?
     if (this.type === 'student') {
       component = StudentComponent;
-    }
-    if (this.type === 'partner') {
+    } else if (this.type === 'partner') {
       component = PartnerComponent;
-    }
-    if (this.type === 'project') {
+    } else if (this.type === 'project') {
       component = ProjectComponent;
     } else {
       console.log('There was an error passing in the type');
     }
 
-    // TODO: might want to change it so it cannot be closed without hitting close button
     const dialogRef = this.dialog.open(component, {
       width: '100%',
       height: '100%',
@@ -95,7 +93,7 @@ export class ResultsTableComponent implements OnInit {
       data: entity._profile
     });
 
-    // TODO: also if observable then should I destroy it?
+    // Once the dialog is close, updat ethe display so the table shows any fields that were updated
     dialogRef.afterClosed().subscribe(result => {
       entity.updateDisplay(result);
     });

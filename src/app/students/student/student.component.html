@@ -1,61 +1,56 @@
-<app-page-header title="Student Profile"></app-page-header>
-<app-profile [entityId]="id" [service]="studentService" [dialogRef]="dialogRef">
-  <div class="belowdiv">
-    Partners interacted with: <br>
-    <mat-card *ngFor="let partner of partners">
-      Partner Name: {{partner.Name}}
-    </mat-card>
-  </div>
+<app-profile [entityId]="id" [service]="studentService" [dialogRef]="dialogRef" title="Student">
+  <mat-card class="belowdiv">
+    <mat-card-title>Partners Interacted With</mat-card-title>
+    <mat-card-content>
+      <mat-card *ngFor="let partner of partners">
+        Partner Name: {{partner.Name}}
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
 
-  <div class="belowdiv">
-    <p>
-      Specific projects they participated in:
-    </p>
-    <mat-card *ngFor="let program of programsParticipated">
-      Program Name: {{program.programName}} <br>
-      <p>
-        <mat-card *ngFor="let project of program.projects">
-          {{project.Name}}
-        </mat-card>
-      </p>
-    </mat-card>
-  </div>
-
-  <div class="belowdiv">
-    <p>
-      Specific projects they applied to:
-    </p>
-    <mat-card *ngFor="let program of programsApplied">
-      Program Name: {{program.programName}} <br>
-      <p>
-        <mat-card *ngFor="let project of program.projects">
-          {{project.Name}}
-        </mat-card>
-      </p>
-    </mat-card>
-  </div>
-
-  <div class="belowdiv">
-    <p>
-      Specific projects they rejected here:
-    </p>
-    <mat-card *ngFor="let program of programsRejected">
-      Program Name: {{program.programName}} <br>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-        <mat-panel-title>
-          Projects
-        </mat-panel-title>
-        <mat-panel-description>
-          These are projects this students has rejected in this program
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-        <p>
+  <mat-card class="belowdiv">
+    <mat-card-title>Specific Projects They Participated In</mat-card-title>
+    <mat-card-content>
+      <mat-card *ngFor="let program of programsParticipated">
+        <mat-card-title>Program Name: {{program.programName}} </mat-card-title>
+        <mat-card-content>
           <mat-card *ngFor="let project of program.projects">
             Project Name: {{project.Name}}
           </mat-card>
-        </p>
-      </mat-expansion-panel>
-    </mat-card>
-  </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="belowdiv">
+    <mat-card-title>
+      Specific Projects They Applied To
+    </mat-card-title>
+    <mat-card-content>
+      <mat-card *ngFor="let program of programsApplied">
+        <mat-card-title>Program Name: {{program.programName}}</mat-card-title>
+        <mat-card-content>
+          <mat-card *ngFor="let project of program.projects">
+            Project Name: {{project.Name}}
+          </mat-card>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="belowdiv">
+    <mat-card-title>
+      Specific Projects They Rejected
+    </mat-card-title>
+    <mat-card-content>
+      <mat-card *ngFor="let program of programsRejected">
+        <mat-card-title>Program Name: {{program.programName}}</mat-card-title>
+        <mat-card-content>
+          <mat-card *ngFor="let project of program.projects">
+            Project Name: {{project.Name}}
+          </mat-card>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
 </app-profile>

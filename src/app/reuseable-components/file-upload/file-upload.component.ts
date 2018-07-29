@@ -21,22 +21,24 @@ export class FileUploadComponent implements OnInit {
   ngOnInit() {
   }
 
+  // Gets the file that wants to be uploaded and adds it to form data before calling backend to upload it
   public uploadData() {
-    console.log('Uploading Data!');
     // Reset dataupload Result
     this.fileUploaded = false;
     this.dataUploadResult = null;
+    // Get file
     const inputFile = (<HTMLInputElement>document.getElementById(this.fileType)).files[0];
     if (inputFile === undefined) {
       return;
     }
+    // Add to form data
     const fd = new FormData();
     fd.append('file', inputFile);
+    // Upload the file
     const res = this.backendService.uploadFileGeneral(fd, this.fileType);
     this.fileUploaded = true;
     this.fileBeingUploaded = true;
     res.then(result => {
-      console.log('Result Received: ' + JSON.stringify(result));
       this.fileBeingUploaded = false;
       this.dataUploadResult = result;
     });

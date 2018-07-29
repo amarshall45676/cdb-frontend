@@ -50,7 +50,7 @@ export class ProjectBuilder extends EntityBuilder {
   public projectName: string;
   public projectProgramName: string;
   public projectYearRun: string;
-  public projectSemester: string; // TODO: should this be int of some sort?
+  public projectSemester: string;
 
   constructor() {
     super();

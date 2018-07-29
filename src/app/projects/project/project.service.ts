@@ -15,9 +15,8 @@ export class ProjectService extends ProfileService {
 
    // Make sure fields match a pattern, if they dont print a message and take out of result
    public validateFields(updateObject) {
-     console.log('Update fields are confirmed');
-     // TODO: implement. Do nothing for now.
-     return updateObject;
+     const errors = [];
+     return errors;
    }
 
 }

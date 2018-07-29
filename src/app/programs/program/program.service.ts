@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { BackendService } from '../../backend/backend.service';
 
 import { ProfileService } from '../../reuseable-components/profile/profile.service';
+import {UtilsService} from '../../utils/utils.service';
+import {Program} from '../../reuseable-components/profile/entities/program';
 
 @Injectable()
 export class ProgramService extends ProfileService {
@@ -12,36 +14,23 @@ export class ProgramService extends ProfileService {
     this.backendService = pBackendService;
    }
 
-  public getProgramPromise(programName) {
-   return this.backendService.resource('GET', `program/${programName}`, null);
+  public getProgramPromise(programName): Promise<void | Program> {
+   return this.backendService.resource('GET', `program/${programName}`, null)
+     .then(object => {
+     return Program.fromObject(object);
+   }).catch((error) => {
+       window.alert('This program doesn\'t exists. This will redirect to the main page and you can pick the program from there.');
+       window.location.href = '#/main';
+     });
   }
 
   public validateFields(updateObjects) {
-    return;
+    const errors = [];
+    return errors;
   }
 
   public getEvalsPromise(programName) {
     return this.backendService.resource('GET', `program/evaluations/${programName}`, null);
-  }
-
-  public getNumStudents(programName) {
-    return this.backendService.resource('GET', `program/numStudents/${programName}`, null);
-  }
-
-  public getNumPartners(programName) {
-    return this.backendService.resource('GET', `program/numPartners/${programName}`, null);
-  }
-
-  public getPercentStudents(programName) {
-    return this.backendService.resource('GET', `program/percentStudents/${programName}`, null);
-  }
-
-  public getPercentStudentsDidAnother(programName) {
-    return this.backendService.resource('GET', `program/percentStudentsDidAnother/${programName}`, null);
-  }
-
-  public getPercentAcceptance(programName) {
-    return this.backendService.resource('GET', `program/percentAcceptance/${programName}`, null);
   }
 
 }

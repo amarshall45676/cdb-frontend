@@ -5,199 +5,43 @@
       <h1>Step 1: Upload Your Projects Data</h1>
       <p>This is necessary to report data whenever a Program has been run.</p>
     </article>
+    <a href="assets/files/projectTemplate.xlsx" download>
+      <button mat-button class ="riceColors">Download Projects Template</button>
+    </a>
   </app-file-upload>
   <app-file-upload fileType="participation">
     <article>
       <h1>Step 2: Upload Your Participation Data</h1>
-      <p>This will link Student to Projects, and Project to Partners.</p>
+      <p>This will link Student to Projects, and Projects to Partners.</p>
     </article>
+    <a href="assets/files/participationTemplate.xlsx" download>
+      <button mat-button class ="riceColors">Download Participation Template</button>
+    </a>
   </app-file-upload>
   <app-file-upload fileType="partners">
     <article>
       <h2>Optional: Upload data on Partners</h2>
       <p>If a Partner your Program interacted with is not already in the database, you can add them here or with a form below.</p>
     </article>
+    <a href="assets/files/partnerTemplate.xlsx" download>
+      <button mat-button class ="riceColors">Download Partners Template</button>
+    </a>
   </app-file-upload>
   <app-file-upload fileType="students">
     <article>
       <h2>Optional: Upload data on Students</h2>
       <p>This should be any new "Apply Now!" data that has come in. Make sure that students are not dupliacted</p>
     </article>
+    <a href="assets/files/studentTemplate.xlsx" download>
+      <button mat-button class ="riceColors">Download Students Template</button>
+    </a>
   </app-file-upload>
 </div>
 <div class="belowdiv">
   <h1>Creating a Single Partner, Program, Project, or Student</h1>
-  <mat-card class="belowdiv">
-    <mat-card-title>
-      Create a Single Partner
-    </mat-card-title>
-    <mat-card-content>
-      <form [formGroup]="partnerForm">
-        <mat-form-field>
-          <input matInput placeholder="Name" formControlName="name">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Address" formControlName="address">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="City" formControlName="city">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="State" formControlName="state">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Zipcode" formControlName="zipcode">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Phone" formControlName="phone">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="URL" formControlName="url">
-        </mat-form-field>
-      </form>
-      <div *ngIf="!partnerForm.valid">
-        Enter in a name for the Partner to create one.
-      </div>
-      <div *ngIf="partnerDisplay">
-        <p *ngIf="partnerResult.success">
-          Partner was created successfully!
-        </p>
-        <p *ngIf="!partnerResult.success">
-          This partner name already exists.
-        </p>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button class="riceColors" (click)="createPartner()">Create!</button>
-    </mat-card-actions>
-  </mat-card>
-  <mat-card class="belowdiv">
-    <mat-card-title>
-      Create a Single Program
-    </mat-card-title>
-    <mat-card-content>
-      <form [formGroup]="programForm">
-        <mat-form-field>
-          <input matInput placeholder="Name" formControlName="name">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Purpose" formControlName="purpose">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <!-- TODO: want this to be fellowship as well? -->
-          <input matInput placeholder="Act, Learn, or Create Chane" formControlName="type">
-        </mat-form-field>
-      </form>
-      <div *ngIf="!programForm.valid">
-        Enter in a name for the Program to create one.
-      </div>
-      <div *ngIf="programDisplay">
-        <p *ngIf="programResult.success">
-          Program was created successfully!
-        </p>
-        <p *ngIf="!programResult.success">
-          This program name already exists.
-        </p>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button class="riceColors" (click)="createProgram()">Create!</button>
-    </mat-card-actions>
-  </mat-card>
-  <mat-card class="belowdiv">
-    <mat-card-title>
-      Create a Single Project
-    </mat-card-title>
-    <mat-card-content>
-      <form [formGroup]="projectForm">
-        <mat-form-field>
-          <input matInput placeholder="Name" formControlName="name">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Program" formControlName="programName">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Year" formControlName="year">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Semester" formControlName="semester">
-        </mat-form-field>
-      </form>
-      <div *ngIf="!projectForm.valid">
-        Enter in a name for the Project to create one.
-      </div>
-      <div *ngIf="projectDisplay">
-        <p *ngIf="projectResult.success">
-          Project was created successfully!
-        </p>
-        <p *ngIf="!projectResult.success">
-          This project name already exists.
-        </p>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button class="riceColors" (click)="createProject()">Create!</button>
-    </mat-card-actions>
-  </mat-card>
-  <mat-card class="belowdiv">
-    <mat-card-title>
-      Create a Single Student
-    </mat-card-title>
-    <mat-card-content>
-      <form [formGroup]="studentForm">
-        <mat-form-field>
-          <input matInput placeholder="Name" formControlName="name">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Email" formControlName="email">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Phone" formControlName="phone">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Major" formControlName="major">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Minor" formControlName="minor">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="GPA" formControlName="gpa">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Graduation Year" formControlName="gradYear">
-        </mat-form-field>
-      </form>
-      <div *ngIf="!studentForm.valid">
-        Enter in a name for the Student to create one.
-      </div>
-      <div *ngIf="studentDisplay">
-        <p *ngIf="studentResult.success">
-          Student was created successfully!
-        </p>
-        <p *ngIf="!studentResult.success">
-          This student name already exists.
-        </p>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button class="riceColors" (click)="createStudent()">Create!</button>
-    </mat-card-actions>
-  </mat-card>
+  <!--TODO: refactor these to be in a separate component file?(probably)-->
+  <app-partner-form></app-partner-form>
+  <app-program-form></app-program-form>
+  <app-project-form></app-project-form>
+  <app-student-form></app-student-form>
 </div>
